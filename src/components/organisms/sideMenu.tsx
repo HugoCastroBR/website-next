@@ -11,10 +11,10 @@ const SideMenu = () => {
     <>
       <input type="checkbox" id="menu" />
       <label htmlFor="menu" className="icon dark:text-slate-100 text-slate-900">
-        <div className="menu dark:bg-white
-        before:bg-gray-900
-          dark:after:bg-transparent after:bg-gray-900
-          dark:bg-transparent bg-gray-900
+        <div className="menu
+        dark:before:bg-white before:bg-gray-900
+          dark:after:bg-white after:bg-gray-900
+          dark:bg-white bg-gray-900
         "></div>
       </label>
       <div className='componentMenu'>

@@ -11,7 +11,7 @@ export default function Home() {
     <div className='
     flex flex-col justify-between bg-gradient-to-t
     dark:to-black to-slate-100
-    dark:from-blue-950 from-slate-300 w-screen '>
+    dark:from-blue-950 from-slate-300 w-full lg:pr-3 pr-0 '>
       <div>
         <CustomNavBar />
         <CustomHeader />

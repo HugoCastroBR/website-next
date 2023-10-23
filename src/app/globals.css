@@ -16,7 +16,7 @@
   }
 } */
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,7 +24,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
 
 /* Custom CSS */
 
@@ -33,11 +33,12 @@ input#menu {
 }
 
 .icon {
+  position: relative;
   cursor: pointer;
   display: block;
   height: 24px;
   width: 24px;
-  margin-left: -30px;
+  margin-left: -35px;
 }
 
 label.icon {
@@ -110,7 +111,10 @@ label.icon {
 }
 
 #menu:checked ~ .componentMenu {
-  width: 30vw;
+  max-width: 400px;
+  width: 100%;
 }
 
-
+.shrink-section {
+  height: 80px;
+}

@@ -1,13 +1,19 @@
 import React from 'react'
-import CustomText from '../atoms/customText'
+import AboutSection from './aboutSection'
+import ExperiencesSection from './experiencesSection'
+import ProjectsSection from './projectsSection'
+import BlogSection from './blogSection'
+import ContactSection from './contactSection'
 
 const HomeContent = () => {
   return (
-    <main className='flex items-start justify-center  h-auto min-h-screen' >
-      <CustomText
-        className='text-center dark:text-gray-100 text-gray-900 text-3xl font-mono font-bold'
-        text='Home'
-      />
+    <main className='flex flex-col items-start justify-start  
+    h-auto min-h-screen p-2' >
+      <AboutSection />
+      <ExperiencesSection />
+      <ProjectsSection />
+      <BlogSection />
+      <ContactSection />
     </main>
   )
 }

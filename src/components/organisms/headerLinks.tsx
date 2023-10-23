@@ -6,11 +6,26 @@ import { $t } from '@/utils/lang';
 
 
 const buttons = [
-  {text:$t('home.About')},
-  {text:$t('home.Experiences')},
-  {text:$t('home.Projects')},
-  {text:$t('home.Blog')},
-  {text:$t('home.Contact')},
+  {
+    text:$t('home.About'),
+    href:'aboutMe'
+  },
+  {
+    text:$t('home.Experiences'),
+    href:'experiences'
+  },
+  {
+    text:$t('home.Projects'),
+    href:'projects'
+  },
+  {
+    text:$t('home.Blog'),
+    href:'blog'
+  },
+  {
+    text:$t('home.Contact'),
+    href:'contact'
+  },
 ]
 
 const GenerateButtons = () => {
@@ -19,7 +34,8 @@ const GenerateButtons = () => {
       <MenuBtn
         key={index}
         text={button.text}
-        className='w-1/5 flex  h-10 items-center justify-center '
+        className='w-100 flex h-10 items-center justify-center '
+        href={button.href}
       />
     )
   })
@@ -28,7 +44,7 @@ const GenerateButtons = () => {
 
 const HeaderLinks = () => {
   return (
-    <div className=' w-4/6 h-full flex mr-2'>
+    <div className=' w-4/6 h-full flex justify-end mx-2 ml-10 px-6 z-20  '>
       {GenerateButtons()}
     </div>
   )
