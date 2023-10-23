@@ -8,7 +8,7 @@ const CustomFooter = () => {
         <CustomText 
         className='navbar-brand  font-mono font-bold text-xs
       dark:text-gray-300 text-gray-900'
-        text={`${$t('footer.copyright')} \n v0.2 Unstable Version `}
+        text={`${$t('footer.copyright')} \n v0.22 Unstable Version `}
         />
     </footer>
   )
