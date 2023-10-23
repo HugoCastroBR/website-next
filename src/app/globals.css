@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -14,9 +14,9 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,4 +24,97 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+/* Custom CSS */
+
+input#menu {
+  display: none;
+}
+
+.icon {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  height: 24px;
+  width: 24px;
+  margin-left: -35px;
+}
+
+label.icon {
+  position: absolute;
+  z-index: 200;
+}
+
+.icon .menu,
+.icon .menu::before,
+.icon .menu::after {
+  content: '';
+  display: absolute;
+  height: 2px;
+  position: absolute;
+  transition: background ease .3s, top ease .3s .3s, transform ease .3s;
+  width: 20px;
+  
+}
+
+.icon:hover .menu,
+.icon:hover .menu::before,
+.icon:hover .menu::after {
+  background: rgb(37 99 235);
+}
+
+.icon .menu {
+  top: 1vh;
+}
+
+.icon .menu::before {
+  top: -6px;
+}
+
+.icon .menu::after {
+  top: 6px;
+}
+
+#menu:checked + .icon .menu {
+  background: transparent;
+}
+
+#menu:checked + .icon .menu::before {
+  transform: rotate(45deg);
+}
+
+#menu:checked + .icon .menu::after {
+  transform: rotate(-45deg);
+}
+
+#menu:checked + .icon .menu::before,
+#menu:checked + .icon .menu::after {
+  top: 0;
+  transition: top ease .3s, transform ease .3s .3s;
+}
+
+.componentMenu {
+  left: 0;
+  top: 0;
+  position: absolute;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  height: 100vh;
+  transition: width ease .6s;
+  width: 0px;
+  z-index: 100;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(11.4px);
+  -webkit-backdrop-filter: blur(11.4px);
+}
+
+#menu:checked ~ .componentMenu {
+  max-width: 400px;
+  width: 100%;
+}
+
+.shrink-section {
+  height: 80px;
 }
