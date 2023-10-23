@@ -1,6 +1,6 @@
 
-'use client'
-import React, { useEffect } from 'react'
+
+import React from 'react'
 import SeeMore from '../molecules/seeMore'
 
 
@@ -18,26 +18,6 @@ const CollapseContainerBox = ({
 }: CollapseContainerBoxProps) => {
 
   const items = renderFunction()
-  const windowWidth = window.innerWidth
-  const amountOfItemsMobile = 4
-  const amountOfItemsTablet = 6
-  const amountOfItemsDesktop = 8
-
-  const calculateAmountOfItems = () => {
-    if (windowWidth < 600) {
-      return amountOfItemsMobile
-    } else if (windowWidth < 1024) {
-      return amountOfItemsTablet
-    } else {
-      return amountOfItemsDesktop
-    }
-  }
-
-  useEffect(() => {
-    setAmountOfItems(calculateAmountOfItems())
-  },[windowWidth])
-
-  const [amountOfItems, setAmountOfItems] = React.useState<number>(amountOfItemsMobile)
 
 
   return (

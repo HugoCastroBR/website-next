@@ -180,7 +180,7 @@ const generateBlogItems = () => {
 
 const ListBlogItems = () => {
 
-  const windowWidth = window.innerWidth
+  const windowWidth = window?.innerWidth || 1000
   const amountOfItemsMobile = 1
   const amountOfItemsTablet = 2
   const amountOfItemsDesktop = 6

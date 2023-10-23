@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import CustomText from '../atoms/customText'
 import LanguageSelector from '../molecules/SideMenuOptions'
 import SideMenuItems from '../organisms/sideMenuItems'
 
