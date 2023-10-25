@@ -8,10 +8,12 @@ interface CustomInputProps {
   id: string
   placeholder: string
   className?: string
-  error?: string,
+  error?: string | false,
   onBlur?: (value:string) => void
   right?: React.ReactNode
-  rightSectionPointerEvents?: 'all' | 'none'
+  rightSectionPointerEvents?: 'all' | 'none',
+  onClick?: () => void,
+  onChange?: (value:string) => void
 }
 
 const CustomInput = ({
@@ -21,15 +23,22 @@ const CustomInput = ({
   className,
   onBlur,
   error,
-  right
+  right,
+  onClick,
+  onChange
 }:CustomInputProps) => {
   return (
     <>
       <Input.Wrapper label={label} error={error}>
         <Input 
+        error={error}
         type={type} placeholder={placeholder} 
         rightSectionPointerEvents={right ? 'all' : 'none'}
         rightSection={right}
+        onClick={onClick}
+        onChange={
+          (e) => onChange && onChange(e.currentTarget.value)
+        }
         onBlur={
           (e) => onBlur && onBlur(e.currentTarget.value)
         } />

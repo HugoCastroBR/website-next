@@ -13,11 +13,10 @@ const CarouselContainer = (
   ) => {
   return (
   <Carousel
-    className='w-full h-full px-4'
-    slideSize="18%"
-    slideGap={{ base: 0, sm: 'sm' }}
+    className='w-full h-full px-10'
+    slideSize="30%"
+    slideGap={{ base: 'sm', sm: 'sm' }}
     controlSize={40}
-    controlsOffset={20}
     nextControlIcon={
     <span className='i-mdi-arrow-right-bold-circle scale-150 text-3xl 
     text-blue-600 dark:text-white'>

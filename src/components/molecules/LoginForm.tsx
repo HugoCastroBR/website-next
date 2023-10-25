@@ -1,11 +1,49 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import CustomInput from '../atoms/customInput'
-import { Button } from '@mantine/core'
+import { Button, em } from '@mantine/core'
+import { emailValidator, passwordValidator } from '@/utils/formHandlers'
 
 const LoginForm = () => {
 
+
+
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
+
+  const [ emailValue, setEmailValue ] = React.useState<string | null>('')
+  const [ emailError, setEmailError ] = React.useState<string | false>(false) 
+  const [ startedMailValidation, setStartedMailValidation ] = React.useState<boolean>(false)
+  const [ passwordValue, setPasswordValue ] = React.useState<string | null>('')
+  const [ passwordError, setPasswordError ] = React.useState<string | false>(false)
+  const [ startedPasswordValidation, setStartedPasswordValidation ] = React.useState<boolean>(false)
+  const [ isAllValid, setIsAllValid ] = React.useState<boolean>(false)
+
+  useEffect(() => {
+    if(startedMailValidation) setEmailError(emailValidator(emailValue))
+  }, [emailValue, startedMailValidation])
+
+  useEffect(() => {
+    if(startedPasswordValidation) setPasswordError(passwordValidator(passwordValue))
+  }, [passwordValue, startedPasswordValidation])
+
+
+  const verifyIfIsAllValid = () => {
+    if(startedPasswordValidation){
+      if(startedPasswordValidation){
+        if(emailError === false && passwordError === false){
+          setIsAllValid(true)
+        }
+        else{
+          setIsAllValid(false)
+        }
+      }else{
+        setIsAllValid(false)
+      }
+    }else{
+      setIsAllValid(false)
+    }
+  }
 
   return (
     <form className='flex flex-col'>
@@ -14,7 +52,12 @@ const LoginForm = () => {
         id='email'
         label='Email:'
         placeholder='Email'
-        onBlur={(value) => console.log(value)}
+        error={emailError}
+        onChange={(value) => {
+          setEmailValue(value)
+          verifyIfIsAllValid()
+        }}
+        onClick={() => setStartedMailValidation(true)}
       />
       <CustomInput
         type={isPasswordVisible ? 'text' : 'password'}
@@ -22,6 +65,12 @@ const LoginForm = () => {
         label='Password:'
         placeholder='Password'
         rightSectionPointerEvents="all"
+        onChange={(value) => {
+          setPasswordValue(value)
+          verifyIfIsAllValid()
+        }}
+        error={passwordError}
+        onClick={() => setStartedPasswordValidation(true)}
         right={
           <span className={`
           i-mdi-eye text-2xl cursor-pointer
@@ -38,6 +87,7 @@ const LoginForm = () => {
       <Button
       type='submit'
       className='mt-2'
+      disabled={!isAllValid}
       >
         Register
       </Button>

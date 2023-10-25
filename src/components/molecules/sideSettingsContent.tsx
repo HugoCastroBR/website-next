@@ -3,7 +3,7 @@ import DarkModeSwitch from './darkModeSwitch'
 
 const SideSettingsContent = () => {
   return (
-    <div>
+    <div className='p-4'>
       <DarkModeSwitch />
     </div>
   )

@@ -6,6 +6,7 @@ import { Button } from '@mantine/core'
 const RegisterForm = () => {
 
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = React.useState(false)
 
   return (
     <form className='flex flex-col justify-between w-full h-full'>
@@ -43,7 +44,7 @@ const RegisterForm = () => {
         }
       />
       <CustomInput
-        type={isPasswordVisible ? 'text' : 'password'}
+        type={isConfirmPasswordVisible ? 'text' : 'password'}
         id='confirm-password'
         label='Confirm Password:'
         placeholder='Confirm Password'
@@ -54,9 +55,9 @@ const RegisterForm = () => {
           text-gray-700 dark:text-gray-300
           hover:text-blue-600 
           transition duration-500 ease-in-out
-          ${isPasswordVisible && 'i-mdi-eye-off'}
+          ${isConfirmPasswordVisible && 'i-mdi-eye-off'}
           `}
-            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+            onClick={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}
           >
           </span>
         }
