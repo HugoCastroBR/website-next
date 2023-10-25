@@ -4,73 +4,67 @@ import React, { useEffect } from 'react'
 import CustomInput from '../atoms/customInput'
 import { Button, em } from '@mantine/core'
 import { emailValidator, passwordValidator } from '@/utils/formHandlers'
+import { useForm } from "@mantine/form"
+import useStore from '@/hooks/useStore'
 
+const LoginInitialValues = {
+  email: '',
+  password: ''
+}
 const LoginForm = () => {
 
+  const form = useForm({
+    validateInputOnChange: true,
+    initialValues: LoginInitialValues,
+    validate:{
+      email: emailValidator,
+      password: passwordValidator
+    },
+  })
+  const { states } = useStore()
 
+  useEffect(() => {
+    form.clearErrors()
+  }, [states.App.sideMenuIsOpen])
 
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
 
-  const [ emailValue, setEmailValue ] = React.useState<string | null>('')
-  const [ emailError, setEmailError ] = React.useState<string | false>(false) 
-  const [ startedMailValidation, setStartedMailValidation ] = React.useState<boolean>(false)
-  const [ passwordValue, setPasswordValue ] = React.useState<string | null>('')
-  const [ passwordError, setPasswordError ] = React.useState<string | false>(false)
-  const [ startedPasswordValidation, setStartedPasswordValidation ] = React.useState<boolean>(false)
-  const [ isAllValid, setIsAllValid ] = React.useState<boolean>(false)
-
-  useEffect(() => {
-    if(startedMailValidation) setEmailError(emailValidator(emailValue))
-  }, [emailValue, startedMailValidation])
-
-  useEffect(() => {
-    if(startedPasswordValidation) setPasswordError(passwordValidator(passwordValue))
-  }, [passwordValue, startedPasswordValidation])
-
-
-  const verifyIfIsAllValid = () => {
-    if(startedPasswordValidation){
-      if(startedPasswordValidation){
-        if(emailError === false && passwordError === false){
-          setIsAllValid(true)
-        }
-        else{
-          setIsAllValid(false)
-        }
-      }else{
-        setIsAllValid(false)
-      }
-    }else{
-      setIsAllValid(false)
-    }
+  interface handleFormSubmitProps {
+    email: string
+    password: string
+  }
+  const handleFormSubmit = ({
+    email,
+    password
+  }:handleFormSubmitProps) => {
+    console.log(email, password)
   }
 
   return (
-    <form className='flex flex-col'>
+    <form 
+    className='flex flex-col'
+    onReset={form.onReset}
+    onSubmit={form.onSubmit((form) => {
+      handleFormSubmit({
+        email: form.email,
+        password: form.password
+      })
+    })}
+    >
       <CustomInput
         type='email'
         id='email'
         label='Email:'
         placeholder='Email'
-        error={emailError}
-        onChange={(value) => {
-          setEmailValue(value)
-          verifyIfIsAllValid()
-        }}
-        onClick={() => setStartedMailValidation(true)}
+        {...form.getInputProps('email')}
       />
       <CustomInput
         type={isPasswordVisible ? 'text' : 'password'}
         id='password'
         label='Password:'
         placeholder='Password'
+        {...form.getInputProps('password')}
         rightSectionPointerEvents="all"
-        onChange={(value) => {
-          setPasswordValue(value)
-          verifyIfIsAllValid()
-        }}
-        error={passwordError}
-        onClick={() => setStartedPasswordValidation(true)}
         right={
           <span className={`
           i-mdi-eye text-2xl cursor-pointer
@@ -87,9 +81,9 @@ const LoginForm = () => {
       <Button
       type='submit'
       className='mt-2'
-      disabled={!isAllValid}
+      disabled={!form.isValid()}
       >
-        Register
+        Login
       </Button>
     </form> 
   )

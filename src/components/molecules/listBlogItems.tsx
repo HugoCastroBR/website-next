@@ -181,27 +181,7 @@ const generateBlogItems = () => {
 
 const ListBlogItems = () => {
 
-  const windowWidth = window?.innerWidth || 1000
-  const amountOfItemsMobile = 1
-  const amountOfItemsTablet = 2
-  const amountOfItemsDesktop = 6
-
-  const calculateAmountOfItems = () => {
-    if (windowWidth < 600) {
-      return amountOfItemsMobile
-    } else if (windowWidth < 1024) {
-      return amountOfItemsTablet
-    } else {
-      return amountOfItemsDesktop
-    }
-  }
-
-
   return (
-    // <div className='flex m-2 h-96 w-full justify-between items-center z-40 '>
-    //   <CarouselContainer/>
-    //   {/* {generateBlogItems().slice(0,calculateAmountOfItems())} */}
-    // </div>
     <CarouselContainer
       items={generateBlogItems()}
     />

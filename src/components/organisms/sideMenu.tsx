@@ -2,13 +2,20 @@
 import React from 'react'
 import LanguageSelector from '../molecules/SideMenuOptions'
 import SideMenuItems from '../organisms/sideMenuItems'
+import useStore from '@/hooks/useStore'
+import { SetSideMenu } from '@/store/actions'
 
 
 
 const SideMenu = () => {
+
+  const {states, dispatch} = useStore()
+
   return (
     <>
-      <input type="checkbox" id="menu"  />
+      <input type="checkbox" id="menu" onChange={(e) => {
+        dispatch(SetSideMenu(e.target.checked))
+      }} />
       <label htmlFor="menu" className="icon dark:text-slate-100 text-slate-900">
         <div className="menu
         dark:before:bg-white before:bg-gray-900

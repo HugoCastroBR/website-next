@@ -1,6 +1,7 @@
+'use client'
+import useStore from '@/hooks/useStore';
 import { Input } from '@mantine/core';
-import React from 'react'
-
+import React, { useEffect } from 'react'
 
 interface CustomInputProps {
   label: string
@@ -25,8 +26,18 @@ const CustomInput = ({
   error,
   right,
   onClick,
-  onChange
+  onChange,
 }:CustomInputProps) => {
+
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const { states } = useStore()
+
+  useEffect(() => {
+    if(inputRef?.current?.value){
+      inputRef.current.value = ''
+    }
+  }, [states.App.sideMenuIsOpen])
+
   return (
     <>
       <Input.Wrapper label={label} error={error}>
@@ -35,6 +46,7 @@ const CustomInput = ({
         type={type} placeholder={placeholder} 
         rightSectionPointerEvents={right ? 'all' : 'none'}
         rightSection={right}
+        ref={inputRef}
         onClick={onClick}
         onChange={
           (e) => onChange && onChange(e.currentTarget.value)

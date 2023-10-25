@@ -1,20 +1,82 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import CustomInput from '../atoms/customInput'
 import { Button } from '@mantine/core'
+import { useForm } from '@mantine/form'
+import { emailValidator, nameValidator, passwordValidator } from '@/utils/formHandlers'
+import useStore from '@/hooks/useStore'
+
+
+const RegisterInitialValues = {
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+}
 
 const RegisterForm = () => {
 
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = React.useState(false)
 
+
+
+  const form = useForm({
+    validateInputOnChange: true,
+    initialValues: RegisterInitialValues,
+    validate: {
+      name: nameValidator,
+      email: emailValidator,
+      password: passwordValidator,
+      confirmPassword: passwordValidator
+  }})
+
+  const { states } = useStore()
+
+  useEffect(() => {
+    form.clearErrors()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [states.App.sideMenuIsOpen])
+
+  interface handleFormSubmitProps {
+    name: string
+    email: string
+    password: string
+    confirmPassword: string
+  }
+  const handleFormSubmit = ({
+    name,
+    email,
+    password,
+    confirmPassword
+  }:handleFormSubmitProps) => {
+    if(password !== confirmPassword){
+      form.setErrors({
+        confirmPassword: 'Passwords do not match'
+      })
+      return
+    }
+  }
+
   return (
-    <form className='flex flex-col justify-between w-full h-full'>
+    <form 
+    className='flex flex-col justify-between w-full h-full'
+    onReset={form.onReset}
+    onSubmit={form.onSubmit((form) => {
+      handleFormSubmit({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+        confirmPassword: form.confirmPassword
+      })
+    })}
+    >
       <CustomInput
         type='text'
         id='name'
         label='Name:'
         placeholder='Name'
+        {...form.getInputProps('name')}
         onBlur={(value) => console.log(value)}
       />
       <CustomInput
@@ -22,6 +84,7 @@ const RegisterForm = () => {
         id='email'
         label='Email:'
         placeholder='Email'
+        {...form.getInputProps('email')}
         onBlur={(value) => console.log(value)}
       />
       <CustomInput
@@ -29,6 +92,7 @@ const RegisterForm = () => {
         id='password'
         label='Password:'
         placeholder='Password'
+        {...form.getInputProps('password')}
         rightSectionPointerEvents="all"
         right={
           <span className={`
@@ -45,9 +109,10 @@ const RegisterForm = () => {
       />
       <CustomInput
         type={isConfirmPasswordVisible ? 'text' : 'password'}
-        id='confirm-password'
+        id='confirmPassword'
         label='Confirm Password:'
         placeholder='Confirm Password'
+        {...form.getInputProps('confirmPassword')}
         rightSectionPointerEvents="all"
         right={
           <span className={`
@@ -65,6 +130,7 @@ const RegisterForm = () => {
       <Button
       type='submit'
       className='mt-2'
+      disabled={!form.isValid()}
       >
         Register
       </Button>
