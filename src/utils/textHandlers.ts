@@ -13,3 +13,11 @@ export function truncateText(text: string, start: number, end: number): string {
   return truncatedText + '...';
 }
 
+export function getOnlyInitials(text:string){
+  const words = text.split(' ')
+  let initials = ''
+  words.forEach(word => {
+    initials += word[0]
+  });
+  return initials.toUpperCase()
+}

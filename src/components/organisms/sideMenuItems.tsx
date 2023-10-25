@@ -6,13 +6,15 @@ import LoginForm from '../molecules/LoginForm'
 import AccordionContainer from '../molecules/accordionContainer'
 import SideAuth from './sideAuth'
 import SideSettings from './sideSettings'
+import { userType } from '@/types'
 
 const SideMenuItems = () => {
+
   return (
     <div className='flex flex-col w-full h-full items-start justify-start'>
-      {/* <SideMenuSectionContainer>
+      <SideMenuSectionContainer>
         <SideAuth />
-      </SideMenuSectionContainer> */}
+      </SideMenuSectionContainer>
       <SideMenuSectionContainer>
         <SideSettings />
       </SideMenuSectionContainer>

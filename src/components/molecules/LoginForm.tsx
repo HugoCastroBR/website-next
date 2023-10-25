@@ -6,6 +6,7 @@ import { Button, em } from '@mantine/core'
 import { emailValidator, passwordValidator } from '@/utils/formHandlers'
 import { useForm } from "@mantine/form"
 import useStore from '@/hooks/useStore'
+import { SetIsAuth } from '@/store/actions'
 
 const LoginInitialValues = {
   email: '',
@@ -21,7 +22,7 @@ const LoginForm = () => {
       password: passwordValidator
     },
   })
-  const { states } = useStore()
+  const { states, dispatch } = useStore()
 
   useEffect(() => {
     form.clearErrors()
@@ -37,7 +38,7 @@ const LoginForm = () => {
     email,
     password
   }:handleFormSubmitProps) => {
-    console.log(email, password)
+    dispatch(SetIsAuth(true))
   }
 
   return (
