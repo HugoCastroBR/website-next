@@ -1,5 +1,7 @@
 "use client"
 
+import useStore from '@/hooks/useStore';
+import { SetDarkMode } from '@/store/actions';
 import { useTheme } from 'next-themes';
 import React, { useEffect, useState } from 'react'
 
@@ -7,11 +9,21 @@ const DarkModeSwitch = () => {
 
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { states, dispatch} = useStore();
+  
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if(theme === 'dark'){
+      dispatch(SetDarkMode(true))
+    }
+    else{
+      dispatch(SetDarkMode(false))
+    }
+  },[dispatch, theme])
 
   if (!mounted) {
     return null;
@@ -27,7 +39,7 @@ const DarkModeSwitch = () => {
       <label className='dark:text-white text-gray-900 font-mono font-bold text-xs '>
         Dark Mode:
       </label>
-      <label className="relative inline-flex items-center cursor-pointer md:scale-75 scale-50  -ml-2 ">
+      <label className="relative inline-flex items-center cursor-pointer    -ml-2 ">
         <input 
         onChange={toggleDarkMode}
         type="checkbox" checked={theme === 'dark' ? true : false} className="sr-only peer"/>
