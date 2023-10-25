@@ -14,7 +14,7 @@ const SideMenu = () => {
   return (
     <>
       <input type="checkbox" id="menu" onChange={(e) => {
-        dispatch(SetSideMenu(e.target.checked))
+        dispatch(SetSideMenu(e?.target?.checked || false))
       }} />
       <label htmlFor="menu" className="icon dark:text-slate-100 text-slate-900">
         <div className="menu

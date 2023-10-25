@@ -21,8 +21,7 @@ const CustomSelector = ({
       <select
         className={className}
         onChange={(e) => {
-          const selectedLanguage = e.target.value
-          console.log(selectedLanguage)
+          console.log(e)
         }}
       >
         {options.map((option, index) => (
