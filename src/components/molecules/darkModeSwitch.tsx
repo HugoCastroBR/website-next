@@ -39,7 +39,7 @@ const DarkModeSwitch = () => {
       <label className='dark:text-white text-gray-900 font-mono font-bold text-xs '>
         Dark Mode:
       </label>
-      <label className="relative inline-flex items-center cursor-pointer md:scale-75 scale-50  -ml-2 ">
+      <label className="relative inline-flex items-center cursor-pointer    -ml-2 ">
         <input 
         onChange={toggleDarkMode}
         type="checkbox" checked={theme === 'dark' ? true : false} className="sr-only peer"/>

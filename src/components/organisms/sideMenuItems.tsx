@@ -10,9 +10,9 @@ import SideSettings from './sideSettings'
 const SideMenuItems = () => {
   return (
     <div className='flex flex-col w-full h-full items-start justify-start'>
-      <SideMenuSectionContainer>
+      {/* <SideMenuSectionContainer>
         <SideAuth />
-      </SideMenuSectionContainer>
+      </SideMenuSectionContainer> */}
       <SideMenuSectionContainer>
         <SideSettings />
       </SideMenuSectionContainer>

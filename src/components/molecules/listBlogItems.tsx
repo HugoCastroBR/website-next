@@ -180,7 +180,6 @@ const generateBlogItems = () => {
 
 
 const ListBlogItems = () => {
-
   return (
     <CarouselContainer
       items={generateBlogItems()}
