@@ -49,10 +49,10 @@ const CustomInput = ({
         ref={inputRef}
         onClick={onClick}
         onChange={
-          (e) => onChange && onChange(e.currentTarget.value)
+          (e) => onChange && onChange(e?.currentTarget?.value)
         }
         onBlur={
-          (e) => onBlur && onBlur(e.currentTarget.value)
+          (e) => onBlur && onBlur(e?.currentTarget?.value)
         } />
       </Input.Wrapper>
     </>

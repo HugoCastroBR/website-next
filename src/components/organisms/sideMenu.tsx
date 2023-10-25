@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import LanguageSelector from '../molecules/SideMenuOptions'
 import SideMenuItems from '../organisms/sideMenuItems'
 import useStore from '@/hooks/useStore'
 import { SetSideMenu } from '@/store/actions'
@@ -14,7 +13,7 @@ const SideMenu = () => {
   return (
     <>
       <input type="checkbox" id="menu" onChange={(e) => {
-        dispatch(SetSideMenu(e?.target?.checked || false))
+        // dispatch(SetSideMenu(e?.target?.checked || false))
       }} />
       <label htmlFor="menu" className="icon dark:text-slate-100 text-slate-900">
         <div className="menu
@@ -27,7 +26,6 @@ const SideMenu = () => {
         <div className='flex flex-col justify-start w-full h-full
         items-center my-12 py-2 ' >
           <SideMenuItems />
-          {/* <LanguageSelector /> */}
         </div>
       </div>
     </>
