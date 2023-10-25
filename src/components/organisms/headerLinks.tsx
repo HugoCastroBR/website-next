@@ -18,10 +18,6 @@ const buttons = [
     text:$t('home.Projects'),
     href:'projects'
   },
-  // {
-  //   text:$t('home.Blog'),
-  //   href:'blog'
-  // },
   {
     text:$t('home.Contact'),
     href:'contact'

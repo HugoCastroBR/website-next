@@ -35,7 +35,6 @@ const RegisterForm = () => {
 
   useEffect(() => {
     form.clearErrors()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [states.App.sideMenuIsOpen])
 
   interface handleFormSubmitProps {

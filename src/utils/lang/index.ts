@@ -1,4 +1,3 @@
-// translation.ts
 import ptBr  from './pt-br';
 import  enUs  from './en-us';
 

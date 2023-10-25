@@ -156,7 +156,6 @@ const postsMock: postType[] = [
     author: users[3],
     comments: [comments[3]],
   },
-  // Adicione mais posts e comentários conforme necessário
 ];
 
 const generateBlogItems = () => {
