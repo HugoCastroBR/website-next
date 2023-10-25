@@ -4,7 +4,6 @@ import React from 'react'
 import ContainerBox from '../atoms/containerBox'
 import CustomText from '../atoms/customText'
 import { truncateText } from '@/utils/textHandlers'
-import { convertDate } from '@/utils/dateHandlers'
 import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
 
 
@@ -54,10 +53,10 @@ const BlogItem = (
       <div className='flex flex-col items-center justify-center text-center mt-8 h-20'>
         <CustomText
           className='text-center dark:text-gray-100 text-gray-900 text-base font-mono font-bold'
-          text={`Posted by ${author.name} in ${convertDate(createdAt)}`} />
+          text={`Posted by ${author.name} in ${createdAt}`} />
         <CustomText
           className='text-center dark:text-gray-300 text-gray-700 text-sm font-mono font-bold'
-          text={`(Last updated in ${convertDate(updatedAt)})`}
+          text={`(Last updated in ${updatedAt})`}
         />
       </div>
     </ContainerBox>
