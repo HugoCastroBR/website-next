@@ -5,6 +5,7 @@ import ContainerBox from '../atoms/containerBox'
 import CustomText from '../atoms/customText'
 import { truncateText } from '@/utils/textHandlers'
 import { convertDate } from '@/utils/dateHandlers'
+import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
 
 
 
@@ -25,12 +26,13 @@ const BlogItem = (
 
   return (
     <ContainerBox className='
-    flex flex-col justify-start items-center h-full p-2
+    flex flex-col justify-start items-center h-96 p-2
     cursor-pointer rounded-md bg-gray-50 dark:bg-gray-800
     shadow-md drop-shadow-md shadow-gray-300 dark:shadow-gray-800
     hover:shadow-xl hover:drop-shadow-xl hover:shadow-gray-600
     dark:hover:shadow-gray-950 dark:hover:drop-shadow-gray-950
-    hover:scale-105 transition duration-500 ease-in-out m-2 z-50
+    transition duration-500 ease-in-out m-2  mx-0 py-10
+    w-80
     '
     onClick={() => {
       console.log('clicked')
@@ -60,6 +62,33 @@ const BlogItem = (
       </div>
     </ContainerBox>
   )
+
+  // return (
+  //   <Card
+  //     shadow="sm"
+  //     padding="xl"
+  //     component="a"
+  //     href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  //     target="_blank"
+  //     className='w-96'
+  //   >
+  //     <Card.Section>
+  //       <Image
+  //         src="https://images.unsplash.com/photo-1579227114347-15d08fc37cae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
+  //         h={160}
+  //         alt="No way!"
+  //       />
+  //     </Card.Section>
+
+  //     <Text fw={500} size="lg" mt="md">
+  //       {id}
+  //     </Text>
+
+  //     <Text mt="xs" c="dimmed" size="sm">
+  //       Please click anywhere on this card to claim your reward, this is not a fraud, trust us
+  //     </Text>
+  //   </Card>
+  // )
 }
 
 export default BlogItem

@@ -2,6 +2,7 @@
 import { commentType, postType, userType } from '@/types'
 import React from 'react'
 import BlogItem from './blogItem'
+import CarouselContainer from '../atoms/carouselContainer';
 
 
 const users: userType[] = [
@@ -197,9 +198,13 @@ const ListBlogItems = () => {
 
 
   return (
-    <div className='flex m-2 h-96 w-full justify-between items-center z-40 '>
-      {generateBlogItems().slice(0,calculateAmountOfItems())}
-    </div>
+    // <div className='flex m-2 h-96 w-full justify-between items-center z-40 '>
+    //   <CarouselContainer/>
+    //   {/* {generateBlogItems().slice(0,calculateAmountOfItems())} */}
+    // </div>
+    <CarouselContainer
+      items={generateBlogItems()}
+    />
   )
 }
 
