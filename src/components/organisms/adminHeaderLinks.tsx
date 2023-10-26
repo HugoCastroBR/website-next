@@ -11,16 +11,16 @@ const buttons = [
     href:'dashboard'
   },
   {
-    text:$t('home.Blog'),
-    href:'blog'
+    text:$t('Posts'),
+    href:'posts'
   },
   {
     text:$t('Users'),
     href:'users'
   },
   {
-    text:$t('Statistics'),
-    href:'statistics'
+    text:$t('Home'),
+    href:'/'
   },
 ]
 
@@ -28,6 +28,7 @@ const GenerateButtons = () => {
   return buttons.map((button,index) => {
     return (
       <MenuBtn
+        legacy={false}
         key={index}
         text={button.text}
         className='w-100 flex h-10 items-center justify-center '

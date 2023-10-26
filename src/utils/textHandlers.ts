@@ -21,3 +21,15 @@ export function getOnlyInitials(text:string){
   });
   return initials.toUpperCase()
 }
+
+
+export function calculateReadingTime(text: string): number {
+  const words = text.split(' ').length;
+  const readingTimeMinutes = words / 200;
+  return readingTimeMinutes;
+}
+
+export function getOnlyNumbers(text: string): string {
+  const numbers = text.replace(/[^0-9]/g, '');
+  return numbers;
+}

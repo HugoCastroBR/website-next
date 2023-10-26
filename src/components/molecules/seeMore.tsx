@@ -3,12 +3,13 @@ import CustomText from '../atoms/customText'
 
 interface SeeMoreProps {
   onClick?: () => void
-  text?: string
+  text?: string,
 }
 
 const SeeMore = ({
   onClick,
-  text
+  text,
+
 }:SeeMoreProps) => {
   return (
     <div className='flex justify-center items-center w-1/2 h-14 mt-4'>

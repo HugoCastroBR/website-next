@@ -51,10 +51,7 @@ const UserSide = ({
         {isAdmin && 
         <div>
           <Link href='/en/admin/dashboard'>
-            <Button
-              onClick={() => {
-              }}
-            >
+            <Button>
               <CustomText
                 className='text-sm font-medium '
                 text='Dashboard'

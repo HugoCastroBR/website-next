@@ -1,7 +1,6 @@
 import AdminHeader from '@/components/organisms/adminHeader'
-import Posts from '@/components/organisms/adminPostsCMS'
+import Users from '@/components/organisms/adminUsersCMS'
 import CustomFooter from '@/components/organisms/customFooter'
-import DashboardSection from '@/components/organisms/dashboardSection'
 import React from 'react'
 
 const Page = () => {
@@ -14,7 +13,7 @@ const Page = () => {
         <AdminHeader />
       </div>
       <div className="xl:px-80 px-0 flex flex-col">
-        <DashboardSection />
+        <Users />
       </div>
       <div>
       <CustomFooter />

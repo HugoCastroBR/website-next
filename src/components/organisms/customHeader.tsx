@@ -4,7 +4,11 @@ import SideMenu from './sideMenu'
 import HeaderLinks from './headerLinks'
 import DarkModeSwitch from '../molecules/darkModeSwitch'
 
-const CustomHeader = () => {
+
+interface CustomHeaderProps {
+  linksRouter?: boolean
+}
+const CustomHeader = ({linksRouter}:CustomHeaderProps) => {
   return (
     <header className='flex h-10 justify-between items-center
     border-b-2 border-gray-800 w-screen pl-12 dark:bg-gray-900 lg:pr-2 pr-0
@@ -17,7 +21,7 @@ const CustomHeader = () => {
           text='Hugo Castro'
         />
         </div>
-      <HeaderLinks />
+      <HeaderLinks linksRouter />
     </header>
   )
 }

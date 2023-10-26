@@ -20,3 +20,19 @@ export const nameValidator = (name: string | null) => {
   if(name.length < 3) return 'Name must be at least 3 characters'
   return false
 }
+
+export const titleValidator = (title:string | null) => {
+  if(title === null) return false
+  if(title === '') return 'Title is required'
+  if(title.length < 3) return 'Title must be at least 3 characters'
+  if(title.length > 50) return 'Title must be less than 50 characters'
+  return false
+}
+
+export const subTitleValidator = (subTitle:string | null) => {
+  if(subTitle === null) return false
+  if(subTitle === '') return 'SubTitle is required'
+  if(subTitle.length < 3) return 'SubTitle must be at least 3 characters'
+  if(subTitle.length > 256) return 'SubTitle must be less than 128 characters'
+  return false
+}

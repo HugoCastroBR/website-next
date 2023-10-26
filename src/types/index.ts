@@ -13,11 +13,15 @@ export type userType = {
 export type postType = {
   id: number;
   title: string;
+  subTitle: string;
   content: string;
   createdAt: string;
   updatedAt: string;
   authorId: number;
-  author: userType;
+  imageUrl?: string
+  author?: userType;
+  authorName: string
+  totalComments: number;
   comments?: commentType[];
 }
 
