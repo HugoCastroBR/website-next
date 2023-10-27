@@ -14,7 +14,8 @@ interface CustomInputProps {
   right?: React.ReactNode
   rightSectionPointerEvents?: 'all' | 'none',
   onClick?: () => void,
-  onChange?: (value:string) => void
+  onChange?: (value:string) => void,
+  defaultValue?: string
 }
 
 const CustomInput = ({
@@ -27,6 +28,7 @@ const CustomInput = ({
   right,
   onClick,
   onChange,
+  defaultValue
 }:CustomInputProps) => {
 
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -47,6 +49,7 @@ const CustomInput = ({
         rightSectionPointerEvents={right ? 'all' : 'none'}
         rightSection={right}
         ref={inputRef}
+        defaultValue={defaultValue || ''}
         onClick={onClick}
         onChange={
           (e) => onChange && onChange(e.currentTarget.value)

@@ -12,13 +12,15 @@ import CustomText from '../atoms/customText';
 
 interface AdminRichTextEditorProps {
   label:string
-  onChange:(value:string) => void
+  onChange:(value:string) => void,
+  defaultValue?:string
 }
 
 const AdminRichTextEditor = (
   {
     label,
-    onChange
+    onChange,
+    defaultValue
   }:AdminRichTextEditorProps
   ) => {
 
@@ -35,7 +37,7 @@ const AdminRichTextEditor = (
     , onUpdate(props) {
       const content = props.editor.getHTML();
       onChange(content)
-    },
+    },content : `${defaultValue || ''}`
   });
 
   return (

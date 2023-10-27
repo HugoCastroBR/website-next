@@ -1,34 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { postType } from '@/types'
+import { getUsers, getUserType } from '@/api'
+import { SetUsers, UserSetTotalPages, UserSetIsLoading,UserSetEditItem,UserSetCurrentPage } from '@/store/actions'
 import { Pagination, Table, Group,Button,Modal } from '@mantine/core'
-import React from 'react'
+import React,{useEffect} from 'react'
+import useStore from '@/hooks/useStore'
 
-const Posts:postType[] = [
-  {
-    content: 'content',
-    authorId: 1,
-    createdAt: 'createdAt',
-    id: 1,
-    title: 'title',
-    updatedAt : 'updatedAt',
-    subTitle: 'subTitle',
-    authorName: 'authorName',
-  }
-]
+
 
 interface Props {
-  isEdit?: boolean
-  editData?: postType
-  onClickEdit: (id:number) => void
+  onClickEdit: () => void
+  onClickDelete: (id:number) => void
 }
 const UsersTable = ({
-  editData,
-  isEdit,
-  onClickEdit
+  onClickEdit,
+  onClickDelete
 }:Props) => {
 
   const [isDelete, setIsDelete] = React.useState(false)
   const [deleteItemId, setDeleteItemId] = React.useState<undefined | number>(undefined)
+  const [pageUsers, setPageUsers] = React.useState<getUserType[]>([])
+
+  const { states, dispatch } = useStore()
 
   const HandlerDelete = (id:number) => {
     setDeleteItemId(id)
@@ -37,35 +30,74 @@ const UsersTable = ({
 
   const HandlerConfirmDelete = () => {
     console.log('delete',deleteItemId)
-    setIsDelete(false)
-  }
+    if(!!deleteItemId && deleteItemId !== undefined){
+      console.log("uai")
+      onClickDelete(deleteItemId)
+      setIsDelete(false)
+  }}
 
   const handlerCancelDelete = () => {
     setDeleteItemId(undefined)
     setIsDelete(false)
   }
-  const rows = Posts.map((post) => (
-    <Table.Tr key={post.id}>
-      <Table.Td>{post.id}</Table.Td>
-      <Table.Td>{post.title}</Table.Td>
-      <Table.Td>{post.createdAt}</Table.Td>
-      <Table.Td>{post.updatedAt}</Table.Td>
-      <Table.Td>
-        <div className='w-full flex justify-around'>
-          <Button size='xs' onClick={
-            () => onClickEdit(post.id)
-          } >
-            <span className='i-mdi-edit text-lg'></span>
-          </Button>
-          <Button size='xs' color='red' onClick={
-            () => HandlerDelete(post.id)
-          }>
-            <span className='i-mdi-delete text-lg'></span>
-          </Button>
-        </div>
-      </Table.Td>
-    </Table.Tr>
-  ));
+
+  const HandlerChangePage = (page:number) => {
+    dispatch(UserSetCurrentPage(page))
+  }
+
+  const handlerEdit = (user:getUserType) => {
+    onClickEdit()
+    dispatch(UserSetIsLoading(true))
+    dispatch(UserSetEditItem(user))
+  }
+
+  const getUsersData = async () => {
+    try {
+      const res = await getUsers(states.Users.currentPage)
+      dispatch(SetUsers(res.data))
+      dispatch(UserSetTotalPages(res.totalPages))
+      setPageUsers(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+    dispatch(UserSetIsLoading(false))
+  }
+
+  useEffect(() => {getUsersData()}, [])
+  useEffect(() => {getUsersData()}, [states.Users.currentPage])
+  useEffect(() => {getUsersData()}, [states.Users.isLoading])
+
+
+  const row = (user:getUserType) => {
+    return (
+      <Table.Tr key={user.id}>
+          <Table.Td>{user.id}</Table.Td>
+          <Table.Td>{user.name}</Table.Td>
+          <Table.Td>{new Date(user.createdAt).toLocaleDateString()}</Table.Td>
+          <Table.Td>{new Date(user.updatedAt).toLocaleDateString()}</Table.Td>
+          <Table.Td>
+            <div className='w-full flex justify-around'>
+              <Button size='xs' onClick={
+                () => handlerEdit(user)
+              }>
+                <span className='i-mdi-edit text-lg'></span>
+              </Button>
+              <Button size='xs' color='red' onClick={
+                () => HandlerDelete(user.id)
+              }>
+                <span className='i-mdi-delete text-lg'></span>
+              </Button>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+    )
+  }
+
+  const generateRows = () => {
+    return pageUsers.map((user) => {
+      return row(user)
+    })
+  }
 
   return (
     <div className='border-2 rounded
@@ -73,7 +105,7 @@ const UsersTable = ({
     >
       <Modal opened={isDelete} onClose={() => {setIsDelete(false)}} title="Delete Confirm">
         <div>
-          <p>Are you sure you want to delete this post?</p>
+          <p>Are you sure you want to delete this user?</p>
           <div className='flex justify-end mt-4'>
             <Button onClick={handlerCancelDelete} className='m-2'>
               Cancel
@@ -91,7 +123,7 @@ const UsersTable = ({
       >
         <Table.Thead>
           <Table.Th>Id</Table.Th>
-          <Table.Th>Title</Table.Th>
+          <Table.Th>Name</Table.Th>
           <Table.Th>Created At</Table.Th>
           <Table.Th>Updated At</Table.Th>
           <Table.Th 
@@ -99,13 +131,11 @@ const UsersTable = ({
           >Options</Table.Th>
         </Table.Thead>
         <Table.Tbody>
-          {rows}
+        {generateRows()}
         </Table.Tbody>
       </Table>
       <div className='flex justify-end p-2'>
-        <Pagination.Root total={10} onChange={
-          (currentPage) => console.log(currentPage)
-        }>
+      <Pagination.Root total={states.Users.totalPages} onChange={HandlerChangePage}>
           <Group gap={2} justify="center">
             <Pagination.Previous />
             <Pagination.Items 

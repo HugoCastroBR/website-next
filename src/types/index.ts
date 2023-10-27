@@ -31,6 +31,7 @@ export type commentType = {
   createdAt: string;
   updatedAt: string;
   authorId: number;
+  authorName: string;
   author?: userType;
   postId: number;
   post?: postType;

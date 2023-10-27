@@ -5,6 +5,8 @@ import { Button } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { emailValidator, nameValidator, passwordValidator } from '@/utils/formHandlers'
 import useStore from '@/hooks/useStore'
+import { register } from '@/api'
+import { SetIsAuth, SetUser } from '@/store/actions'
 
 
 const RegisterInitialValues = {
@@ -14,7 +16,14 @@ const RegisterInitialValues = {
   confirmPassword: ''
 }
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+  isEdit?: boolean
+  editData?: any
+}
+const RegisterForm = ({
+  isEdit,
+  editData,
+}:RegisterFormProps) => {
 
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = React.useState(false)
@@ -31,7 +40,7 @@ const RegisterForm = () => {
       confirmPassword: passwordValidator
   }})
 
-  const { states } = useStore()
+  const { states,dispatch } = useStore()
 
   useEffect(() => {
     form.clearErrors()
@@ -55,6 +64,23 @@ const RegisterForm = () => {
         confirmPassword: 'Passwords do not match'
       })
       return
+    }
+    handlerRegister()
+  }
+
+  const handlerRegister = async () => {
+    try {
+      const res = await register({
+        name: form.values.name,
+        email: form.values.email,
+        password: form.values.password,
+        confirmPassword: form.values.confirmPassword
+      })
+      localStorage.setItem('token', res.data.token)
+      dispatch(SetIsAuth(true))
+      dispatch(SetUser(res.data.user))
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -132,7 +158,7 @@ const RegisterForm = () => {
       className='mt-2'
       disabled={!form.isValid()}
       >
-        Register
+        {isEdit ? 'Update' : 'Register'}
       </Button>
     </form>
   )

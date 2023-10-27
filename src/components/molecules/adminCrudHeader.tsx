@@ -1,16 +1,17 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import CustomText from '../atoms/customText'
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button } from '@mantine/core';
 import CustomModal from '../atoms/customModal';
 
 interface AdminCrudHeaderProps {
+  
   title:string
   children:React.ReactNode
   actionName:string
-
+  forceClose?: boolean
 }
 
 
@@ -20,11 +21,15 @@ const AdminCrudHeader = (
     title,
     children,
     actionName,
+    forceClose,
   }:AdminCrudHeaderProps
 ) => {
 
   const [opened, { open, close }] = useDisclosure(false);
 
+  useEffect(() => {
+    if(forceClose) close()
+  }, [close, forceClose])
 
   return (
     <div>

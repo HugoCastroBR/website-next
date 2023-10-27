@@ -1,24 +1,18 @@
 
+import { getUser } from "@/api";
 import { userType } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 
 interface UserState {
   isAuth: boolean,
-  user: userType
+  user: getUser
 }
 const initialState: UserState = {
-  isAuth: true,
+  isAuth: false,
   user: {
-    id: 1,
-    name: 'John Doe',
-    email: 'johnfakemail@fakemail.com',
-    createdAt: new Date().toString(),
-    updatedAt: new Date().toString(),
-    isAdmin: true,
-    comments: [],
-    posts: [],
-  }
+    
+  } as getUser
 }
 
 export const UserSlice = createSlice({
@@ -28,8 +22,13 @@ export const UserSlice = createSlice({
     SET_IS_AUTH(state,{payload}:{payload:boolean}){
       state.isAuth = payload
     },
-    SET_USER(state,{payload}:{payload:userType}){
+    SET_USER(state,{payload}:{payload:getUser}){
+      console.log(payload);
       state.user = payload
     },
+    LOGOUT(state){
+      state.isAuth = false
+      state.user = {} as getUser
+    }
 	},
 });

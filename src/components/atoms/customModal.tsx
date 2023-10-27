@@ -1,11 +1,15 @@
+'use client'
 import { Modal } from '@mantine/core'
-import React from 'react'
+import { useDisclosure } from '@mantine/hooks';
+
+import React, { useEffect } from 'react'
 
 interface Props {
   isOpen: boolean
   onClose: () => void
   children: React.ReactNode
   title: string
+  forceClose?: boolean
 }
 
 const CustomModal = (
@@ -13,12 +17,20 @@ const CustomModal = (
     isOpen,
     onClose,
     children,
-    title
+    title,
+    forceClose
   }:Props
 ) => {
+
+  const [opened, { open, close }] = useDisclosure(false);
+
+  useEffect(() => {
+    if(forceClose) close()
+  }, [close, forceClose])
+
   return (
     <div>
-          <Modal opened={isOpen} onClose={onClose} title={title} 
+          <Modal opened={opened} onClose={close} title={title} 
           size="80%" 
           transitionProps={{
             transition: 'slide-up',

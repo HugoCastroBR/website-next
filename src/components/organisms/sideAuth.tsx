@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import AccordionContainer from '../molecules/accordionContainer'
 import LoginForm from '../molecules/LoginForm'
 import CustomText from '../atoms/customText'
@@ -8,6 +8,7 @@ import RegisterForm from '../molecules/RegisterForm'
 import UserSide from '../molecules/userSide'
 import { userType } from '@/types';
 import useStore from '@/hooks/useStore'
+import { getUser } from '@/api'
 
 
 
@@ -15,14 +16,24 @@ const SideAuth = () => {
 
   const { states } = useStore()
   const isAuth = states.User.isAuth
-  const user: userType = states.User.user
+
+  const [userInfos, setUserInfos] = React.useState<getUser>({
+    name: '',
+    email: '',
+    id: 0,
+    isAdmin: false
+  })
+
+  useEffect(() => {
+    setUserInfos(states.User.user)
+  }, [states.User.user])
 
   if(isAuth) return (
     <AccordionContainer
-      title={user.name}
+      title={userInfos.name}
       value='user'
     >
-      <UserSide {...user} />
+      <UserSide {...userInfos} />
     </AccordionContainer>
   )
 

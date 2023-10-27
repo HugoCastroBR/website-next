@@ -1,10 +1,6 @@
 import { postType } from '@/types';
 import React from 'react'
 import ContainerBox from '../atoms/containerBox';
-import CustomText from '../atoms/customText';
-import { CopyButton, ActionIcon, Tooltip, rem, Avatar } from '@mantine/core';
-import { calculateReadingTime, getOnlyInitials } from '@/utils/textHandlers';
-import { IconCopy, IconCheck } from '@tabler/icons-react';
 import BlogItemHeader from '../molecules/blogItemHeader';
 import BlogItemComments from '../molecules/blogItemComments';
 

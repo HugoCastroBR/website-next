@@ -6,7 +6,8 @@ import { Button, em } from '@mantine/core'
 import { emailValidator, passwordValidator } from '@/utils/formHandlers'
 import { useForm } from "@mantine/form"
 import useStore from '@/hooks/useStore'
-import { SetIsAuth } from '@/store/actions'
+import { SetIsAuth, SetUser } from '@/store/actions'
+import { login } from '@/api'
 
 const LoginInitialValues = {
   email: '',
@@ -34,11 +35,20 @@ const LoginForm = () => {
     email: string
     password: string
   }
-  const handleFormSubmit = ({
+  const handleFormSubmit = async ({
     email,
     password
   }:handleFormSubmitProps) => {
-    dispatch(SetIsAuth(true))
+    try {
+      const res = await login(email, password)
+      localStorage.setItem('token', res.data.token)
+      dispatch(SetIsAuth(true))
+      console.log(res.data)
+      dispatch(SetUser(res.data.user))
+    } catch (error) {
+      console.log(error)
+    }
+    // dispatch(SetIsAuth(true))
   }
 
   return (

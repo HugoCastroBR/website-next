@@ -1,35 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
+import { getPosts,getPostsType } from '@/api'
+import page from '@/app/[lang]/profile/page'
+import useStore from '@/hooks/useStore'
+import { AddPosts, PostSetCurrentPage, PostSetEditItem, PostSetIsLoading, PostSetTotalPages } from '@/store/actions'
 import { postType } from '@/types'
 import { Pagination, Table, Group,Button,Modal } from '@mantine/core'
-import React from 'react'
+import React,{useEffect } from 'react'
 
-const Posts:postType[] = [
-  {
-    content: 'content',
-    authorId: 1,
-    createdAt: 'createdAt',
-    id: 1,
-    title: 'title',
-    updatedAt : 'updatedAt',
-    subTitle: 'subTitle',
-    authorName: 'authorName',
-    totalComments: 3,
-  }
-]
-
-interface Props {
-  isEdit?: boolean
-  editData?: postType
-  onClickEdit: (id:number) => void
+interface Props{
+  onClickEdit: () => void
+  onClickDelete: (id:number) => void
 }
-const PostsTable = ({
-  editData,
-  isEdit,
-  onClickEdit
-}:Props) => {
+const PostsTable = (
+  {
+    onClickEdit,
+    onClickDelete
+  }:Props
+) => {
 
   const [isDelete, setIsDelete] = React.useState(false)
   const [deleteItemId, setDeleteItemId] = React.useState<undefined | number>(undefined)
+  const [pagePosts, setPagePosts] = React.useState<getPostsType[]>([])
+
+  const { states, dispatch } = useStore()
 
   const HandlerDelete = (id:number) => {
     setDeleteItemId(id)
@@ -38,37 +32,73 @@ const PostsTable = ({
 
   const HandlerConfirmDelete = () => {
     console.log('delete',deleteItemId)
-    setIsDelete(false)
-  }
+    if(!!deleteItemId && deleteItemId !== undefined){
+      console.log("uai")
+      onClickDelete(deleteItemId)
+      setIsDelete(false)
+  }}
 
   const handlerCancelDelete = () => {
     setDeleteItemId(undefined)
     setIsDelete(false)
   }
 
-  
-  const rows = Posts.map((post) => (
-    <Table.Tr key={post.id}>
-      <Table.Td>{post.id}</Table.Td>
-      <Table.Td>{post.title}</Table.Td>
-      <Table.Td>{post.createdAt}</Table.Td>
-      <Table.Td>{post.updatedAt}</Table.Td>
-      <Table.Td>
-        <div className='w-full flex justify-around'>
-          <Button size='xs' onClick={
-            () => onClickEdit(post.id)
-          }>
-            <span className='i-mdi-edit text-lg'></span>
-          </Button>
-          <Button size='xs' color='red' onClick={
-            () => HandlerDelete(post.id)
-          }>
-            <span className='i-mdi-delete text-lg'></span>
-          </Button>
-        </div>
-      </Table.Td>
-    </Table.Tr>
-  ));
+  const HandlerChangePage = (page:number) => {
+    dispatch(PostSetCurrentPage(page))
+  }
+
+  const handlerEdit = (post:getPostsType) => {
+    onClickEdit()
+    dispatch(PostSetIsLoading(true))
+    dispatch(PostSetEditItem(post))
+  }
+
+  const getPostsData = async () => {
+    try {
+      const res = await getPosts(states.Post.currentPage)
+      dispatch(AddPosts(res.data))
+      dispatch(PostSetTotalPages(res.totalPages))
+      setPagePosts(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+    dispatch(PostSetIsLoading(false))
+  }
+
+  useEffect(() => {getPostsData()}, [])
+  useEffect(() => {getPostsData()}, [states.Post.currentPage])
+  useEffect(() => {getPostsData()}, [states.Post.isLoading])
+
+  const row = (post:getPostsType) => {
+    return (
+      <Table.Tr key={post.id}>
+          <Table.Td>{post.id}</Table.Td>
+          <Table.Td>{post.title}</Table.Td>
+          <Table.Td>{new Date(post.createdAt).toLocaleDateString()}</Table.Td>
+          <Table.Td>{new Date(post.updatedAt).toLocaleDateString()}</Table.Td>
+          <Table.Td>
+            <div className='w-full flex justify-around'>
+              <Button size='xs' onClick={
+                () => handlerEdit(post)
+              }>
+                <span className='i-mdi-edit text-lg'></span>
+              </Button>
+              <Button size='xs' color='red' onClick={
+                () => HandlerDelete(post.id)
+              }>
+                <span className='i-mdi-delete text-lg'></span>
+              </Button>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+    )
+  }
+
+  const generateRows = () => {
+    return pagePosts.map((post) => {
+      return row(post)
+    })
+  }
 
   return (
     <div className='border-2 rounded
@@ -102,13 +132,11 @@ const PostsTable = ({
           >Options</Table.Th>
         </Table.Thead>
         <Table.Tbody>
-          {rows}
+          {generateRows()}
         </Table.Tbody>
       </Table>
       <div className='flex justify-end p-2'>
-        <Pagination.Root total={10} onChange={
-          (currentPage) => console.log(currentPage)
-        }>
+        <Pagination.Root total={states.Post.totalPages} onChange={HandlerChangePage}>
           <Group gap={2} justify="center">
             <Pagination.Previous />
             <Pagination.Items 

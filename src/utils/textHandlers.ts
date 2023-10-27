@@ -14,6 +14,9 @@ export function truncateText(text: string, start: number, end: number): string {
 }
 
 export function getOnlyInitials(text:string){
+  if(!text){
+    return ''
+  }
   const words = text.split(' ')
   let initials = ''
   words.forEach(word => {
