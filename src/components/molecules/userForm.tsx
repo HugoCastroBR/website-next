@@ -14,7 +14,7 @@ const InitialValues = {
   password: '',
 }
 interface UserFormProps {
-  onClose: () => void
+  onClose: (editMode?:boolean) => void
 }
 const UserForm = ({
   onClose
@@ -55,7 +55,7 @@ const UserForm = ({
       await postUser(data)
       await getUsers(1);
       dispatch(UserSetIsLoading(true))
-      onClose()
+      onClose(isEdit)
 
     } catch (error) {
       console.log(error)
@@ -74,7 +74,7 @@ const UserForm = ({
         data: data
       })
       dispatch(UserSetIsLoading(true))
-      if (onClose) onClose()
+      if (onClose) onClose(isEdit)
 
     } catch (error) {
       console.log(error)
@@ -128,7 +128,7 @@ const UserForm = ({
           color='red' 
           className='ml-2' 
           onClick={() => {
-            onClose()
+            onClose(isEdit)
             dispatch(UserCancelEditItem())
           }}
         >

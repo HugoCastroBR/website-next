@@ -3,8 +3,18 @@ import CustomText from '../atoms/customText'
 import { Avatar, Blockquote, Divider, Group, Pagination } from '@mantine/core'
 import CommentBlock from './commentBlock';
 import NewCommentBlock from './newCommentBlock';
+import { commentType } from '@/types';
 
-const BlogItemComments = () => {
+interface Props {
+  totalComments: number
+  comments: commentType[]
+}
+const BlogItemComments = (
+  {
+    totalComments,
+    comments
+  }: Props
+) => {
   return (
     <div className="">
       <Divider my="sm" />
@@ -20,33 +30,17 @@ const BlogItemComments = () => {
           id={1}
           key={3}
         />
-        <CommentBlock
-          authorName='John Doe'
-          createdAt='2021-10-10'
-          id={1}
-          text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.'
-          key={1}
-        />
-        <CommentBlock
-          authorName='John Doe'
-          createdAt='2021-10-10'
-          id={1}
-          text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.'
-          key={2}
-        />
-      </div>
-      <div className='flex justify-end p-2'>
-        <Pagination.Root total={10} onChange={
-          (currentPage) => console.log(currentPage)
-        }>
-          <Group gap={2} justify="center">
-            <Pagination.Previous />
-            <Pagination.Items 
+        {comments.map((comment,index) => {
+          return(
+            <CommentBlock
+              authorName={comment.authorName}
+              createdAt={new Date(comment.createdAt).toLocaleString().replace(',',' -')}
+              id={comment.id}
+              text={comment.content}
+              key={index}
             />
-            <Pagination.Next
-            />
-          </Group>
-      </Pagination.Root>
+          )
+        })}
       </div>
     </div>
   )

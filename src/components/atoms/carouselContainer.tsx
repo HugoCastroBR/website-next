@@ -1,9 +1,10 @@
 import React from 'react'
 import { Carousel } from '@mantine/carousel';
+import CustomText from './customText';
 
 
 interface CarouselContainerProps {
-  items: React.ReactNode[]
+  items: React.ReactNode[] 
 }
 const CarouselContainer = (
   {
@@ -29,11 +30,16 @@ const CarouselContainer = (
     loop
     withIndicators
     >
-    {items.map((item, index) => (
+    {items?.length ? items.map((item, index) => (
       <Carousel.Slide key={index} className='h-96 '>
           {item}
       </Carousel.Slide>
-    ))}
+    ))
+      :
+      <CustomText
+        text='No posts found'
+      />
+    }
     {/* ...other slides */}
   </Carousel>
   )

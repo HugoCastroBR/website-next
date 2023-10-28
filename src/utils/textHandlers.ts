@@ -29,6 +29,9 @@ export function getOnlyInitials(text:string){
 export function calculateReadingTime(text: string): number {
   const words = text.split(' ').length;
   const readingTimeMinutes = words / 200;
+  if(readingTimeMinutes <= 1){
+    return 1
+  }
   return readingTimeMinutes;
 }
 

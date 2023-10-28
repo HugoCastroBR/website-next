@@ -1,36 +1,49 @@
 'use client'
+import useStore from '@/hooks/useStore';
+import { SetNewItemModal } from '@/store/actions';
 import { Modal } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks';
 
 import React, { useEffect } from 'react'
 
 interface Props {
-  isOpen: boolean
-  onClose: () => void
   children: React.ReactNode
   title: string
-  forceClose?: boolean
+  isOpen: boolean
 }
 
 const CustomModal = (
   {
-    isOpen,
-    onClose,
     children,
     title,
-    forceClose
+    isOpen,
   }:Props
 ) => {
 
-  const [opened, { open, close }] = useDisclosure(false);
+  let [opened, { open, toggle,close }] = useDisclosure(false);
 
-  useEffect(() => {
-    if(forceClose) close()
-  }, [close, forceClose])
+  const {states,dispatch} = useStore()
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
+  useEffect(()=>{
+    console.log(states.App.newItemModalIsOpen)
+    if(states.App.newItemModalIsOpen){
+      open()
+    }else{
+      close()
+    }
+    // open()
+  },[
+    states.App.newItemModalIsOpen
+  ])
+  
+  const HandlerClose = () => {
+    dispatch(SetNewItemModal(false))
+    close()
+  }
 
   return (
     <div>
-          <Modal opened={opened} onClose={close} title={title} 
+          <Modal opened={opened} onClose={HandlerClose} title={title} 
           size="80%" 
           transitionProps={{
             transition: 'slide-up',

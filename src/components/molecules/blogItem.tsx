@@ -6,22 +6,26 @@ import CustomText from '../atoms/customText'
 import { truncateText } from '@/utils/textHandlers'
 import { convertDate } from '@/utils/dateHandlers'
 import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
+import { getPostsType } from '@/api'
+import { redirect, useRouter } from 'next/navigation'
 
 
 
 const BlogItem = (
   {
     title,
-    content,
-    author,
     createdAt,
-    authorId,
-    comments,
+    authorName,
     id,
     updatedAt,
-  }: postType
+    subtitle,
+  }:  getPostsType
 ) => {
+  const { push } = useRouter();
 
+  const HandlerRedirect = () => {
+    push(`/en/blog/${id}`)
+  }
 
 
   return (
@@ -34,9 +38,7 @@ const BlogItem = (
     transition duration-500 ease-in-out m-2  mx-2 py-10
     w-80
     '
-    onClick={() => {
-      console.log('clicked')
-    }}
+    onClick={HandlerRedirect}
     >
       <div className=' flex  flex-wrap justify-start
         items-start text-center align-center overflow-hidden h-20'>
@@ -49,12 +51,12 @@ const BlogItem = (
         <CustomText
           className='w-full h-full text-justify overflow-hidden
         dark:text-gray-400 text-gray-800 xl:text-lg lg:text-base md:text-sm text-xs '
-          text={truncateText(content,0,126)} />
+          text={truncateText(subtitle,0,126)} />
       </div>
       <div className='flex flex-col items-center justify-center text-center mt-8 h-20'>
         <CustomText
           className='text-center dark:text-gray-100 text-gray-900 text-base font-mono font-bold'
-          text={`Posted by ${author.name} in ${convertDate(createdAt)}`} />
+          text={`Posted by ${authorName} in ${convertDate(createdAt)}`} />
         <CustomText
           className='text-center dark:text-gray-300 text-gray-700 text-sm font-mono font-bold'
           text={`(Last updated in ${convertDate(updatedAt)})`}
@@ -63,32 +65,6 @@ const BlogItem = (
     </ContainerBox>
   )
 
-  // return (
-  //   <Card
-  //     shadow="sm"
-  //     padding="xl"
-  //     component="a"
-  //     href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-  //     target="_blank"
-  //     className='w-96'
-  //   >
-  //     <Card.Section>
-  //       <Image
-  //         src="https://images.unsplash.com/photo-1579227114347-15d08fc37cae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
-  //         h={160}
-  //         alt="No way!"
-  //       />
-  //     </Card.Section>
-
-  //     <Text fw={500} size="lg" mt="md">
-  //       {id}
-  //     </Text>
-
-  //     <Text mt="xs" c="dimmed" size="sm">
-  //       Please click anywhere on this card to claim your reward, this is not a fraud, trust us
-  //     </Text>
-  //   </Card>
-  // )
 }
 
 export default BlogItem

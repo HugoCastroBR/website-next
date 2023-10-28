@@ -1,7 +1,6 @@
 
-import { userType } from '@/types';
 import { AppActions,UserActions,PostActions, UsersActions } from './index';
-import { getPostsType, getUser, getUserType } from '@/api';
+import { getOnePostType, getPostsType, getUser, getUserType } from '@/api';
 
 
 export const SetDarkMode = (value: boolean) => {
@@ -9,6 +8,9 @@ export const SetDarkMode = (value: boolean) => {
 }
 export const SetSideMenu = (value: boolean) => {
   return AppActions.SET_SIDE_MENU(value)
+}
+export const SetNewItemModal = (value: boolean) => {
+  return AppActions.SET_NEW_ITEM_MODAL(value)
 }
 
 export const SetIsAuth = (value: boolean) => {
@@ -38,6 +40,9 @@ export const PostSetEditItem = (value: getPostsType) => {
 }
 export const PostCancelEditItem = () => {
   return PostActions.CANCEL_EDIT_ITEM()
+}
+export const PostSetCurrentPost = (value: getOnePostType) => {
+  return PostActions.SET_CURRENT_POST(value)
 }
 
 export const SetUsers = (value: getUserType[]) => {

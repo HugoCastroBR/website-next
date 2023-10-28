@@ -34,7 +34,7 @@ const CommentBlock = ({
           className='text-sm font-medium text-gray-800 dark:text-gray-300'
         />
         <CustomText
-          text={createdAt}
+          text={`Posted at ${createdAt}`}
           className='text-xs italic font-normal mt-2 text-gray-700 dark:text-gray-400'
         />
       </div>

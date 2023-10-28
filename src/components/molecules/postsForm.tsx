@@ -21,7 +21,7 @@ const InitialValues: postPostType = {
 }
 
 interface PostsFormProps {
-  onClose: () => void
+  onClose: (editMode?:boolean) => void
 }
 const PostsForm = ({
   onClose,
@@ -57,8 +57,10 @@ const PostsForm = ({
         content: states.Post.editItem.content
       
       })
-      console.log(form.values)
+      
     }
+    console.log('aqui')
+    console.log(states.Post.editItem)
   },[])
 
   const handlerSubmit = async (newPost: postPostType) => {
@@ -73,7 +75,7 @@ const PostsForm = ({
       await postPost(data)
       await getPosts(1);
       dispatch(PostSetIsLoading(true))
-      onClose()
+      onClose(isEdit)
     } catch (error) {
       console.log(error)
     }
@@ -93,7 +95,7 @@ const PostsForm = ({
         data: data
       })
       dispatch(PostSetIsLoading(true))
-      if (onClose) onClose()
+      if (onClose) onClose(isEdit)
 
     } catch (error) {
       console.log(error)
@@ -153,7 +155,7 @@ const PostsForm = ({
           />
         </label>
         <Switch
-          defaultChecked={false}
+          defaultChecked={states.Post.editItem.published}
           size="sm"
           {...form.getInputProps('published')}
         />
@@ -162,7 +164,7 @@ const PostsForm = ({
         <AdminRichTextEditor
           label='Content:'
           onChange={setRichTextValue}
-          defaultValue={isEdit ? states.Post.editItem.content : ''}
+          defaultValue={states.Post.editItem.content }
         />
       </div>
       <div className="mt-2 pt-4 flex items-end w-full justify-end">
@@ -170,7 +172,7 @@ const PostsForm = ({
           color='red'
           className='ml-2'
           onClick={() => {
-            onClose()
+            onClose(isEdit)
             dispatch(PostCancelEditItem())
           }}
         >

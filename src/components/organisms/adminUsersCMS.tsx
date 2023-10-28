@@ -7,20 +7,15 @@ import UsersTable from '../molecules/usersTable';
 import UserForm from '../molecules/userForm';
 import CustomModal from '../atoms/customModal';
 import { deleteUser } from '@/api';
-import { UserCancelEditItem, UserSetIsLoading } from '@/store/actions';
+import { SetNewItemModal, UserCancelEditItem, UserSetIsLoading } from '@/store/actions';
 import useStore from '@/hooks/useStore';
+import { Modal } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 
 const Users = () => {
 
-  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false)
   const { states, dispatch } = useStore()
 
-  const HandlerCloseModal = async () => {
-    console.log("wtf")
-    setIsEditModalOpen(false)
-    await dispatch(UserCancelEditItem())
-    await dispatch(UserSetIsLoading(false))
-  }
 
   const HandlerDelete = async (id:number) => {
     console.log(id)
@@ -29,33 +24,67 @@ const Users = () => {
     await dispatch(UserSetIsLoading(false))
   }
 
+  interface modalProps {
+    children: React.ReactNode
+    title: string
+  }
+
+  const [opened, { open, toggle }] = useDisclosure(false);
+  const AdminUserModal = ({children,title}:modalProps) => {
+    return (
+      <Modal opened={opened} onClose={toggle} title={title}
+        size="80%"
+        transitionProps={{
+          transition: 'slide-up',
+          duration: 500,
+        }}
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 6,
+        }}
+      >
+        {children}
+      </Modal>
+    )
+  }
+
+  const HandlerCloseModal = async (editMode?:boolean) => {
+    if(editMode){
+      toggle()
+      await dispatch(UserCancelEditItem())
+      await dispatch(UserSetIsLoading(false))
+    }else{
+      dispatch(SetNewItemModal(false))
+
+    }
+    
+  }
+
+  const handlerOpenModal = () => {
+    open()
+  }
+
+
   return (
     <div className='pl-2 pr-3'>
     <ContainerBox className='flex flex-col w-full'>
-      <CustomModal
-        isOpen={isEditModalOpen}
-        onClose={HandlerCloseModal}
+      <AdminUserModal
         title='Edit User'
       >
         <UserForm
           onClose={HandlerCloseModal}
         />
-      </CustomModal>
+      </AdminUserModal>
       <AdminCrudHeader 
         title='Users' 
         actionName='New User'
-        forceClose={isEditModalOpen}
-       >
+      >
         <UserForm
           onClose={HandlerCloseModal}
         />
       </AdminCrudHeader>
       <UsersTable
-        onClickEdit={
-          () => {
-            setIsEditModalOpen(true)
-          }
-        }
+        onClickEdit={handlerOpenModal}
         onClickDelete={HandlerDelete}
       />
     </ContainerBox>

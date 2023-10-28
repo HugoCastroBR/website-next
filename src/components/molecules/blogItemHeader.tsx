@@ -5,10 +5,11 @@ import { Avatar, CopyButton, Tooltip, ActionIcon, rem, Divider } from '@mantine/
 import { IconCheck, IconCopy } from '@tabler/icons-react'
 import React from 'react'
 import CustomText from '../atoms/customText'
+import { getOnePostType } from '@/api'
 
 
 interface BlogItemHeaderProps{
-  post:postType
+  post:getOnePostType
 }
 
 const BlogItemHeader = ({post}:BlogItemHeaderProps) => {
@@ -23,7 +24,7 @@ const BlogItemHeader = ({post}:BlogItemHeaderProps) => {
     <div className='flex flex-col w-full'>
           <CustomText
             className="text-xs font-light italic text-gray-700 dark:text-gray-400"
-            text={`Posted at ${post.createdAt} · Last updated at ${post.updatedAt}`}
+            text={`Posted at ${new Date(post.createdAt).toDateString()} · Last updated at ${new Date(post.updatedAt).toDateString()}`}
           />
           <CustomText 
             text={post.title}
@@ -31,7 +32,7 @@ const BlogItemHeader = ({post}:BlogItemHeaderProps) => {
             text-base font-bold w-full"
           />
           <CustomText 
-            text={post.subTitle}
+            text={post.subtitle}
             className="mt-2 lg:text-lg md:text-base text-sm
             font-medium w-full text-gray-700 dark:text-gray-400"
           />
@@ -44,7 +45,7 @@ const BlogItemHeader = ({post}:BlogItemHeaderProps) => {
               />
               <CustomText
                 className="text-sm font-light"
-                text={`${calculateReadingTime(post.content).toFixed(0)} min read`}
+                text={`${calculateReadingTime(post?.content || '').toFixed(0)} min read`}
               />
             </div>
           </div>

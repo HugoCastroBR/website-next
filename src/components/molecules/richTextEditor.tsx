@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor,BubbleMenu  } from '@tiptap/react';
 import Highlight from '@tiptap/extension-highlight';
@@ -23,6 +23,10 @@ const AdminRichTextEditor = (
     defaultValue
   }:AdminRichTextEditorProps
   ) => {
+
+  useEffect(()=>{
+    console.log(defaultValue)
+  },[])
 
   const editor = useEditor({
     extensions: [

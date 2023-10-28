@@ -1,3 +1,5 @@
+import { commentType } from "@/types";
+
 const url = 'http://localhost:3333';
 
 export type paginationDefault = {
@@ -120,6 +122,32 @@ export type postPostType = {
   imageUrl: string;
   subtitle: string;
   published: boolean;
+}
+
+export type getOnePostType = getPostsType & {
+  comments: commentType[];
+}
+export const getOnePost = async (id: number):Promise<getOnePostType> => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    throw new Error('Token not found in localStorage');
+  }
+
+  const response = await fetch(`${url}/posts/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`, 
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Get one post failed');
+  }
+
+  const res = await response.json();
+  return res;
 }
 
 export const postPost = async (data: postPostType):Promise<postPostType> => {

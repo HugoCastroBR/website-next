@@ -4,24 +4,20 @@ import CustomText from './customText';
 import { getOnlyInitials } from '@/utils/textHandlers';
 
 export interface BlogCardProps {
-  id:number;
   author:string
   title: string;
   subtitle: string;
   date: string;
   time: string;
-  tag: string;
   imageUrl: string;
 }
 
 const BlogCard = ({
-  id,
   author,
   title,
   subtitle,
   date,
   time,
-  tag,
   imageUrl
 }:BlogCardProps
 ) => {
@@ -61,10 +57,6 @@ const BlogCard = ({
           <CustomText
             className="mt-2 text-xs mr-1 text-gray-800 dark:text-gray-400"
             text={`· ${time} min read`}
-          />
-          <CustomText
-            className="mt-2 text-xs mr-1 text-gray-800 dark:text-gray-400"
-            text={`· ${tag}`}
           />
         </div>
       </div>

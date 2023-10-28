@@ -5,6 +5,8 @@ import CustomText from '../atoms/customText'
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button } from '@mantine/core';
 import CustomModal from '../atoms/customModal';
+import useStore from '@/hooks/useStore';
+import { SetNewItemModal } from '@/store/actions';
 
 interface AdminCrudHeaderProps {
   
@@ -21,15 +23,18 @@ const AdminCrudHeader = (
     title,
     children,
     actionName,
-    forceClose,
   }:AdminCrudHeaderProps
 ) => {
 
-  const [opened, { open, close }] = useDisclosure(false);
-
-  useEffect(() => {
-    if(forceClose) close()
-  }, [close, forceClose])
+  const {states,dispatch} = useStore()
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
+  useEffect(()=>{
+    console.log('abrindo')
+    setIsModalOpen(states.App.newItemModalIsOpen)
+  },[
+    states.App.newItemModalIsOpen
+  ])
+  
 
   return (
     <div>
@@ -37,13 +42,15 @@ const AdminCrudHeader = (
           <CustomText
             className='text-start dark:text-gray-100 text-gray-900 text-3xl font-mono font-bold'
             text={title} />
-          <Button onClick={open}>{actionName}</Button>
+          <Button onClick={()=> {
+            console.log('open')
+            dispatch(SetNewItemModal(true))
+          }}>{actionName}</Button>
         </div>
         <div>
           <CustomModal
-            isOpen={opened}
-            onClose={close}
             title={title}
+            isOpen={isModalOpen}
           >
             {children}
           </CustomModal>
