@@ -5,11 +5,11 @@ import { Avatar, CopyButton, Tooltip, ActionIcon, rem, Divider } from '@mantine/
 import { IconCheck, IconCopy } from '@tabler/icons-react'
 import React from 'react'
 import CustomText from '../atoms/customText'
-import { getOnePostType } from '@/api'
+import { getPostsType } from '@/api'
 
 
 interface BlogItemHeaderProps{
-  post:getOnePostType
+  post:getPostsType
 }
 
 const BlogItemHeader = ({post}:BlogItemHeaderProps) => {

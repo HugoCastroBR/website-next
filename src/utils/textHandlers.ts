@@ -39,3 +39,8 @@ export function getOnlyNumbers(text: string): string {
   const numbers = text.replace(/[^0-9]/g, '');
   return numbers;
 }
+
+export function isURLValid(url: string): boolean {
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return urlPattern.test(url);
+}

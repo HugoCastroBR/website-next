@@ -1,6 +1,6 @@
 
-import { AppActions,UserActions,PostActions, UsersActions } from './index';
-import { getOnePostType, getPostsType, getUser, getUserType } from '@/api';
+import { AppActions,AuthActions,PostActions, UsersActions, CommentActions } from './index';
+import {  commentType, getPostsType, getUser, getUserType } from '@/api';
 
 
 export const SetDarkMode = (value: boolean) => {
@@ -14,13 +14,13 @@ export const SetNewItemModal = (value: boolean) => {
 }
 
 export const SetIsAuth = (value: boolean) => {
-  return UserActions.SET_IS_AUTH(value)
+  return AuthActions.SET_IS_AUTH(value)
 }
 export const SetUser = (value: getUser) => {
-  return UserActions.SET_USER(value)
+  return AuthActions.SET_USER(value)
 }
 export const Logout = () => {
-  return UserActions.LOGOUT()
+  return AuthActions.LOGOUT()
 }
 
 export const AddPosts = (value: getPostsType[]) => {
@@ -41,7 +41,7 @@ export const PostSetEditItem = (value: getPostsType) => {
 export const PostCancelEditItem = () => {
   return PostActions.CANCEL_EDIT_ITEM()
 }
-export const PostSetCurrentPost = (value: getOnePostType) => {
+export const PostSetCurrentPost = (value: getPostsType) => {
   return PostActions.SET_CURRENT_POST(value)
 }
 
@@ -62,4 +62,17 @@ export const UserSetEditItem = (value: getUserType) => {
 }
 export const UserCancelEditItem = () => {
   return UsersActions.CANCEL_EDIT_ITEM()
+}
+
+export const CommentSetComments = (value: commentType[]) => {
+  return CommentActions.SET_COMMENTS(value)
+}
+export const CommentSetCurrentPage = (value: number) => {
+  return CommentActions.SET_CURRENT_PAGE(value)
+}
+export const CommentSetTotalPages = (value: number) => {
+  return CommentActions.SET_TOTAL_PAGES(value)
+}
+export const CommentSetIsLoading = (value: boolean) => {
+  return CommentActions.SET_IS_LOADING(value)
 }

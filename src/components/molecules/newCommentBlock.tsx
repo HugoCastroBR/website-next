@@ -3,14 +3,26 @@ import { Avatar, Blockquote, Button, Divider } from '@mantine/core'
 import CustomText from '../atoms/customText'
 import { getOnlyInitials } from '@/utils/textHandlers';
 
-interface InputCommentProps{
-  id:number;
+
+export interface newCommentProps {
+  postId:number;
   authorName:string;
+  content:string;
+}
+interface InputCommentProps{
+  postId:number;
+  authorName:string;
+  onCommentSubmit: ({
+    postId,
+    authorName,
+    content
+  }:newCommentProps) => void
 }
 
 const NewCommentBlock = ({
-  id,
-  authorName
+  postId,
+  authorName,
+  onCommentSubmit
 }:InputCommentProps) => {
   return (
     <div>
@@ -26,7 +38,23 @@ const NewCommentBlock = ({
             text={authorName}
           />
         </div>
-        <form className="flex flex-col w-full items-end">
+        <form
+          className="flex flex-col w-full items-end"
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            const textInput = e.currentTarget[0] as HTMLTextAreaElement;
+            const content = (e.currentTarget[0] as HTMLTextAreaElement)
+            ?.value || '';
+
+            onCommentSubmit({
+              postId,
+              authorName,
+              content: content
+            })
+
+            textInput.value = ''
+          }}
+        >
           <textarea
             className="w-full p-2 text-sm font-medium text-gray-800 dark:text-gray-300
             bg-gray-100 dark:bg-gray-700 rounded-md resize-none"

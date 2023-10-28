@@ -23,9 +23,7 @@ const CustomModal = (
   let [opened, { open, toggle,close }] = useDisclosure(false);
 
   const {states,dispatch} = useStore()
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
   useEffect(()=>{
-    console.log(states.App.newItemModalIsOpen)
     if(states.App.newItemModalIsOpen){
       open()
     }else{

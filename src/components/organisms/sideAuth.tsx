@@ -15,7 +15,7 @@ import { getUser } from '@/api'
 const SideAuth = () => {
 
   const { states } = useStore()
-  const isAuth = states.User.isAuth
+  const isAuth = states.Auth.isAuth
 
   const [userInfos, setUserInfos] = React.useState<getUser>({
     name: '',
@@ -25,8 +25,8 @@ const SideAuth = () => {
   })
 
   useEffect(() => {
-    setUserInfos(states.User.user)
-  }, [states.User.user])
+    setUserInfos(states.Auth.user)
+  }, [states.Auth.user])
 
   if(isAuth) return (
     <AccordionContainer

@@ -1,6 +1,12 @@
-import { commentType } from "@/types";
-
 const url = 'http://localhost:3333';
+
+const checkIfToken = () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('Token not found in localStorage');
+  }
+  return token;
+}
 
 export type paginationDefault = {
   page: number;
@@ -72,6 +78,30 @@ export const register = async (data: registerPost)
   return res;
 }
 
+export type getUserByTokenType =  {
+  message: string;
+  data: getUser;
+}
+export const getUserByToken = async ():Promise<getUserByTokenType> => {
+  const token = localStorage.getItem('token');
+  
+  if (!token) {
+    throw new Error('Token not found in localStorage');
+  }
+  const response = await fetch(`${url}/auth/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`, 
+    },
+  });
+  if(!response.ok) {
+    throw new Error('Get user by token failed');
+  }
+  const res = await response.json();
+  return res;
+}
+
 export type getPostsType = {
   id: number;
   title: string;
@@ -91,12 +121,7 @@ export type getPostsRes = paginationDefault & {
 
 //need token
 export const getPosts = async (page: number):Promise<getPostsRes> => {
-  const token = localStorage.getItem('token');
-
   const itemsPerPage = 10
-  if (!token) {
-    throw new Error('Token not found in localStorage');
-  }
 
   const response = await fetch(
     `${url}/posts?page=${page}&itemsPerPage=${itemsPerPage}`,
@@ -104,7 +129,6 @@ export const getPosts = async (page: number):Promise<getPostsRes> => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`, 
     },
   });
 
@@ -124,21 +148,13 @@ export type postPostType = {
   published: boolean;
 }
 
-export type getOnePostType = getPostsType & {
-  comments: commentType[];
-}
-export const getOnePost = async (id: number):Promise<getOnePostType> => {
-  const token = localStorage.getItem('token');
 
-  if (!token) {
-    throw new Error('Token not found in localStorage');
-  }
+export const getOnePost = async (id: number):Promise<getPostsType> => {
 
   const response = await fetch(`${url}/posts/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`, 
     },
   });
 
@@ -272,7 +288,8 @@ export const getUsers = async (page: number):Promise<getUsersRes> => {
 export type postUserType = {
   email: string;
   name: string;
-  password: string;
+  password?: string;
+  isAdmin?: boolean;
 }
 
 export const postUser = async (data: postUserType):Promise<postUserType> => {
@@ -350,3 +367,70 @@ export const deleteUser = async(id:number) => {
   const res = await response.json();
   return res;
 }
+
+export type commentType = {
+  id: number;
+  postId: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  authorName: string;
+  authorId: number;
+}
+
+export type getCommentsRes = paginationDefault & {
+  data: commentType[];
+}
+
+export const getComments = async (page: number, postId: number):
+Promise<getCommentsRes> => 
+{
+
+  const itemsPerPage = 10
+
+  const response = await fetch(
+    `${url}/comments/post/${postId}?page=${page}&itemsPerPage=${itemsPerPage}`,
+    {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Get comments failed');
+  }
+
+  const res = await response.json();
+  return res;
+}
+
+export type postCommentType = {
+  postId: number;
+  content: string;
+}
+
+export const postComment = async (data: postCommentType):Promise<postCommentType> => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    throw new Error('Token not found in localStorage');
+  }
+
+  const response = await fetch(`${url}/comments`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`, 
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    throw new Error('Post comment failed');
+  }
+
+  const res = await response.json();
+  return res;
+}
+

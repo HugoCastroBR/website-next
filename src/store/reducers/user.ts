@@ -4,20 +4,20 @@ import { userType } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 
-interface UserState {
+interface AuthState {
   isAuth: boolean,
   user: getUser
 }
-const initialState: UserState = {
+const initialState: AuthState = {
   isAuth: false,
   user: {
     
   } as getUser
 }
 
-export const UserSlice = createSlice({
-	name: "UserSlice",
-	initialState: initialState as UserState,
+export const AuthSlice = createSlice({
+	name: "AuthSlice",
+	initialState: initialState as AuthState,
 	reducers: {
     SET_IS_AUTH(state,{payload}:{payload:boolean}){
       state.isAuth = payload

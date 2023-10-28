@@ -65,7 +65,10 @@ const PostsTable = (
     dispatch(PostSetIsLoading(false))
   }
 
-  useEffect(() => {getPostsData()}, [])
+  useEffect(() => {
+    dispatch(PostSetIsLoading(true))
+    dispatch(PostSetCurrentPage(1))
+  }, [])
   useEffect(() => {getPostsData()}, [states.Post.currentPage])
   useEffect(() => {getPostsData()}, [states.Post.isLoading])
 

@@ -1,5 +1,5 @@
 
-import { getOnePostType, getPostsType } from "@/api";
+import { getPostsType } from "@/api";
 import { postType } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -10,7 +10,7 @@ interface postState {
   totalPages: number
   isLoading: boolean
   editItem: getPostsType
-  currentPost: getOnePostType
+  currentPost: getPostsType
 }
 const initialState: postState = {
   posts: {
@@ -20,7 +20,7 @@ const initialState: postState = {
   totalPages: 1,
   isLoading: true,
   editItem: {} as getPostsType,
-  currentPost: {} as getOnePostType
+  currentPost: {} as getPostsType
 }
 
 export const PostSlice = createSlice({
@@ -45,7 +45,7 @@ export const PostSlice = createSlice({
     CANCEL_EDIT_ITEM(state){
       state.editItem = {} as getPostsType
     },
-    SET_CURRENT_POST(state,{payload}:{payload:getOnePostType}){
+    SET_CURRENT_POST(state,{payload}:{payload:getPostsType}){
       state.currentPost = payload
     },
 	},
