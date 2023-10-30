@@ -7,7 +7,7 @@ import { emailValidator, passwordValidator } from '@/utils/formHandlers'
 import { useForm } from "@mantine/form"
 import useStore from '@/hooks/useStore'
 import { AppHandlerNotification, SetIsAuth, SetNotification, SetUser } from '@/store/actions'
-import { login } from '@/api'
+import { login, verifyApiHealth } from '@/api'
 
 const LoginInitialValues = {
   email: '',
@@ -35,6 +35,20 @@ const LoginForm = () => {
     email: string
     password: string
   }
+
+  const getApiHealth = async () => {
+    try {
+      const res = await verifyApiHealth()
+      console.log(res.status)
+      if(res.status !== 'ok'){
+        throw new Error('Api is down')
+      } 
+    } catch (error) {
+      dispatch(AppHandlerNotification('500: Server is offline',{
+        notificationType: 'error',
+      }))
+    }
+  }
   const handleFormSubmit = async ({
     email,
     password
@@ -50,6 +64,7 @@ const LoginForm = () => {
       dispatch(AppHandlerNotification('Invalid Email or Password',{
         notificationType: 'error',
       }))
+      getApiHealth()
     }
     // dispatch(SetIsAuth(true))
   }

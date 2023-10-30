@@ -25,6 +25,7 @@ const AuthProvider = (
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const LoadUserInfos = async () => {
     try {
       const res = await getUserByToken()
@@ -43,11 +44,21 @@ const AuthProvider = (
     }
   },[])
 
+  
   useEffect(() => {
-    if(!states.Auth.isAuth){
-      localStorage.removeItem('token')
+    const token = getToken()
+    console.log(token)
+    if(token){
+      LoadUserInfos()
     }
-  },[states.Auth.isAuth])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[states.Users, states.Comment, states.Post, states.App])
+
+  // useEffect(() => {
+  //   if(!states.Auth.isAuth){
+  //     localStorage.removeItem('token')
+  //   }
+  // },[states.Auth.isAuth])
 
   return (
     <>{children}</>

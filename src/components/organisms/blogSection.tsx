@@ -2,7 +2,6 @@ import React from 'react'
 import ContainerBox from '../atoms/containerBox'
 import CustomText from '../atoms/customText'
 import ListBlogItems from '../molecules/listBlogItems'
-import SeeMore from '../molecules/seeMore'
 import Link from 'next/link'
 
 const BlogSection = () => {

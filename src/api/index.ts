@@ -1,14 +1,21 @@
-import useStore from "@/hooks/useStore";
-
 const url = 'http://localhost:3333';
 
-const checkIfToken = () => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    throw new Error('Token not found in localStorage');
+
+export const verifyApiHealth = async () => {
+  const response = await fetch(`${url}/health`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) {
+    throw new Error('Api is not healthy');
   }
-  return token;
-}
+  const res = await response.json();
+  return res;
+};
+
+
 
 export type paginationDefault = {
   page: number;
