@@ -25,6 +25,12 @@ export const SetNotificationType = (value: AppNotificationType) => {
 export const AppHandlerNotification = (value: string, type: AppNotificationType) => {
   return AppActions.HANDLER_NOTIFICATION({value,type})
 }
+export const SetTableOrderBy = (value: string) => {
+  return AppActions.SET_TABLE_ORDER_BY(value)
+}
+export const SetTableOrder = (value: 'asc' | 'desc') => {
+  return AppActions.SET_TABLE_ORDER(value)
+}
 
 
 export const SetIsAuth = (value: boolean) => {
@@ -89,4 +95,10 @@ export const CommentSetTotalPages = (value: number) => {
 }
 export const CommentSetIsLoading = (value: boolean) => {
   return CommentActions.SET_IS_LOADING(value)
+}
+export const CommentSetEditItem = (value: commentType) => {
+  return CommentActions.SET_EDIT_ITEM(value)
+}
+export const CommentCancelEditItem = () => {
+  return CommentActions.CANCEL_EDIT_ITEM()
 }

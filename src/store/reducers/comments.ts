@@ -8,6 +8,7 @@ interface commentState {
   currentPage: number
   totalPages: number
   isLoading: boolean
+  editItem: commentType
 }
 const initialState: commentState = {
   comments: {
@@ -16,6 +17,7 @@ const initialState: commentState = {
   currentPage: 1,
   totalPages: 1,
   isLoading: true,
+  editItem: {} as commentType,
 }
 
 export const CommentSlice = createSlice({
@@ -33,6 +35,12 @@ export const CommentSlice = createSlice({
     },
     SET_IS_LOADING(state,{payload}:{payload:boolean}){
       state.isLoading = payload
+    },
+    SET_EDIT_ITEM(state,{payload}:{payload:commentType}){
+      state.editItem = payload
+    },
+    CANCEL_EDIT_ITEM(state){
+      state.editItem = {} as commentType
     },
 	},
 });

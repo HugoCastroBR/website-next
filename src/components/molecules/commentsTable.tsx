@@ -1,26 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { getUsers, getUserType } from '@/api'
-import { SetUsers, UserSetTotalPages, UserSetIsLoading,UserSetEditItem,UserSetCurrentPage } from '@/store/actions'
-import { Pagination, Table, Group,Button,Modal } from '@mantine/core'
-import React,{useEffect} from 'react'
+import { getComments,getCommentsByUserId,commentType } from '@/api'
+import page from '@/app/[lang]/profile/page'
 import useStore from '@/hooks/useStore'
+import { CommentSetComments, CommentSetCurrentPage, CommentSetEditItem, CommentSetIsLoading, CommentSetTotalPages } from '@/store/actions'
+import { Pagination, Table, Group,Button,Modal } from '@mantine/core'
+import React,{useEffect } from 'react'
 import RowsPerPageSelect from './rowsPerPageSelect'
 
-
-
-interface Props {
+interface Props{
   onClickEdit: () => void
   onClickDelete: (id:number) => void
 }
-const UsersTable = ({
-  onClickEdit,
-  onClickDelete
-}:Props) => {
+const CommentsTable = (
+  {
+    onClickEdit,
+    onClickDelete
+  }:Props
+) => {
 
   const [isDelete, setIsDelete] = React.useState(false)
   const [deleteItemId, setDeleteItemId] = React.useState<undefined | number>(undefined)
-  const [pageUsers, setPageUsers] = React.useState<getUserType[]>([])
+  const [pageComments, setPageComments] = React.useState<commentType[]>([])
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
   const { states, dispatch } = useStore()
@@ -44,49 +45,55 @@ const UsersTable = ({
   }
 
   const HandlerChangePage = (page:number) => {
-    dispatch(UserSetCurrentPage(page))
+    dispatch(CommentSetCurrentPage(page))
   }
 
-  const handlerEdit = (user:getUserType) => {
+  const handlerEdit = (comment:commentType) => {
     onClickEdit()
-    dispatch(UserSetIsLoading(true))
-    dispatch(UserSetEditItem(user))
+    dispatch(CommentSetIsLoading(true))
+    dispatch(CommentSetEditItem(comment))
   }
 
-  const getUsersData = async () => {
+  const getUserId = async () => {
+    return await states.Auth.user.id
+  }
+  const getCommentsData = async () => {
     try {
-      const res = await getUsers(states.Users.currentPage,rowsPerPage)
-      dispatch(SetUsers(res.data))
-      dispatch(UserSetTotalPages(res.totalPages))
-      setPageUsers(res.data)
+      const UserId = await getUserId()
+      const res = await getCommentsByUserId(states.Comment.currentPage,UserId,rowsPerPage)
+      dispatch(CommentSetComments(res.data))
+      dispatch(CommentSetTotalPages(res.totalPages))
+      setPageComments(res.data)
     } catch (error) {
       console.log(error)
     }
-    dispatch(UserSetIsLoading(false))
+    dispatch(CommentSetIsLoading(false))
   }
 
-  useEffect(() => {getUsersData()}, [])
-  useEffect(() => {getUsersData()}, [states.Users.currentPage])
-  useEffect(() => {getUsersData()}, [states.Users.isLoading])
-  useEffect(() => {getUsersData()}, [rowsPerPage])
+  useEffect(() => {
+    dispatch(CommentSetIsLoading(true))
+    dispatch(CommentSetCurrentPage(1))
+  }, [])
+  useEffect(() => {getCommentsData()}, [states.Comment.currentPage])
+  useEffect(() => {getCommentsData()}, [states.Comment.isLoading])
+  useEffect(() => {getCommentsData()}, [rowsPerPage])
 
-
-  const row = (user:getUserType) => {
+  const row = (comment:commentType) => {
     return (
-      <Table.Tr key={user.id}>
-          <Table.Td>{user.id}</Table.Td>
-          <Table.Td>{user.name}</Table.Td>
-          <Table.Td>{new Date(user.createdAt).toLocaleDateString()}</Table.Td>
-          <Table.Td>{new Date(user.updatedAt).toLocaleDateString()}</Table.Td>
+      <Table.Tr key={comment.id}>
+          <Table.Td>{comment.id}</Table.Td>
+          <Table.Td>{comment.content}</Table.Td>
+          <Table.Td>{new Date(comment.createdAt).toLocaleDateString()}</Table.Td>
+          <Table.Td>{new Date(comment.updatedAt).toLocaleDateString()}</Table.Td>
           <Table.Td>
             <div className='w-full flex justify-around'>
               <Button size='xs' onClick={
-                () => handlerEdit(user)
+                () => handlerEdit(comment)
               }>
                 <span className='i-mdi-edit text-lg'></span>
               </Button>
               <Button size='xs' color='red' onClick={
-                () => HandlerDelete(user.id)
+                () => HandlerDelete(comment.id)
               }>
                 <span className='i-mdi-delete text-lg'></span>
               </Button>
@@ -97,8 +104,8 @@ const UsersTable = ({
   }
 
   const generateRows = () => {
-    return pageUsers.map((user) => {
-      return row(user)
+    return pageComments.map((comment) => {
+      return row(comment)
     })
   }
 
@@ -108,7 +115,7 @@ const UsersTable = ({
     >
       <Modal opened={isDelete} onClose={() => {setIsDelete(false)}} title="Delete Confirm">
         <div>
-          <p>Are you sure you want to delete this user?</p>
+          <p>Are you sure you want to delete this comment?</p>
           <div className='flex justify-end mt-4'>
             <Button onClick={handlerCancelDelete} className='m-2'>
               Cancel
@@ -126,7 +133,7 @@ const UsersTable = ({
       >
         <Table.Thead>
           <Table.Th>Id</Table.Th>
-          <Table.Th>Name</Table.Th>
+          <Table.Th>Content</Table.Th>
           <Table.Th>Created At</Table.Th>
           <Table.Th>Updated At</Table.Th>
           <Table.Th 
@@ -134,12 +141,12 @@ const UsersTable = ({
           >Options</Table.Th>
         </Table.Thead>
         <Table.Tbody>
-        {generateRows()}
+          {generateRows()}
         </Table.Tbody>
       </Table>
       <div className='flex justify-between items-end p-2 mt-4'>
-      <RowsPerPageSelect handlerRowsPerPage={setRowsPerPage}/>
-      <Pagination.Root total={states.Users.totalPages} onChange={HandlerChangePage}>
+        <RowsPerPageSelect handlerRowsPerPage={setRowsPerPage}/>
+        <Pagination.Root total={states.Comment.totalPages} onChange={HandlerChangePage}>
           <Group gap={2} justify="center">
             <Pagination.Previous />
             <Pagination.Items 
@@ -153,4 +160,4 @@ const UsersTable = ({
   )
 }
 
-export default UsersTable
+export default CommentsTable

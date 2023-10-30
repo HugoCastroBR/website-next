@@ -13,6 +13,8 @@ type IAppSlice =  AppNotificationType &{
 	isNotificationOpen: boolean;
 	notificationMessage: string;
 	notificationType: 'success' | 'error' | 'warning' | 'info' ;
+	tableOrderBy?: string;
+	tableOrder?: 'asc' | 'desc';
 }
 
 export const AppSlice = createSlice({
@@ -24,6 +26,8 @@ export const AppSlice = createSlice({
 		isNotificationOpen: false,
 		notificationMessage: '',
 		notificationType: 'success',
+		tableOrderBy: 'id',
+		tableOrder: 'asc',
 	} as IAppSlice,
 	reducers: {
 		SET_DARK_MODE(state,{payload}:{payload:boolean}){
@@ -48,6 +52,12 @@ export const AppSlice = createSlice({
 			state.isNotificationOpen = true
 			state.notificationMessage = payload.value
 			state.notificationType = payload.type.notificationType
-		}
+		},
+		SET_TABLE_ORDER_BY(state,{payload}:{payload:string}){
+			state.tableOrderBy = payload
+		},
+		SET_TABLE_ORDER(state,{payload}:{payload:'asc' | 'desc'}){
+			state.tableOrder = payload
+		},
 	},
 });

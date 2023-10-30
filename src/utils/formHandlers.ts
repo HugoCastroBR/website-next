@@ -33,6 +33,14 @@ export const subTitleValidator = (subTitle:string | null) => {
   if(subTitle === null) return false
   if(subTitle === '') return 'SubTitle is required'
   if(subTitle.length < 3) return 'SubTitle must be at least 3 characters'
-  if(subTitle.length > 256) return 'SubTitle must be less than 128 characters'
+  if(subTitle.length > 256) return 'SubTitle must be less than 256 characters'
+  return false
+}
+
+export const contentValidator = (content:string | null) => {
+  if(content === null) return false
+  if(content === '') return 'Content is required'
+  if(content.length < 3) return 'Content must be at least 3 characters'
+  if(content.length > 256) return 'Content must be less than 256 characters'
   return false
 }

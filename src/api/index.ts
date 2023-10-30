@@ -129,11 +129,11 @@ export type getPostsRes = paginationDefault & {
 }
 
 //need token
-export const getPosts = async (page: number):Promise<getPostsRes> => {
-  const itemsPerPage = 10
+export const getPosts = async (page: number,itemsPerPage?:number):Promise<getPostsRes> => {
+
 
   const response = await fetch(
-    `${url}/posts?page=${page}&itemsPerPage=${itemsPerPage}`,
+    `${url}/posts?page=${page}&itemsPerPage=${itemsPerPage || 10}`,
     {
     method: 'GET',
     headers: {
@@ -268,16 +268,15 @@ export type getUsersRes = paginationDefault & {
 
 //need token
 
-export const getUsers = async (page: number):Promise<getUsersRes> => {
+export const getUsers = async (page: number,itemsPerPage?:number):Promise<getUsersRes> => {
   const token = localStorage.getItem('token');
 
-  const itemsPerPage = 10
   if (!token) {
     throw new Error('Token not found in localStorage');
   }
 
   const response = await fetch(
-    `${url}/users?page=${page}&itemsPerPage=${itemsPerPage}`,
+    `${url}/users?page=${page}&itemsPerPage=${itemsPerPage || 10}`,
     {
     method: 'GET',
     headers: {
@@ -383,22 +382,22 @@ export type commentType = {
   content: string;
   createdAt: string;
   updatedAt: string;
-  authorName: string;
+  authorName?: string;
   authorId: number;
+  postTitle?: string;
 }
 
 export type getCommentsRes = paginationDefault & {
   data: commentType[];
 }
 
-export const getComments = async (page: number, postId: number):
+export const getComments = async (page: number, postId: number,itemsPerPage?:number):
 Promise<getCommentsRes> => 
 {
 
-  const itemsPerPage = 10
 
   const response = await fetch(
-    `${url}/comments/post/${postId}?page=${page}&itemsPerPage=${itemsPerPage}`,
+    `${url}/comments/post/${postId}?page=${page}&itemsPerPage=${itemsPerPage || 10}`,
     {
     method: 'GET',
     headers: {
@@ -408,6 +407,30 @@ Promise<getCommentsRes> =>
 
   if (!response.ok) {
     throw new Error('Get comments failed');
+  }
+
+  const res = await response.json();
+  return res;
+}
+
+export type getOneCommentReq = {
+  content: string
+}
+
+export const getCommentsByUserId = async (page: number, userId: number,itemsPerPage?:number):
+Promise<getCommentsRes> => {
+
+  const response = await fetch(
+    `${url}/comments/user/${userId}?page=${page}&itemsPerPage=${itemsPerPage || 10}`,
+    {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Get comments by user id failed');
   }
 
   const res = await response.json();
@@ -443,3 +466,56 @@ export const postComment = async (data: postCommentType):Promise<postCommentType
   return res;
 }
 
+export const deleteComment = async(id:number) => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    throw new Error('Token not found in localStorage');
+  }
+
+  const response = await fetch(`${url}/comments/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`, 
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Delete comment failed');
+  }
+
+  const res = await response.json();
+  return res;
+}
+
+
+
+export type patchCommentType = {
+  id: number;
+  content: string;
+}
+
+export const patchComment = async (data: patchCommentType):Promise<commentType> => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    throw new Error('Token not found in localStorage');
+  }
+
+  const response = await fetch(`${url}/comments/${data.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`, 
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    throw new Error('Patch comment failed');
+  }
+
+  const res = await response.json();
+  return res;
+}
