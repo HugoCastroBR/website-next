@@ -3,6 +3,7 @@ import CustomNavBar from '@/components/organisms/customNavBar';
 import CustomHeader from '@/components/organisms/customHeader';
 import CustomFooter from '@/components/organisms/customFooter';
 import HomeContent from '@/components/organisms/homeContent';
+import FloatNotification from '../molecules/floatNotification';
 
 interface Props {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ export default function PageContainer({children,linksRouter}: Props) {
       <div>
         <CustomNavBar />
         <CustomHeader linksRouter={true} />
+        <FloatNotification />
       </div>
       <div className="xl:px-80 px-0 max">
       {children}

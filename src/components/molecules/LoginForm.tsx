@@ -6,7 +6,7 @@ import { Button, em } from '@mantine/core'
 import { emailValidator, passwordValidator } from '@/utils/formHandlers'
 import { useForm } from "@mantine/form"
 import useStore from '@/hooks/useStore'
-import { SetIsAuth, SetUser } from '@/store/actions'
+import { AppHandlerNotification, SetIsAuth, SetNotification, SetUser } from '@/store/actions'
 import { login } from '@/api'
 
 const LoginInitialValues = {
@@ -46,7 +46,10 @@ const LoginForm = () => {
       console.log(res.data)
       dispatch(SetUser(res.data.user))
     } catch (error) {
-      console.log(error)
+      dispatch(SetIsAuth(false))
+      dispatch(AppHandlerNotification('Invalid Email or Password',{
+        notificationType: 'error',
+      }))
     }
     // dispatch(SetIsAuth(true))
   }

@@ -1,6 +1,7 @@
 
 import { AppActions,AuthActions,PostActions, UsersActions, CommentActions } from './index';
 import {  commentType, getPostsType, getUser, getUserType } from '@/api';
+import { AppNotificationType } from './reducers/app';
 
 
 export const SetDarkMode = (value: boolean) => {
@@ -12,6 +13,19 @@ export const SetSideMenu = (value: boolean) => {
 export const SetNewItemModal = (value: boolean) => {
   return AppActions.SET_NEW_ITEM_MODAL(value)
 }
+export const SetNotification = (value: boolean) => {
+  return AppActions.SET_NOTIFICATION(value)
+}
+export const SetNotificationMessage = (value: string) => {
+  return AppActions.SET_NOTIFICATION_MESSAGE(value)
+}
+export const SetNotificationType = (value: AppNotificationType) => {
+  return AppActions.SET_NOTIFICATION_TYPE(value)
+}
+export const AppHandlerNotification = (value: string, type: AppNotificationType) => {
+  return AppActions.HANDLER_NOTIFICATION({value,type})
+}
+
 
 export const SetIsAuth = (value: boolean) => {
   return AuthActions.SET_IS_AUTH(value)
