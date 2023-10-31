@@ -4,7 +4,7 @@ import SideSettingsContent from '../molecules/sideSettingsContent'
 
 const SideSettings = () => {
   return (
-    <AccordionContainer 
+    <AccordionContainer
       title='Settings'
       value='settings'
     >

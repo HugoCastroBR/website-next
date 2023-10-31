@@ -31,15 +31,15 @@ const CollapseContainerBox = ({
         >
           {items}
         </section>
-        
+
       </div>
       <div className='flex w-full pb-6 flex-col items-center justify-center overflow-hidden'>
-      <SeeMore
-        onClick={onClick}
-        text={isOpen ? 'See Less' : 'See More'}
-      />
-    </div>
-  </>
+        <SeeMore
+          onClick={onClick}
+          text={isOpen ? 'See Less' : 'See More'}
+        />
+      </div>
+    </>
   )
 }
 

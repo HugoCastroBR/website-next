@@ -1,5 +1,4 @@
 'use client'
-import { commentType, postType, userType } from '@/types'
 import React, { useEffect } from 'react'
 import BlogItem from './blogItem'
 import CarouselContainer from '../atoms/carouselContainer';
@@ -11,7 +10,7 @@ import { Loader } from '@mantine/core';
 
 
 const NoItemsFound = () => {
-  return(
+  return (
     <div className='flex flex-col h-90 py-10 justify-center items-center'>
       <span className='
         i i-mdi-alert-circle-outline py-2 my-4
@@ -32,9 +31,9 @@ const NoItemsFound = () => {
 const generateBlogItems = (posts: getPostsType[]) => {
 
 
-  if(posts.length > 0){
-    return posts.map((post,index) => {
-      return(
+  if (posts.length > 0) {
+    return posts.map((post, index) => {
+      return (
         <BlogItem
           key={index}
           title={post.title}
@@ -51,50 +50,53 @@ const generateBlogItems = (posts: getPostsType[]) => {
       )
     })
   }
-  
+
 
 }
 
 
 const ListBlogItems = () => {
-  const {states,dispatch} = useStore()
+  const { states, dispatch } = useStore()
 
   const getPostsData = async () => {
     try {
       dispatch(PostSetIsLoading(true))
-      const res = await getPosts(1)
+      const res = await getPosts({
+        page: states.Post.currentPage,
+        itemsPerPage: 10
+      })
       dispatch(AddPosts(res.data))
     } catch (error) {
-      dispatch(AppHandlerNotification('404: No Posts Found',{
+      dispatch(AppHandlerNotification('404: No Posts Found', {
         notificationType: 'error',
       }))
     }
     dispatch(PostSetIsLoading(false))
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getPostsData()
-  },[])
+  }, [])
 
-  if(states.Post.isLoading){
-    return(
-      <Loader/>
+  if (states.Post.isLoading) {
+    return (
+      <Loader />
     )
   }
-  if(states.Post.posts.length === 0){
-    return(
+  if (states.Post.posts.length === 0) {
+    return (
       <CustomText
         text='No posts found'
       />
     )
   }
 
-  if(!states.Post.posts.length){
-    return(
-      <NoItemsFound/>
+  if (!states.Post.posts.length) {
+    return (
+      <NoItemsFound />
     )
   }
-  
+
 
   return (
     <CarouselContainer

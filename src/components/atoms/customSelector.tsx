@@ -8,14 +8,14 @@ interface OptionProps {
 }
 
 interface SelectorProps {
-  options : OptionProps[]
+  options: OptionProps[]
   className?: string
 }
 
 const CustomSelector = ({
   options,
   className,
-}:SelectorProps) => {
+}: SelectorProps) => {
   return (
     <form>
       <select

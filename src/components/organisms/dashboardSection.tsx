@@ -2,8 +2,7 @@
 import React, { useEffect } from 'react'
 import ContainerBox from '../atoms/containerBox'
 import CustomText from '../atoms/customText'
-import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button, Divider, Avatar } from '@mantine/core';
+import { Button, Divider, Avatar } from '@mantine/core';
 import useStore from '@/hooks/useStore';
 import { getOnlyInitials } from '@/utils/textHandlers';
 import { getStatistics } from '@/api';
@@ -12,7 +11,7 @@ import { convertSecondsToMinutes } from '@/utils/dateHandlers';
 const DashBoardSection = () => {
 
 
-  const {states} = useStore()
+  const { states } = useStore()
   const [uptime, setUptime] = React.useState(0)
   const [totalPosts, setTotalPosts] = React.useState(0)
   const [totalComments, setTotalComments] = React.useState(0)
@@ -28,14 +27,14 @@ const DashBoardSection = () => {
 
   useEffect(() => {
     loadStatistics()
-  },[])
+  }, [])
 
   return (
     <section className='pl-2 pr-3'>
       <ContainerBox className='flex flex-col w-full min-h-screen'>
         <CustomText
           className='text-start dark:text-gray-100 text-gray-900 text-3xl font-mono font-bold pb-4 pt-4'
-          text='DashBoard' 
+          text='DashBoard'
         />
         <Divider />
         <div className='py-4 flex w-full  items-center'>
@@ -47,11 +46,11 @@ const DashBoardSection = () => {
               className='text-start dark:text-gray-200 text-gray-800 text-xl font-semibold ml-4'
               text={states.Auth.user.name}
             />
-              <CustomText
+            <CustomText
               className='text-start dark:text-gray-300 text-gray-700 text-base font-medium ml-4'
               text={states.Auth.user.email}
             />
-            
+
             <CustomText
               className='text-start dark:text-gray-300 text-gray-700 text-sm font-medium ml-4'
               text={`Role: ${states.Auth.user.isAdmin ? 'Admin' : 'User'}`}
@@ -63,27 +62,27 @@ const DashBoardSection = () => {
           <div className='flex flex-col border-2 rounded dark:border-gray-500 border-gray-900 py-4'>
             <CustomText
               className='text-start dark:text-gray-100 text-gray-900 text-2xl font-mono font-bold pb-4 pt-4 pl-4'
-              text='About' 
+              text='About'
             />
             <CustomText
               className='text-start dark:text-gray-300 text-gray-700 text-base font-medium ml-4'
-              text='This is a simple blog made with Next.js and Mantine.' 
+              text='This is a simple blog made with Next.js and Mantine.'
             />
             <CustomText
               className='text-start dark:text-gray-300 text-gray-700 text-base font-medium ml-4'
-              text='It has a simple dashboard to manage the posts, comments and users.' 
+              text='It has a simple dashboard to manage the posts, comments and users.'
             />
             <CustomText
               className='text-start dark:text-gray-300 text-gray-700 text-base font-medium ml-4'
-              text='It also has a simple authentication system.' 
+              text='It also has a simple authentication system.'
             />
             <CustomText
               className='text-start dark:text-gray-300 text-gray-700 text-base font-medium ml-4'
-              text='It uses a simple store to manage the states.' 
+              text='It uses a simple store to manage the states.'
             />
             <CustomText
               className='text-start dark:text-gray-300 text-gray-700 text-base font-medium ml-4'
-              text='It uses a simple api to manage the data.' 
+              text='It uses a simple api to manage the data.'
             />
           </div>
           <div className='flex flex-col border-2 rounded dark:border-gray-500 border-gray-900 py-4 my-2'>

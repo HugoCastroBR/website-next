@@ -1,20 +1,18 @@
 import React from 'react'
-import { Avatar, Blockquote, Divider } from '@mantine/core'
+import { Avatar, Blockquote } from '@mantine/core'
 import CustomText from '../atoms/customText'
 import { getOnlyInitials } from '@/utils/textHandlers';
 
-interface CommentProps{
-  id:number;
-  authorName:string;
-  text:string;
-  createdAt:string;
+interface CommentProps {
+  authorName: string;
+  text: string;
+  createdAt: string;
 }
 const CommentBlock = ({
-  id,
   authorName,
   text,
   createdAt
-}:CommentProps
+}: CommentProps
 ) => {
   return (
     <Blockquote color="rgba(0, 0, 0, 1)"

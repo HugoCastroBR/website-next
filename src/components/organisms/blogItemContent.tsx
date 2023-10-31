@@ -1,5 +1,5 @@
-import { postType } from '@/types';
-import React, { use, useEffect } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react'
 import ContainerBox from '../atoms/containerBox';
 import BlogItemHeader from '../molecules/blogItemHeader';
 import BlogItemComments from '../molecules/blogItemComments';
@@ -7,6 +7,7 @@ import useStore from '@/hooks/useStore';
 import { getComments, getOnePost, postComment, postCommentType } from '@/api';
 import { PostSetIsLoading, PostSetCurrentPost, CommentSetComments, CommentSetIsLoading, CommentSetTotalPages } from '@/store/actions';
 import { Group, Loader, Pagination } from '@mantine/core';
+import { commentType } from '@/types';
 
 interface BlogItemContentProps {
   id:number;
@@ -71,12 +72,9 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
     })
   }
 
-
   if(states.Post.isLoading){
     <Loader/>
   }
-
-  
 
   return (
     <>
@@ -89,11 +87,11 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
           <BlogItemComments
             postId={states.Post.currentPost.id}
             isLoading={states.Comment.isLoading}
-            comments={states.Comment.comments || []}
-            totalComments={states.Post.currentPost.totalComments || 0}
+            comments={states.Comment.comments as unknown as commentType[]}
+            totalComments={states.Post.currentPost.totalComments ?? 0}
             newComment={HandlerPostComment}
             isAuth={states.Auth.isAuth}
-            authorName={states.Auth.user.name}
+            authorName={states.Auth.user.name!} // Use non-null assertion operator to assert that authorName is not undefined
           />
           {states.Comment.comments.length > 0 &&
             <Pagination.Root total={states.Comment.totalPages} onChange={

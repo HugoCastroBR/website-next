@@ -8,8 +8,8 @@ const ContactSection = () => {
     <ContainerBox id="contact" className='flex flex-col justify-start items-start'>
       <CustomText
         className='text-center dark:text-gray-100 text-gray-900 text-3xl font-mono font-bold'
-        text='Contact'/>
-    <ContactList/>
+        text='Contact' />
+      <ContactList />
     </ContainerBox>
   )
 }

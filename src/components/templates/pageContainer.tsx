@@ -2,7 +2,6 @@ import React from 'react';
 import CustomNavBar from '@/components/organisms/customNavBar';
 import CustomHeader from '@/components/organisms/customHeader';
 import CustomFooter from '@/components/organisms/customFooter';
-import HomeContent from '@/components/organisms/homeContent';
 import FloatNotification from '../molecules/floatNotification';
 
 interface Props {
@@ -10,9 +9,9 @@ interface Props {
   linksRouter?: boolean;
 }
 
-export default function PageContainer({children,linksRouter}: Props) {
-  
-  
+export default function PageContainer({ children, linksRouter }: Props) {
+
+
   return (
     <div className='
     flex flex-col justify-start bg-gradient-to-t
@@ -26,10 +25,10 @@ export default function PageContainer({children,linksRouter}: Props) {
         <FloatNotification />
       </div>
       <div className="xl:px-80 px-0 max">
-      {children}
+        {children}
       </div>
       <div>
-      <CustomFooter />
+        <CustomFooter />
       </div>
     </div>
   )

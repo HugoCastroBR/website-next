@@ -1,6 +1,6 @@
 import React from 'react'
 import CustomText from '../atoms/customText'
-import { Avatar, Blockquote, Divider, Group, Loader, Pagination } from '@mantine/core'
+import {  Blockquote, Divider, Loader } from '@mantine/core'
 import CommentBlock from './commentBlock';
 import NewCommentBlock, { newCommentProps } from './newCommentBlock';
 import { commentType } from '@/types';
@@ -48,20 +48,20 @@ const BlogItemComments = (
           text='Comments:'
         />
         {totalComments === 0 ?
-        <div>
-          <CustomText
-            className="text-md italic my-2 font-normal  text-gray-800 dark:text-gray-300"
-            text='No comments yet'
-          />
-           <span className="i-mdi-emoticon-sad-outline text-2xl -mb-1 ml-2"></span>
-        </div>
-        :
+          <div>
+            <CustomText
+              className="text-md italic my-2 font-normal  text-gray-800 dark:text-gray-300"
+              text='No comments yet'
+            />
+            <span className="i-mdi-emoticon-sad-outline text-2xl -mb-1 ml-2"></span>
+          </div>
+          :
           <CustomText
             className="text-sm italic -mt-1 font-normal  text-gray-800 dark:text-gray-300"
             text={`Total: ${totalComments}`}
           />
         }
-        
+
       </div>
       <div className="p-2">
         {isAuth ?
@@ -100,7 +100,6 @@ const BlogItemComments = (
             <CommentBlock
               authorName={comment.authorName}
               createdAt={new Date(comment.createdAt).toLocaleString().replace(',', ' -')}
-              id={comment.id}
               text={comment.content}
               key={index}
             />

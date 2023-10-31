@@ -59,7 +59,10 @@ const UserForm = ({
         isAdmin: newUser.isAdmin
       }
       await postUser(data)
-      await getUsers(1);
+      await getUsers({
+        page: states.Users.currentPage,
+        itemsPerPage: 10
+      });
       dispatch(UserSetIsLoading(true))
       onClose(isEdit)
 

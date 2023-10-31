@@ -1,7 +1,6 @@
 import React from 'react'
 import ContainerBox from '../atoms/containerBox'
 import CustomText from '../atoms/customText'
-import RepositoryCard from '../atoms/repositoryCard'
 import ListReposGithub from '../molecules/listReposGithub'
 
 const ProjectsSection = () => {

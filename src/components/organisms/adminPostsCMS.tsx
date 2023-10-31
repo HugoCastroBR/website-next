@@ -5,7 +5,6 @@ import ContainerBox from '../atoms/containerBox'
 import PostsTable from '../molecules/postsTable';
 import AdminCrudHeader from '../molecules/adminCrudHeader';
 import PostsForm from '../molecules/postsForm';
-import CustomModal from '../atoms/customModal';
 import useStore from '@/hooks/useStore'
 import { PostCancelEditItem, PostSetIsLoading, SetNewItemModal } from '@/store/actions';
 import { deletePost } from '@/api';
@@ -14,10 +13,7 @@ import { useDisclosure } from '@mantine/hooks';
 
 const Posts = () => {
 
-  
-  const { states, dispatch } = useStore()
-
-  
+  const { dispatch } = useStore()
 
   const HandlerDelete = async (id: number) => {
     console.log(id)
@@ -31,8 +27,8 @@ const Posts = () => {
     title: string
   }
 
-  let [opened, { open, toggle,close }] = useDisclosure(false);
-  const AdminPostModal = ({children,title}:modalProps) => {
+  let [opened, { open, toggle, close }] = useDisclosure(false);
+  const AdminPostModal = ({ children, title }: modalProps) => {
     return (
       <Modal opened={opened} onClose={toggle} title={title}
         size="80%"
@@ -50,24 +46,19 @@ const Posts = () => {
     )
   }
 
-
-  const HandlerCloseModal = async (editMode?:boolean) => {
-    if(editMode){
+  const HandlerCloseModal = async (editMode?: boolean) => {
+    if (editMode) {
       toggle()
       await dispatch(PostCancelEditItem())
       await dispatch(PostSetIsLoading(false))
-    }else{
+    } else {
       dispatch(SetNewItemModal(false))
-
     }
-    
   }
 
   const handlerOpenModal = () => {
     open()
   }
-
- 
 
   return (
     <div className='pl-2 pr-3'>

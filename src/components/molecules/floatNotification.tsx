@@ -42,7 +42,7 @@ const FloatNotification = () => {
   }
 
   const loaderHandler = () => {
-    
+
     const updateLoading = () => {
       setLoadingToClose((prevLoading => prevLoading + 0.420));
     };
@@ -63,16 +63,16 @@ const FloatNotification = () => {
 
   }
   useEffect(() => {
-    if(states.App.isNotificationOpen){
+    if (states.App.isNotificationOpen) {
       HandlerOpenNotification()
     }
   }, [states.App.isNotificationOpen]);
 
   useEffect(() => {
-    dispatch(AppHandlerNotification('This is an unstable version, report a bug',{
+    dispatch(AppHandlerNotification('This is an unstable version, report a bug', {
       notificationType: 'info',
     }))
-  },[])
+  }, [])
 
   const setBgColor = () => {
     switch (states.App.notificationType) {
@@ -89,26 +89,26 @@ const FloatNotification = () => {
     }
   }
 
-  const SuccessIcon =  () => {
-    return(
+  const SuccessIcon = () => {
+    return (
       <span className='i-mdi-check-circle-outline scale-150 text-3xl'></span>
     )
   }
 
-  const ErrorIcon =  () => {
-    return(
+  const ErrorIcon = () => {
+    return (
       <span className='i-mdi-alert-circle-outline scale-150 text-3xl'></span>
     )
   }
 
-  const WarningIcon =  () => {
-    return(
+  const WarningIcon = () => {
+    return (
       <span className='i-mdi-alert-outline scale-150 text-3xl'></span>
     )
   }
 
-  const InfoIcon =  () => {
-    return(
+  const InfoIcon = () => {
+    return (
       <span className='i-mdi-information-outline scale-150 text-3xl'></span>
     )
   }
@@ -116,19 +116,19 @@ const FloatNotification = () => {
 
   // dark:border-gray-700 border-gray-200
   // shadow-md drop-shadow-sm shadow-gray-300 dark:shadow-black
-  
+
   return (
     <div className={`
       fixed top-8 right-8 z-50 w-80 overflow-hidden 
       rounded-md border-2 
       ${states.App.isNotificationOpen ? 'block' : 'hidden'}
-      ${states.App.sideMenuIsOpen ? 
-          `
+      ${states.App.sideMenuIsOpen ?
+        `
           dark:border-gray-700 border-gray-200
           shadow-md drop-shadow-md shadow-gray-500 dark:shadow-black  
           `
-          :
-          `
+        :
+        `
           dark:border-gray-700 border-gray-200
           shadow-md drop-shadow-sm shadow-gray-300 dark:shadow-black 
           `
@@ -136,32 +136,32 @@ const FloatNotification = () => {
 
       
     `}>
-      <Notification 
-      radius="xs" 
-      icon={<HandlerIcon/>}
-      bg={setBgColor()}
-      py={16}
-      onClose={HandlerCloseNotification}
-      styles={{
-        closeButton: {
-          color: 'white',
-          scale: 1.2,
-          marginTop: -26,
-          marginRight: -10,
-          backgroundColor: 'transparent',
-        },
-      icon: {
-        backgroundColor: 'transparent',
-      }
-      }}
-    >
-      <CustomText
-        text={`${states.App.notificationMessage}`}
-        className='text-white text-sm font-medium '
-      />
-    </Notification>
+      <Notification
+        radius="xs"
+        icon={<HandlerIcon />}
+        bg={setBgColor()}
+        py={16}
+        onClose={HandlerCloseNotification}
+        styles={{
+          closeButton: {
+            color: 'white',
+            scale: 1.2,
+            marginTop: -26,
+            marginRight: -10,
+            backgroundColor: 'transparent',
+          },
+          icon: {
+            backgroundColor: 'transparent',
+          }
+        }}
+      >
+        <CustomText
+          text={`${states.App.notificationMessage}`}
+          className='text-white text-sm font-medium '
+        />
+      </Notification>
       <div className='w-full -mt-1 '>
-        <Progress value={loadingToClose} animated radius={0} color={setBgColor()} h={4}/>
+        <Progress value={loadingToClose} animated radius={0} color={setBgColor()} h={4} />
       </div>
     </div>
   )

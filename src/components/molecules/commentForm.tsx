@@ -1,12 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import React, {useEffect} from 'react'
 import CustomInput from '../atoms/customInput'
-import AdminRichTextEditor from './richTextEditor'
-import { Button, Switch } from '@mantine/core'
+import { Button,  } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { titleValidator, subTitleValidator, contentValidator } from '@/utils/formHandlers'
-import CustomText from '../atoms/customText'
-import {  getComments, patchComment, postCommentType,patchCommentType, getOneCommentReq } from '@/api'
+import { contentValidator } from '@/utils/formHandlers'
+import {  patchComment,patchCommentType } from '@/api'
 import useStore from '@/hooks/useStore'
 import { CommentCancelEditItem, CommentSetIsLoading } from '@/store/actions'
 
@@ -29,10 +28,6 @@ const CommentsForm = ({
 
 
 
-  // useEffect(()=>{
-  //   console.log(isEdit)
-  // },[isEdit])
-
   const form = useForm({
     validateInputOnChange: true,
     initialValues: InitialValues,
@@ -46,12 +41,8 @@ const CommentsForm = ({
       setIsEdit(true)
       form.setValues({
         content: states.Comment.editItem.content
-      
       })
-      
     }
-    console.log('aqui')
-    console.log(states.Comment.editItem)
   },[])
 
 

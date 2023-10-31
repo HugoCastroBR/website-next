@@ -1,18 +1,15 @@
-import { convertDate } from '@/utils/dateHandlers'
 import React from 'react'
 import CustomText from '../atoms/customText'
 
 interface CustomTextDataContainerProps {
   children?: React.ReactNode
-  className?: string
-  title: string 
+  title: string
 }
 
 const CustomTextDataContainer = ({
   children,
-  className,
   title,
-}:CustomTextDataContainerProps) => {
+}: CustomTextDataContainerProps) => {
   return (
     <div className='flex flex-col m-2'>
       <CustomText

@@ -3,7 +3,7 @@ import { contactType } from '@/types'
 import ContactItem from '../atoms/contactItem'
 
 
-const listOfContacts:contactType[] = [
+const listOfContacts: contactType[] = [
 
   {
     icon: 'i-mdi-linkedin',
@@ -36,14 +36,14 @@ const ContactList = () => {
 
   return (
     <div className='flex flex-col flex-wrap w-full h-full justify-evenly p-2 overflow-hidden'>
-        {listOfContacts.map((contact, index) => (
-          <ContactItem
-            key={index}
-            icon={contact.icon}
-            title={contact.title}
-            url={contact.url}
-          />
-        ))}
+      {listOfContacts.map((contact, index) => (
+        <ContactItem
+          key={index}
+          icon={contact.icon}
+          title={contact.title}
+          url={contact.url}
+        />
+      ))}
     </div>
   )
 }

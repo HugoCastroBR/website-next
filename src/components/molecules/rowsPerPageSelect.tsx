@@ -3,10 +3,10 @@ import React from 'react'
 import CustomText from '../atoms/customText'
 
 
-interface Props{
-  handlerRowsPerPage: (value:number) => void
+interface Props {
+  handlerRowsPerPage: (value: number) => void
 }
-const RowsPerPageSelect = ({handlerRowsPerPage}:Props) => {
+const RowsPerPageSelect = ({ handlerRowsPerPage }: Props) => {
   return (
     <div>
       <CustomText

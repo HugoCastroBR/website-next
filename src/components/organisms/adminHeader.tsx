@@ -15,7 +15,7 @@ const AdminHeader = () => {
         dark:text-gray-300 text-gray-900 px-6 hidden sm:block'
           text='Hugo Castro'
         />
-        </div>
+      </div>
       <AdminHeaderLinks />
     </header>
   )

@@ -21,7 +21,7 @@ const experienceData: ExperienceProps[] = [
     title: "Back-end Engineer",
     description: "As a back-end engineer, I play a crucial role in a team dedicated to meeting our clients' critical demands. My responsibilities include addressing emergency fixes and implementing solutions swiftly, in line with a Kanban-based project management process. My key competencies are centered around vital technologies such as Node.js, Go, Python, and efficient management of PostgreSQL databases. I am committed to ensuring our clients receive effective and high-quality solutions in a timely manner.",
     company: "HARMO",
-    skills: ["DevOps","Node.js", "Go", "Python", "PostgreSQL"],
+    skills: ["DevOps", "Node.js", "Go", "Python", "PostgreSQL"],
   },
   {
     startDate: new Date("2023-02-01"),
@@ -29,7 +29,7 @@ const experienceData: ExperienceProps[] = [
     title: "Full Stack Software Engineer",
     description: "During my time as a full-stack software engineer in a temporary contract, I played an essential role in defining the architecture needed for the international expansion of the system. My responsibilities included managing critical tasks, establishing efficient workflows, and creating detailed documentation. My contribution played a vital role in the project's success, ensuring the successful implementation of the new architecture and readiness to meet the needs of global expansion.",
     company: "QRPOINT",
-    skills: ["Algorithms","NodeJs","Javascript","Typescript","Documentation" ],
+    skills: ["Algorithms", "NodeJs", "Javascript", "Typescript", "Documentation"],
   },
   {
     startDate: new Date("2021-09-01"),

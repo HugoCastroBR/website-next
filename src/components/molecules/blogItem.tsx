@@ -1,13 +1,12 @@
 'use client'
-import { postType } from '@/types'
+
 import React from 'react'
 import ContainerBox from '../atoms/containerBox'
 import CustomText from '../atoms/customText'
 import { truncateText } from '@/utils/textHandlers'
 import { convertDate } from '@/utils/dateHandlers'
-import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
 import { getPostsType } from '@/api'
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 
 

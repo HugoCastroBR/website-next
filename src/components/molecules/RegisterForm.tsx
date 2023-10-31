@@ -24,7 +24,7 @@ interface RegisterFormProps {
 const RegisterForm = ({
   isEdit,
   editData,
-}:RegisterFormProps) => {
+}: RegisterFormProps) => {
 
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = React.useState(false)
@@ -39,13 +39,14 @@ const RegisterForm = ({
       email: emailValidator,
       password: passwordValidator,
       confirmPassword: passwordValidator
-  }})
+    }
+  })
 
-  const { states,dispatch } = useStore()
+  const { states, dispatch } = useStore()
 
   useEffect(() => {
     form.clearErrors()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [states.App.sideMenuIsOpen])
 
   interface handleFormSubmitProps {
@@ -59,8 +60,8 @@ const RegisterForm = ({
     email,
     password,
     confirmPassword
-  }:handleFormSubmitProps) => {
-    if(password !== confirmPassword){
+  }: handleFormSubmitProps) => {
+    if (password !== confirmPassword) {
       form.setErrors({
         confirmPassword: 'Passwords do not match'
       })
@@ -81,25 +82,24 @@ const RegisterForm = ({
       dispatch(SetIsAuth(true))
       dispatch(SetUser(res.data.user))
     } catch (error) {
-      console.log("aq")
-      dispatch(AppHandlerNotification('Email already in use',{
+      dispatch(AppHandlerNotification('Email already in use', {
         notificationType: 'error',
       }))
     }
   }
 
   return (
-    <form 
-    className='flex flex-col justify-between w-full h-full'
-    onReset={form.onReset}
-    onSubmit={form.onSubmit((form) => {
-      handleFormSubmit({
-        name: form.name,
-        email: form.email,
-        password: form.password,
-        confirmPassword: form.confirmPassword
-      })
-    })}
+    <form
+      className='flex flex-col justify-between w-full h-full'
+      onReset={form.onReset}
+      onSubmit={form.onSubmit((form) => {
+        handleFormSubmit({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+          confirmPassword: form.confirmPassword
+        })
+      })}
     >
       <CustomInput
         type='text'
@@ -158,9 +158,9 @@ const RegisterForm = ({
         }
       />
       <Button
-      type='submit'
-      className='mt-2'
-      disabled={!form.isValid()}
+        type='submit'
+        className='mt-2'
+        disabled={!form.isValid()}
       >
         {isEdit ? 'Update' : 'Register'}
       </Button>

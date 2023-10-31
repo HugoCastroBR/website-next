@@ -2,11 +2,11 @@
 'use client'
 import React, { useEffect } from 'react'
 import CustomInput from '../atoms/customInput'
-import { Button, em } from '@mantine/core'
+import { Button } from '@mantine/core'
 import { emailValidator, passwordValidator } from '@/utils/formHandlers'
 import { useForm } from "@mantine/form"
 import useStore from '@/hooks/useStore'
-import { AppHandlerNotification, SetIsAuth, SetNotification, SetUser } from '@/store/actions'
+import { AppHandlerNotification, SetIsAuth, SetUser } from '@/store/actions'
 import { login, verifyApiHealth } from '@/api'
 
 const LoginInitialValues = {

@@ -2,13 +2,12 @@ import React from 'react'
 import CustomText from '../atoms/customText'
 import SideMenu from './sideMenu'
 import HeaderLinks from './headerLinks'
-import DarkModeSwitch from '../molecules/darkModeSwitch'
 
 
 interface CustomHeaderProps {
   linksRouter?: boolean
 }
-const CustomHeader = ({linksRouter}:CustomHeaderProps) => {
+const CustomHeader = ({ linksRouter }: CustomHeaderProps) => {
   return (
     <header className='flex h-10 justify-between items-center
     border-b-2 border-gray-800 w-screen pl-4 dark:bg-gray-900 lg:pr-2 pr-0

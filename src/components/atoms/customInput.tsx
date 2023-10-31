@@ -10,11 +10,11 @@ interface CustomInputProps {
   placeholder: string
   className?: string
   error?: string | false,
-  onBlur?: (value:string) => void
+  onBlur?: (value: string) => void
   right?: React.ReactNode
   rightSectionPointerEvents?: 'all' | 'none',
   onClick?: () => void,
-  onChange?: (value:string) => void,
+  onChange?: (value: string) => void,
   defaultValue?: string
 }
 
@@ -29,13 +29,13 @@ const CustomInput = ({
   onClick,
   onChange,
   defaultValue
-}:CustomInputProps) => {
+}: CustomInputProps) => {
 
   const inputRef = React.useRef<HTMLInputElement>(null)
   const { states } = useStore()
 
   useEffect(() => {
-    if(inputRef?.current?.value){
+    if (inputRef?.current?.value) {
       inputRef.current.value = ''
     }
   }, [states.App.sideMenuIsOpen])
@@ -43,20 +43,20 @@ const CustomInput = ({
   return (
     <>
       <Input.Wrapper label={label} error={error}>
-        <Input 
-        error={error}
-        type={type} placeholder={placeholder} 
-        rightSectionPointerEvents={right ? 'all' : 'none'}
-        rightSection={right}
-        ref={inputRef}
-        defaultValue={defaultValue || ''}
-        onClick={onClick}
-        onChange={
-          (e) => onChange && onChange(e.currentTarget.value)
-        }
-        onBlur={
-          (e) => onBlur && onBlur(e.currentTarget.value)
-        } />
+        <Input
+          error={error}
+          type={type} placeholder={placeholder}
+          rightSectionPointerEvents={right ? 'all' : 'none'}
+          rightSection={right}
+          ref={inputRef}
+          defaultValue={defaultValue || ''}
+          onClick={onClick}
+          onChange={
+            (e) => onChange && onChange(e.currentTarget.value)
+          }
+          onBlur={
+            (e) => onBlur && onBlur(e.currentTarget.value)
+          } />
       </Input.Wrapper>
     </>
   )

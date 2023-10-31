@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from 'react'
-import { Card, Image, Text, Badge, Button, Group, Spoiler, Avatar, Loader, Divider } from '@mantine/core';
+import React from 'react'
+import { Avatar } from '@mantine/core';
 import CustomText from './customText';
 import { getOnlyInitials, isURLValid } from '@/utils/textHandlers';
 
@@ -24,7 +24,7 @@ const BlogCard = ({
 }: BlogCardProps
 ) => {
 
-  
+
 
   const NoImagePlaceHolder = () => {
     return (
@@ -40,10 +40,10 @@ const BlogCard = ({
     if (!isURLValid(imageUrl)) return (<NoImagePlaceHolder />)
     return (
       <img
-          className="object-cover sm:w-full sm:h-full w-80"
-          src={imageUrl}
-        />
-          )
+        className="object-cover sm:w-full sm:h-full w-80"
+        src={imageUrl}
+      />
+    )
   }
 
   return (
@@ -76,7 +76,7 @@ const BlogCard = ({
           />
         </div>
         <div className='flex items-end justify-start sm:w-full w-80   h-2/6'>
-          
+
           <CustomText
             className="mt-2 text-xs mr-1 text-gray-800 dark:text-gray-400"
             text={date || 'No Date'}

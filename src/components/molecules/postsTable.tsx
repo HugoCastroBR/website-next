@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { getPosts, getPostsType } from '@/api'
-import page from '@/app/[lang]/profile/page'
 import useStore from '@/hooks/useStore'
 import { AddPosts, PostSetCurrentPage, PostSetEditItem, PostSetIsLoading, PostSetTotalPages } from '@/store/actions'
-import { postType } from '@/types'
 import { Pagination, Table, Group, Button, Modal, Select } from '@mantine/core'
 import React, { useEffect } from 'react'
 import CustomText from '../atoms/customText'
@@ -136,12 +134,12 @@ const PostsTable = (
   }
 
 
-  if(pagePosts?.length === 0) return (
+  if (pagePosts?.length === 0) return (
     <div className=' my-2 py-6 w-full
       flex flex-col justify-center items-center  
       
-    ' 
-    > 
+    '
+    >
       <span className='i-mdi-note-off-outline text-6xl text-gray-800 dark:text-gray-200'></span>
       <CustomText
         className='text-center text-lg font-bold text-gray-800 dark:text-gray-200'
@@ -201,30 +199,30 @@ const PostsTable = (
             </div>
           </Table.Th>
           <Table.Th>
-          <div className='flex justify-between items-center cursor-pointer'
-            onClick={() => {
-              setOrderBy('createdAt')
-              setOrder(order === 'asc' ? 'desc' : 'asc')
-            }}
-          >
-            <CustomText
-              className='text-start  text-base font-mono font-bold'
-              text='Created At' />
-            {orderBy === 'createdAt' ? generateOrderIcon() : <NoFilterComponent />}
-          </div>
+            <div className='flex justify-between items-center cursor-pointer'
+              onClick={() => {
+                setOrderBy('createdAt')
+                setOrder(order === 'asc' ? 'desc' : 'asc')
+              }}
+            >
+              <CustomText
+                className='text-start  text-base font-mono font-bold'
+                text='Created At' />
+              {orderBy === 'createdAt' ? generateOrderIcon() : <NoFilterComponent />}
+            </div>
           </Table.Th>
           <Table.Th>
-          <div className='flex justify-between items-center cursor-pointer'
-            onClick={() => {
-              setOrderBy('updatedAt')
-              setOrder(order === 'asc' ? 'desc' : 'asc')
-            }}
-          >
-            <CustomText
-              className='text-start  text-base font-mono font-bold'
-              text='Updated At' />
-            {orderBy === 'updatedAt' ? generateOrderIcon() : <NoFilterComponent />}
-          </div>
+            <div className='flex justify-between items-center cursor-pointer'
+              onClick={() => {
+                setOrderBy('updatedAt')
+                setOrder(order === 'asc' ? 'desc' : 'asc')
+              }}
+            >
+              <CustomText
+                className='text-start  text-base font-mono font-bold'
+                text='Updated At' />
+              {orderBy === 'updatedAt' ? generateOrderIcon() : <NoFilterComponent />}
+            </div>
           </Table.Th>
           <Table.Th
             w={130}

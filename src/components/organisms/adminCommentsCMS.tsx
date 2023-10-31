@@ -3,7 +3,6 @@
 import React from 'react'
 import ContainerBox from '../atoms/containerBox'
 import AdminCrudHeader from '../molecules/adminCrudHeader';
-import CustomModal from '../atoms/customModal';
 import useStore from '@/hooks/useStore'
 import { CommentCancelEditItem, CommentSetIsLoading, SetNewItemModal } from '@/store/actions';
 import { deleteComment } from '@/api';
@@ -14,13 +13,9 @@ import CommentsForm from '../molecules/commentForm';
 
 const AdminComments = () => {
 
-  
-  const { states, dispatch } = useStore()
-
-  
+  const { dispatch } = useStore()
 
   const HandlerDelete = async (id: number) => {
-    console.log(id)
     await dispatch(CommentSetIsLoading(true))
     await deleteComment(id)
     await dispatch(CommentSetIsLoading(false))
@@ -31,8 +26,8 @@ const AdminComments = () => {
     title: string
   }
 
-  let [opened, { open, toggle,close }] = useDisclosure(false);
-  const AdminCommentModal = ({children,title}:modalProps) => {
+  let [opened, { open, toggle }] = useDisclosure(false);
+  const AdminCommentModal = ({ children, title }: modalProps) => {
     return (
       <Modal opened={opened} onClose={toggle} title={title}
         size="80%"
@@ -50,28 +45,22 @@ const AdminComments = () => {
     )
   }
 
-
-  const HandlerCloseModal = async (editMode?:boolean) => {
-    if(editMode){
+  const HandlerCloseModal = async (editMode?: boolean) => {
+    if (editMode) {
       toggle()
       await dispatch(CommentCancelEditItem())
       await dispatch(CommentSetIsLoading(false))
-    }else{
+    } else {
       dispatch(SetNewItemModal(false))
-
     }
-    
   }
 
   const handlerOpenModal = () => {
     open()
   }
 
- 
-
   return (
     <div className='pl-2 pr-3'>
-
       <ContainerBox className='flex flex-col w-full min-h-screen'>
         <AdminCommentModal title='Edit Comment' >
           <CommentsForm

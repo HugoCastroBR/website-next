@@ -5,7 +5,6 @@ import ContainerBox from '../atoms/containerBox'
 import AdminCrudHeader from '../molecules/adminCrudHeader';
 import UsersTable from '../molecules/usersTable';
 import UserForm from '../molecules/userForm';
-import CustomModal from '../atoms/customModal';
 import { deleteUser } from '@/api';
 import { SetNewItemModal, UserCancelEditItem, UserSetIsLoading } from '@/store/actions';
 import useStore from '@/hooks/useStore';
@@ -14,10 +13,9 @@ import { useDisclosure } from '@mantine/hooks';
 
 const Users = () => {
 
-  const { states, dispatch } = useStore()
+  const { dispatch } = useStore()
 
-
-  const HandlerDelete = async (id:number) => {
+  const HandlerDelete = async (id: number) => {
     console.log(id)
     await dispatch(UserSetIsLoading(true))
     await deleteUser(id)
@@ -30,7 +28,7 @@ const Users = () => {
   }
 
   const [opened, { open, toggle }] = useDisclosure(false);
-  const AdminUserModal = ({children,title}:modalProps) => {
+  const AdminUserModal = ({ children, title }: modalProps) => {
     return (
       <Modal opened={opened} onClose={toggle} title={title}
         size="80%"
@@ -48,48 +46,45 @@ const Users = () => {
     )
   }
 
-  const HandlerCloseModal = async (editMode?:boolean) => {
-    if(editMode){
+  const HandlerCloseModal = async (editMode?: boolean) => {
+    if (editMode) {
       toggle()
       await dispatch(UserCancelEditItem())
       await dispatch(UserSetIsLoading(false))
-    }else{
+    } else {
       dispatch(SetNewItemModal(false))
-
     }
-    
   }
 
   const handlerOpenModal = () => {
     open()
   }
 
-
   return (
     <div className='pl-2 pr-3'>
-    <ContainerBox className='flex flex-col w-full min-h-screen'>
-      <AdminUserModal
-        title='Edit User'
-      >
-        <UserForm
-          onClose={HandlerCloseModal}
+      <ContainerBox className='flex flex-col w-full min-h-screen'>
+        <AdminUserModal
+          title='Edit User'
+        >
+          <UserForm
+            onClose={HandlerCloseModal}
+          />
+        </AdminUserModal>
+        <AdminCrudHeader
+          title='Users'
+          actionName='New User'
+        >
+          <UserForm
+            onClose={HandlerCloseModal}
+          />
+        </AdminCrudHeader>
+        <UsersTable
+          onClickEdit={handlerOpenModal}
+          onClickDelete={HandlerDelete}
         />
-      </AdminUserModal>
-      <AdminCrudHeader 
-        title='Users' 
-        actionName='New User'
-      >
-        <UserForm
-          onClose={HandlerCloseModal}
-        />
-      </AdminCrudHeader>
-      <UsersTable
-        onClickEdit={handlerOpenModal}
-        onClickDelete={HandlerDelete}
-      />
-    </ContainerBox>
+      </ContainerBox>
     </div>
-    
+
   )
 }
 

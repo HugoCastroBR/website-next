@@ -5,14 +5,14 @@ interface ContainerBoxProps {
   children: React.ReactNode
   className?: string
   onClick?: () => void
-  id?:string
+  id?: string
 }
 const ContainerBox = ({
   children,
   className,
   onClick,
   id
-}:ContainerBoxProps) => {
+}: ContainerBoxProps) => {
   return (
     <section className={`
     flex
@@ -28,8 +28,8 @@ const ContainerBox = ({
     my-2
     ${className}`
     }
-    onClick={onClick}
-    id={id}
+      onClick={onClick}
+      id={id}
     >
       {children}
     </section>

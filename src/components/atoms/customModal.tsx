@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import useStore from '@/hooks/useStore';
 import { SetNewItemModal } from '@/store/actions';
@@ -9,31 +10,28 @@ import React, { useEffect } from 'react'
 interface Props {
   children: React.ReactNode
   title: string
-  isOpen: boolean
 }
 
 const CustomModal = (
   {
     children,
     title,
-    isOpen,
-  }:Props
+  }: Props
 ) => {
 
-  let [opened, { open, toggle,close }] = useDisclosure(false);
+  let [opened, { open, close }] = useDisclosure(false);
 
-  const {states,dispatch} = useStore()
-  useEffect(()=>{
-    if(states.App.newItemModalIsOpen){
+  const { states, dispatch } = useStore()
+  useEffect(() => {
+    if (states.App.newItemModalIsOpen) {
       open()
-    }else{
+    } else {
       close()
     }
-    // open()
-  },[
+  }, [
     states.App.newItemModalIsOpen
   ])
-  
+
   const HandlerClose = () => {
     dispatch(SetNewItemModal(false))
     close()
@@ -41,20 +39,20 @@ const CustomModal = (
 
   return (
     <div>
-          <Modal opened={opened} onClose={HandlerClose} title={title} 
-          size="80%" 
-          transitionProps={{
-            transition: 'slide-up',
-            duration: 500,
-          }} 
-          overlayProps={{
-            backgroundOpacity: 0.55,
-            blur: 6,
-          }}
-          >
-            {children}
-          </Modal>
-        </div>
+      <Modal opened={opened} onClose={HandlerClose} title={title}
+        size="80%"
+        transitionProps={{
+          transition: 'slide-up',
+          duration: 500,
+        }}
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 6,
+        }}
+      >
+        {children}
+      </Modal>
+    </div>
   )
 }
 

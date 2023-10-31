@@ -6,54 +6,54 @@ import { $t } from '@/utils/lang';
 
 const buttons = [
   {
-    text:$t('home.About'),
-    href:'aboutMe'
+    text: $t('home.About'),
+    href: 'aboutMe'
   },
   {
-    text:$t('home.Experiences'),
-    href:'experiences'
+    text: $t('home.Experiences'),
+    href: 'experiences'
   },
   {
-    text:$t('home.Projects'),
-    href:'projects'
+    text: $t('home.Projects'),
+    href: 'projects'
   },
   {
-    text:$t('home.Blog'),
-    href:'blog'
+    text: $t('home.Blog'),
+    href: 'blog'
   },
   {
-    text:$t('home.Contact'),
-    href:'contact'
+    text: $t('home.Contact'),
+    href: 'contact'
   },
 ]
 
 const buttonsRouter = [
   {
-    text:$t('home.About'),
-    href:'/#aboutMe'
+    text: $t('home.About'),
+    href: '/#aboutMe'
   },
   {
-    text:$t('home.Experiences'),
-    href:'/#experiences'
+    text: $t('home.Experiences'),
+    href: '/#experiences'
   },
   {
-    text:$t('home.Projects'),
-    href:'/#projects'
+    text: $t('home.Projects'),
+    href: '/#projects'
   },
   {
-    text:$t('home.Blog'),
-    href:'/#blog'
+    text: $t('home.Blog'),
+    href: '/#blog'
   },
   {
-    text:$t('home.Contact'),
-    href:'/#contact'
+    text: $t('home.Contact'),
+    href: '/#contact'
   },
 ]
 
-const GenerateButtons = (linksRouter=false) => {
+const GenerateButtons = (linksRouter = false) => {
 
-  if(linksRouter){
-    return buttonsRouter.map((button,index) => {
+  if (linksRouter) {
+    return buttonsRouter.map((button, index) => {
       return (
         <MenuBtn
           legacy={false}
@@ -65,7 +65,7 @@ const GenerateButtons = (linksRouter=false) => {
       )
     })
   }
-  return buttons.map((button,index) => {
+  return buttons.map((button, index) => {
     return (
       <MenuBtn
         key={index}
@@ -81,10 +81,10 @@ interface HeaderLinksProps {
   linksRouter?: boolean
 }
 const HeaderLinks = (
-  {linksRouter}:HeaderLinksProps
+  { linksRouter }: HeaderLinksProps
 ) => {
 
-  
+
 
   return (
     <div className=' w-4/6 h-full flex justify-end mx-2 ml-10 px-6 z-20  '>

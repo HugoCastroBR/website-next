@@ -2,15 +2,14 @@ import React from 'react'
 import { Accordion } from '@mantine/core';
 import CustomText from '../atoms/customText';
 
-
 interface AccordionContainerProps {
   children: React.ReactNode
   value: string
   duration?: number
-  title : string
+  title: string
 }
 
-const AccordionTittle = (title:string) => {
+const AccordionTittle = (title: string) => {
   return (
     <CustomText
       text={title}
@@ -25,7 +24,7 @@ const AccordionContainer = (
     value,
     duration,
     title
-  }: AccordionContainerProps 
+  }: AccordionContainerProps
 ) => {
   return (
     <Accordion transitionDuration={duration || 300}>

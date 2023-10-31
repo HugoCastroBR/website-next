@@ -3,10 +3,8 @@
 import React, { useEffect } from 'react'
 import AccordionContainer from '../molecules/accordionContainer'
 import LoginForm from '../molecules/LoginForm'
-import CustomText from '../atoms/customText'
 import RegisterForm from '../molecules/RegisterForm'
 import UserSide from '../molecules/userSide'
-import { userType } from '@/types';
 import useStore from '@/hooks/useStore'
 import { getUser } from '@/api'
 
@@ -28,7 +26,7 @@ const SideAuth = () => {
     setUserInfos(states.Auth.user)
   }, [states.Auth.user])
 
-  if(isAuth) return (
+  if (isAuth) return (
     <AccordionContainer
       title='Profile'
       value='user'
