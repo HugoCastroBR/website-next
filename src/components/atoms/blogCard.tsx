@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect } from 'react'
-import { Card, Image, Text, Badge, Button, Group, Spoiler, Avatar, Loader } from '@mantine/core';
+import { Card, Image, Text, Badge, Button, Group, Spoiler, Avatar, Loader, Divider } from '@mantine/core';
 import CustomText from './customText';
 import { getOnlyInitials, isURLValid } from '@/utils/textHandlers';
 
@@ -37,10 +37,6 @@ const BlogCard = ({
 
 
   const BlogImage = () => {
-    useEffect(() => {
-      console.log(imageUrl)
-    }, [])
-    
     if (!isURLValid(imageUrl)) return (<NoImagePlaceHolder />)
     return (
       <img
@@ -52,37 +48,38 @@ const BlogCard = ({
 
   return (
     <div className='
-      flex sm:flex-nowrap flex-wrap-reverse  sm:max-w-6xl  mb-4
+      flex sm:flex-nowrap flex-wrap-reverse  sm:max-w-2xl min-w-full  mb-4
       border-2 dark:border-gray-700 border-gray-300  rounded-md
       sm:h-48 h-full overflow-hidden cursor-pointer
       hover:shadow-lg duration-600 ease-in-out
       dark:hover:border-gray-500 transition-all
-      ml-10 mx-10 
+      mx-10 
     '>
       <div className='sm:w-9/12 w-80  flex flex-col py-2 px-4'>
         <div className='flex items-center sm:w-full w-80  h-1/6'>
           <Avatar size='sm'>{getOnlyInitials(author)}</Avatar>
           <CustomText
             className="ml-2 text-xs font-semibold"
-            text={author}
+            text={author || 'No Author'}
           />
         </div>
         <div className='flex items-center sm:w-full w-80  h-1/6'>
           <CustomText
             className="mt-2 lg:text-lg md:text-base text-sm font-bold sm:w-full w-80 "
-            text={title}
+            text={title || 'No Title'}
           />
         </div>
-        <div className='flex items-center sm:w-full w-80 h-2/6 px-1'>
+        <div className='flex items-start sm:w-full w-80 h-2/6 -mt-1'>
           <CustomText
             className="sm:mt-2 mt-8 lg:text-sm md:text-xs text-xs sm:w-full w-full text-gray-700 dark:text-gray-400"
-            text={subtitle}
+            text={subtitle || 'No Subtitle'}
           />
         </div>
-        <div className='flex items-end justify-start sm:w-full w-80  h-2/6'>
+        <div className='flex items-end justify-start sm:w-full w-80   h-2/6'>
+          
           <CustomText
             className="mt-2 text-xs mr-1 text-gray-800 dark:text-gray-400"
-            text={date}
+            text={date || 'No Date'}
           />
           <CustomText
             className="mt-2 text-xs mr-1 text-gray-800 dark:text-gray-400"

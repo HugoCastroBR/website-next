@@ -22,7 +22,10 @@ const BlogCardList = () => {
 
   const getPostsData = async () => {
     try {
-      const res = await getPosts(states.Post.currentPage)
+      const res = await getPosts({
+        page: states.Post.currentPage,
+        itemsPerPage: 10
+      })
       dispatch(AddPosts(res.data))
       dispatch(PostSetTotalPages(res.totalPages))
       setPagePosts(res.data)
@@ -77,7 +80,7 @@ const BlogCardList = () => {
   const renderPosts = () => {
     try {
       return (
-        <div className="py-4">
+        <div className="py-4 mr-20 w-full sm:mr-16">
       {states.Post.posts.map((blogCard: { id: React.Key | null | undefined; authorName: string; title: string; subtitle: string; createdAt: string | number | Date; content: string; imageUrl: any; }) => {
         return (
           <Link href={`/en/blog/${blogCard.id}`} key={blogCard.id}>
@@ -94,7 +97,7 @@ const BlogCardList = () => {
         )
       })}
       <Pagination.Root total={states.Post.totalPages} onChange={HandlerChangePage}>
-        <Group gap={2} justify="center">
+        <Group gap={2} justify="center" pl={50}>
           <Pagination.Previous />
           <Pagination.Items
           />

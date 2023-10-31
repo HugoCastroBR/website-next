@@ -7,6 +7,7 @@ import { CommentSetComments, CommentSetCurrentPage, CommentSetEditItem, CommentS
 import { Pagination, Table, Group,Button,Modal } from '@mantine/core'
 import React,{useEffect } from 'react'
 import RowsPerPageSelect from './rowsPerPageSelect'
+import CustomText from '../atoms/customText'
 
 interface Props{
   onClickEdit: () => void
@@ -60,7 +61,12 @@ const CommentsTable = (
   const getCommentsData = async () => {
     try {
       const UserId = await getUserId()
-      const res = await getCommentsByUserId(states.Comment.currentPage,UserId,rowsPerPage)
+      const res = await getCommentsByUserId(UserId, {
+        itemsPerPage: rowsPerPage,
+        page: states.Comment.currentPage,
+        orderBy: orderBy,
+        order: order as "desc" | "asc" | undefined
+      })
       dispatch(CommentSetComments(res.data))
       dispatch(CommentSetTotalPages(res.totalPages))
       setPageComments(res.data)
@@ -109,6 +115,38 @@ const CommentsTable = (
     })
   }
 
+  
+  const [orderBy, setOrderBy] = React.useState('id')
+  const [order, setOrder] = React.useState('asc')
+  useEffect(() => { getCommentsData() }, [orderBy, order])
+  const generateOrderIcon = () => {
+    if (order === 'asc') {
+      return <span className='i-mdi-sort-ascending text-lg'></span>
+    }
+    else {
+      return <span className='i-mdi-sort-descending text-lg'></span>
+    }
+  }
+  const NoFilterComponent = () => {
+    return (
+      <span className='i-mdi-sort text-lg'></span>
+    )
+  }
+
+  if(pageComments?.length === 0) return (
+    <div className=' my-2 py-6 w-full
+      flex flex-col justify-center items-center  
+      
+    ' 
+    > 
+      <span className='i-mdi-comment-remove-outline text-6xl text-gray-800 dark:text-gray-200'></span>
+      <CustomText
+        className='text-center text-lg font-bold text-gray-800 dark:text-gray-200'
+        text='No Comments'
+      />
+    </div>
+  )
+
   return (
     <div className='border-2 rounded
     dark:border-gray-700 border-gray-300 my-2' 
@@ -132,10 +170,58 @@ const CommentsTable = (
         withColumnBorders
       >
         <Table.Thead>
-          <Table.Th>Id</Table.Th>
-          <Table.Th>Content</Table.Th>
-          <Table.Th>Created At</Table.Th>
-          <Table.Th>Updated At</Table.Th>
+        <Table.Th>
+            <div className='flex justify-between items-center cursor-pointer'
+              onClick={() => {
+                setOrderBy('id')
+                setOrder(order === 'asc' ? 'desc' : 'asc')
+              }}
+            >
+              <CustomText
+                className='text-start  text-base font-mono font-bold'
+                text='Id' />
+              {orderBy === 'id' ? generateOrderIcon() : <NoFilterComponent />}
+            </div>
+          </Table.Th>
+          <Table.Th>
+            <div className='flex justify-between items-center cursor-pointer'
+              onClick={() => {
+                setOrderBy('content')
+                setOrder(order === 'asc' ? 'desc' : 'asc')
+              }}
+            >
+              <CustomText
+                className='text-start  text-base font-mono font-bold'
+                text='Content' />
+              {orderBy === 'content' ? generateOrderIcon() : <NoFilterComponent />}
+            </div>
+          </Table.Th>
+          <Table.Th>
+          <div className='flex justify-between items-center cursor-pointer'
+            onClick={() => {
+              setOrderBy('createdAt')
+              setOrder(order === 'asc' ? 'desc' : 'asc')
+            }}
+          >
+            <CustomText
+              className='text-start  text-base font-mono font-bold'
+              text='Created At' />
+            {orderBy === 'createdAt' ? generateOrderIcon() : <NoFilterComponent />}
+          </div>
+          </Table.Th>
+          <Table.Th>
+          <div className='flex justify-between items-center cursor-pointer'
+            onClick={() => {
+              setOrderBy('updatedAt')
+              setOrder(order === 'asc' ? 'desc' : 'asc')
+            }}
+          >
+            <CustomText
+              className='text-start  text-base font-mono font-bold'
+              text='Updated At' />
+            {orderBy === 'updatedAt' ? generateOrderIcon() : <NoFilterComponent />}
+          </div>
+          </Table.Th>
           <Table.Th 
             w={130}
           >Options</Table.Th>

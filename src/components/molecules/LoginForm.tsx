@@ -55,10 +55,12 @@ const LoginForm = () => {
   }:handleFormSubmitProps) => {
     try {
       const res = await login(email, password)
-      localStorage.setItem('token', res.data.token)
-      dispatch(SetIsAuth(true))
-      console.log(res.data)
-      dispatch(SetUser(res.data.user))
+      await localStorage.setItem('token', res.data.token)
+      await dispatch(AppHandlerNotification('Login Success',{
+        notificationType: 'success',
+      }))
+      await dispatch(SetIsAuth(true))
+      await dispatch(SetUser(res.data.user))
     } catch (error) {
       dispatch(SetIsAuth(false))
       dispatch(AppHandlerNotification('Invalid Email or Password',{

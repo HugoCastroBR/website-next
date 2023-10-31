@@ -14,6 +14,7 @@ interface Props {
   onClickEdit: () => void
   onClickDelete: (id: number) => void
 }
+
 const PostsTable = (
   {
     onClickEdit,
@@ -60,7 +61,12 @@ const PostsTable = (
 
   const getPostsData = async () => {
     try {
-      const res = await getPosts(states.Post.currentPage, rowsPerPage)
+      const res = await getPosts({
+        page: states.Post.currentPage,
+        itemsPerPage: rowsPerPage,
+        orderBy: orderBy,
+        order: order as "desc" | "asc" | undefined
+      })
       dispatch(AddPosts(res.data))
       dispatch(PostSetTotalPages(res.totalPages))
       setPagePosts(res.data)
@@ -77,6 +83,7 @@ const PostsTable = (
   useEffect(() => { getPostsData() }, [states.Post.currentPage])
   useEffect(() => { getPostsData() }, [states.Post.isLoading])
   useEffect(() => { getPostsData() }, [rowsPerPage])
+
 
   const row = (post: getPostsType) => {
     return (
@@ -112,9 +119,10 @@ const PostsTable = (
 
 
   const [orderBy, setOrderBy] = React.useState('id')
-  const [order, setOrder] = React.useState('ASC')
+  const [order, setOrder] = React.useState('asc')
+  useEffect(() => { getPostsData() }, [orderBy, order])
   const generateOrderIcon = () => {
-    if (order === 'ASC') {
+    if (order === 'asc') {
       return <span className='i-mdi-sort-ascending text-lg'></span>
     }
     else {
@@ -128,6 +136,19 @@ const PostsTable = (
   }
 
 
+  if(pagePosts?.length === 0) return (
+    <div className=' my-2 py-6 w-full
+      flex flex-col justify-center items-center  
+      
+    ' 
+    > 
+      <span className='i-mdi-note-off-outline text-6xl text-gray-800 dark:text-gray-200'></span>
+      <CustomText
+        className='text-center text-lg font-bold text-gray-800 dark:text-gray-200'
+        text='No Posts'
+      />
+    </div>
+  )
 
 
   return (
@@ -157,7 +178,7 @@ const PostsTable = (
             <div className='flex justify-between items-center cursor-pointer'
               onClick={() => {
                 setOrderBy('id')
-                setOrder(order === 'ASC' ? 'DESC' : 'ASC')
+                setOrder(order === 'asc' ? 'desc' : 'asc')
               }}
             >
               <CustomText
@@ -170,7 +191,7 @@ const PostsTable = (
             <div className='flex justify-between items-center cursor-pointer'
               onClick={() => {
                 setOrderBy('title')
-                setOrder(order === 'ASC' ? 'DESC' : 'ASC')
+                setOrder(order === 'asc' ? 'desc' : 'asc')
               }}
             >
               <CustomText
@@ -182,27 +203,27 @@ const PostsTable = (
           <Table.Th>
           <div className='flex justify-between items-center cursor-pointer'
             onClick={() => {
-              setOrderBy('CreatedAt')
-              setOrder(order === 'ASC' ? 'DESC' : 'ASC')
+              setOrderBy('createdAt')
+              setOrder(order === 'asc' ? 'desc' : 'asc')
             }}
           >
             <CustomText
               className='text-start  text-base font-mono font-bold'
               text='Created At' />
-            {orderBy === 'CreatedAt' ? generateOrderIcon() : <NoFilterComponent />}
+            {orderBy === 'createdAt' ? generateOrderIcon() : <NoFilterComponent />}
           </div>
           </Table.Th>
           <Table.Th>
           <div className='flex justify-between items-center cursor-pointer'
             onClick={() => {
-              setOrderBy('UpdatedAt')
-              setOrder(order === 'ASC' ? 'DESC' : 'ASC')
+              setOrderBy('updatedAt')
+              setOrder(order === 'asc' ? 'desc' : 'asc')
             }}
           >
             <CustomText
               className='text-start  text-base font-mono font-bold'
               text='Updated At' />
-            {orderBy === 'UpdatedAt' ? generateOrderIcon() : <NoFilterComponent />}
+            {orderBy === 'updatedAt' ? generateOrderIcon() : <NoFilterComponent />}
           </div>
           </Table.Th>
           <Table.Th

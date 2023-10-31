@@ -24,13 +24,14 @@ const UserSide = ({
   const HandlerLogout = () => {
     localStorage.removeItem('token')
     dispatch(Logout())
+
   }
 
   return (
     <div className='flex flex-col justify-start items-center'>
       <CustomModal 
         isOpen={showModal}
-        onClose={() => setShowModal(false)}
+        // onClose={() => setShowModal(false)}
         title='Edit Profile'
       >
         <RegisterForm isEdit={true} />
@@ -62,7 +63,6 @@ const UserSide = ({
             />
           </Button>
         </div>
-        {isAdmin &&
           <div>
             <Link href='/en/admin/dashboard'>
               <Button>
@@ -72,14 +72,16 @@ const UserSide = ({
                 />
               </Button>
             </Link>
-          </div>}
+          </div>
           <div>
-          <Button onClick={HandlerLogout} color='red' >
-            <CustomText
-              className='text-sm font-medium '
-              text='Logout'
-            />
-          </Button>
+          <Link href='/'>
+            <Button onClick={HandlerLogout} color='red' >
+              <CustomText
+                className='text-sm font-medium '
+                text='Logout'
+              />
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

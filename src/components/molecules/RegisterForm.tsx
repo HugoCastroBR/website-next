@@ -6,7 +6,8 @@ import { useForm } from '@mantine/form'
 import { emailValidator, nameValidator, passwordValidator } from '@/utils/formHandlers'
 import useStore from '@/hooks/useStore'
 import { register } from '@/api'
-import { SetIsAuth, SetUser } from '@/store/actions'
+import { AppHandlerNotification, SetIsAuth, SetUser } from '@/store/actions'
+import CustomText from '../atoms/customText'
 
 
 const RegisterInitialValues = {
@@ -80,7 +81,10 @@ const RegisterForm = ({
       dispatch(SetIsAuth(true))
       dispatch(SetUser(res.data.user))
     } catch (error) {
-      console.log(error)
+      console.log("aq")
+      dispatch(AppHandlerNotification('Email already in use',{
+        notificationType: 'error',
+      }))
     }
   }
 

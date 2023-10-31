@@ -43,7 +43,7 @@ input#menu {
 
 label.icon {
   position: absolute;
-  z-index: 200;
+  z-index: 40;
 }
 
 .icon .menu,
@@ -102,7 +102,7 @@ label.icon {
   height: 100vh;
   transition: width ease .6s;
   width: 0px;
-  z-index: 100;
+  z-index: 30;
   overflow: hidden;
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);

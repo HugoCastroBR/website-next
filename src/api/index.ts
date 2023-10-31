@@ -1,6 +1,13 @@
 const url = 'http://localhost:3333';
 
 
+export type reqPaginationDefault = {
+  page: number;
+  itemsPerPage: number;
+  orderBy?: string;
+  order?: 'asc' | 'desc';
+}
+
 export const verifyApiHealth = async () => {
   const response = await fetch(`${url}/health`, {
     method: 'GET',
@@ -14,6 +21,27 @@ export const verifyApiHealth = async () => {
   const res = await response.json();
   return res;
 };
+
+
+export type getStatisticsType = {
+  uptime: number;
+  totalComments: number;
+  totalPosts: number;
+  totalUsers: number;
+}
+export const getStatistics = async ():Promise<getStatisticsType> => {
+  const response = await fetch(`${url}/health/statistics`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) {
+    throw new Error('Get statistics failed');
+  }
+  const res = await response.json();
+  return res;
+}
 
 
 
@@ -129,11 +157,19 @@ export type getPostsRes = paginationDefault & {
 }
 
 //need token
-export const getPosts = async (page: number,itemsPerPage?:number):Promise<getPostsRes> => {
+export const getPosts = async (
+  {
+  page,
+  itemsPerPage,
+  orderBy,
+  order,
+  }
+:reqPaginationDefault
+):Promise<getPostsRes> => {
 
 
   const response = await fetch(
-    `${url}/posts?page=${page}&itemsPerPage=${itemsPerPage || 10}`,
+    `${url}/posts?page=${page || 1}&itemsPerPage=${itemsPerPage || 10}&orderBy=${orderBy || 'id'}&order=${order || 'asc'}`,
     {
     method: 'GET',
     headers: {
@@ -268,7 +304,12 @@ export type getUsersRes = paginationDefault & {
 
 //need token
 
-export const getUsers = async (page: number,itemsPerPage?:number):Promise<getUsersRes> => {
+export const getUsers = async ({
+  page,
+  itemsPerPage,
+  orderBy,
+  order,
+}:reqPaginationDefault):Promise<getUsersRes> => {
   const token = localStorage.getItem('token');
 
   if (!token) {
@@ -276,7 +317,7 @@ export const getUsers = async (page: number,itemsPerPage?:number):Promise<getUse
   }
 
   const response = await fetch(
-    `${url}/users?page=${page}&itemsPerPage=${itemsPerPage || 10}`,
+    `${url}/users?page=${page || 1}&itemsPerPage=${itemsPerPage || 10}&orderBy=${orderBy || 'id'}&order=${order || 'asc'}`,
     {
     method: 'GET',
     headers: {
@@ -397,7 +438,7 @@ Promise<getCommentsRes> =>
 
 
   const response = await fetch(
-    `${url}/comments/post/${postId}?page=${page}&itemsPerPage=${itemsPerPage || 10}`,
+    `${url}/comments/post/${postId}?page=${page}&itemsPerPage=${itemsPerPage || 10}&orderBy=${'id'}&order=${'desc'}`,
     {
     method: 'GET',
     headers: {
@@ -417,11 +458,16 @@ export type getOneCommentReq = {
   content: string
 }
 
-export const getCommentsByUserId = async (page: number, userId: number,itemsPerPage?:number):
+export const getCommentsByUserId = async (userId: number,{
+  page,
+  itemsPerPage,
+  orderBy,
+  order,
+}:reqPaginationDefault):
 Promise<getCommentsRes> => {
 
   const response = await fetch(
-    `${url}/comments/user/${userId}?page=${page}&itemsPerPage=${itemsPerPage || 10}`,
+    `${url}/comments/user/${userId}?page=${page || 1}&itemsPerPage=${itemsPerPage || 10}&orderBy=${orderBy || 'id'}&order=${order || 'asc'}`,
     {
     method: 'GET',
     headers: {

@@ -67,7 +67,7 @@ const Users = () => {
 
   return (
     <div className='pl-2 pr-3'>
-    <ContainerBox className='flex flex-col w-full'>
+    <ContainerBox className='flex flex-col w-full min-h-screen'>
       <AdminUserModal
         title='Edit User'
       >
