@@ -7,6 +7,7 @@ import { Modal, Button, Divider, Avatar } from '@mantine/core';
 import useStore from '@/hooks/useStore';
 import { getOnlyInitials } from '@/utils/textHandlers';
 import { getStatistics } from '@/api';
+import { convertSecondsToMinutes } from '@/utils/dateHandlers';
 
 const DashBoardSection = () => {
 
@@ -98,7 +99,7 @@ const DashBoardSection = () => {
             </div>
             <CustomText
               className='text-start dark:text-gray-300 text-gray-700 text-base font-medium ml-4'
-              text={`Uptime: ${(uptime/60).toFixed(2)} minutes`}
+              text={`Uptime: ${convertSecondsToMinutes(uptime)} minutes`}
             />
             <CustomText
               className='text-start dark:text-gray-300 text-gray-700 text-base font-medium ml-4'

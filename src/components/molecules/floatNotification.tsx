@@ -1,12 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Loader, Notification, Progress,rem } from '@mantine/core'
-import { 
-        IconThumbUpFilled,
-        IconAlertCircleFilled,
-        IconAlertTriangleFilled,
-        IconInfoCircleFilled,
-      } from '@tabler/icons-react';
+import { Notification, Progress } from '@mantine/core'
 import CustomText from '../atoms/customText';
 import useStore from '@/hooks/useStore';
 import { AppHandlerNotification, SetNotification } from '@/store/actions';
@@ -118,14 +112,29 @@ const FloatNotification = () => {
       <span className='i-mdi-information-outline scale-150 text-3xl'></span>
     )
   }
-  
+  // ${states.App.isNotificationOpen ? 'block' : 'hidden'}
 
+  // dark:border-gray-700 border-gray-200
+  // shadow-md drop-shadow-sm shadow-gray-300 dark:shadow-black
+  
   return (
     <div className={`
       fixed top-8 right-8 z-50 w-80 overflow-hidden 
-      rounded-md border-2 dark:border-gray-700 border-gray-200
-      shadow-md drop-shadow-sm shadow-gray-300 dark:shadow-black
+      rounded-md border-2 
       ${states.App.isNotificationOpen ? 'block' : 'hidden'}
+      ${states.App.sideMenuIsOpen ? 
+          `
+          dark:border-gray-700 border-gray-200
+          shadow-md drop-shadow-md shadow-gray-500 dark:shadow-black  
+          `
+          :
+          `
+          dark:border-gray-700 border-gray-200
+          shadow-md drop-shadow-sm shadow-gray-300 dark:shadow-black 
+          `
+      }
+
+      
     `}>
       <Notification 
       radius="xs" 

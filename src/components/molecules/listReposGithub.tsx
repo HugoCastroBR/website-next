@@ -20,7 +20,6 @@ const ListReposGithub = () => {
   useEffect(() => {
     (async () => {
       const response = await getUserRepositories('hugocastrobr')
-      console.log(response)
       setRepos(response)
     })()
   },[])

@@ -30,7 +30,7 @@ const SideAuth = () => {
 
   if(isAuth) return (
     <AccordionContainer
-      title={userInfos.name}
+      title='Profile'
       value='user'
     >
       <UserSide {...userInfos} />

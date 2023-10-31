@@ -41,7 +41,7 @@ const BlogCardList = () => {
     dispatch(PostSetCurrentPage(1))
   }, [])
   useEffect(() => {getPostsData()}, [states.Post.currentPage])
-  useEffect(() => {getPostsData()}, [states.Post.isLoading])
+  // useEffect(() => {getPostsData()}, [states.Post.isLoading])
 
   if (states.Post.isLoading) {
     return (

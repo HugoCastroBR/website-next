@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import MenuBtn from '../molecules/menuBtn'
 import { $t } from '@/utils/lang';
@@ -82,6 +83,9 @@ interface HeaderLinksProps {
 const HeaderLinks = (
   {linksRouter}:HeaderLinksProps
 ) => {
+
+  
+
   return (
     <div className=' w-4/6 h-full flex justify-end mx-2 ml-10 px-6 z-20  '>
       {GenerateButtons(true)}

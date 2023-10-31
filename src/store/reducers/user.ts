@@ -23,7 +23,6 @@ export const AuthSlice = createSlice({
       state.isAuth = payload
     },
     SET_USER(state,{payload}:{payload:getUser}){
-      console.log(payload);
       state.user = payload
     },
     LOGOUT(state){

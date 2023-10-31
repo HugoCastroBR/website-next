@@ -29,13 +29,13 @@ const UserSide = ({
 
   return (
     <div className='flex flex-col justify-start items-center'>
-      <CustomModal 
+      {/* <CustomModal 
         isOpen={showModal}
         // onClose={() => setShowModal(false)}
         title='Edit Profile'
       >
         <RegisterForm isEdit={true} />
-      </CustomModal>
+      </CustomModal> */}
       <div className="flex items-center justify-start w-full">
         <Avatar color='blue' radius='xl' size='lg'>
           {getOnlyInitials(name)}
@@ -53,8 +53,8 @@ const UserSide = ({
           />
         </div>
       </div>
-      <div className="flex justify-evenly items-center w-full my-2">
-
+      <div className="flex justify-end items-center w-full my-5">
+{/* 
         <div>
           <Button onClick={() => setShowModal(true)} >
             <CustomText
@@ -62,8 +62,8 @@ const UserSide = ({
               text='Edit Profile'
             />
           </Button>
-        </div>
-          <div>
+        </div> */}
+          <div className='mx-2'>
             <Link href='/en/admin/dashboard'>
               <Button>
                 <CustomText
@@ -73,7 +73,7 @@ const UserSide = ({
               </Button>
             </Link>
           </div>
-          <div>
+          <div className='mx-2'>
           <Link href='/'>
             <Button onClick={HandlerLogout} color='red' >
               <CustomText

@@ -47,12 +47,11 @@ const AuthProvider = (
   
   useEffect(() => {
     const token = getToken()
-    console.log(token)
     if(token){
       LoadUserInfos()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[states.Users, states.Comment, states.Post, states.App])
+  },[states.App])
 
   // useEffect(() => {
   //   if(!states.Auth.isAuth){
