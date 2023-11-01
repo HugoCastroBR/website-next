@@ -51,6 +51,7 @@ const CustomInput = ({
           ref={inputRef}
           defaultValue={defaultValue || ''}
           onClick={onClick}
+          className={className}
           onChange={
             (e) => onChange && onChange(e.currentTarget.value)
           }

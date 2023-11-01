@@ -2,7 +2,7 @@
 'use client'
 import { getPosts, getPostsType } from '@/api'
 import useStore from '@/hooks/useStore'
-import { AddPosts, PostSetCurrentPage, PostSetEditItem, PostSetIsLoading, PostSetTotalPages } from '@/store/actions'
+import { AddPosts, PostSetCurrentPage, PostSetEditItem, PostSetIsLoading, PostSetSearchText, PostSetTotalPages } from '@/store/actions'
 import { Pagination, Table, Group, Button, Modal, Select } from '@mantine/core'
 import React, { useEffect } from 'react'
 import CustomText from '../atoms/customText'
@@ -63,7 +63,8 @@ const PostsTable = (
         page: states.Post.currentPage,
         itemsPerPage: rowsPerPage,
         orderBy: orderBy,
-        order: order as "desc" | "asc" | undefined
+        order: order as "desc" | "asc" | undefined,
+        search: states.Post.searchText
       })
       dispatch(AddPosts(res.data))
       dispatch(PostSetTotalPages(res.totalPages))
@@ -77,10 +78,12 @@ const PostsTable = (
   useEffect(() => {
     dispatch(PostSetIsLoading(true))
     dispatch(PostSetCurrentPage(1))
+    dispatch(PostSetSearchText(''))
   }, [])
   useEffect(() => { getPostsData() }, [states.Post.currentPage])
   useEffect(() => { getPostsData() }, [states.Post.isLoading])
   useEffect(() => { getPostsData() }, [rowsPerPage])
+  useEffect(() => { getPostsData() }, [states.Post.searchText])
 
 
   const row = (post: getPostsType) => {

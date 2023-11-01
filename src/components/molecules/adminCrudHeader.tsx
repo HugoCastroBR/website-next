@@ -5,12 +5,15 @@ import CustomText from '../atoms/customText'
 import { Button } from '@mantine/core';
 import CustomModal from '../atoms/customModal';
 import useStore from '@/hooks/useStore';
-import { SetNewItemModal } from '@/store/actions';
+import { CommentSetSearchText, PostSetSearchText, SetNewItemModal, UserSetSearchText } from '@/store/actions';
+import CustomInput from '../atoms/customInput';
+import SearchInput from './searchInput';
 
 interface AdminCrudHeaderProps {
   title: string
   children: React.ReactNode
   actionName?: string
+  searchBar?: boolean
 }
 
 const AdminCrudHeader = (
@@ -33,8 +36,26 @@ const AdminCrudHeader = (
         {actionName && <Button onClick={() => {
           dispatch(SetNewItemModal(true))
         }}>{actionName}</Button>}
+        
       </div>
       <div>
+        <SearchInput
+          handlerSearchChange={(value) => {
+            switch (title) {
+              case 'Posts':
+                dispatch(PostSetSearchText(value))
+                break;
+              case 'Users':
+                dispatch(UserSetSearchText(value))
+                break;
+              case 'Comments':
+                dispatch(CommentSetSearchText(value))
+                break;
+              default:
+                break;
+            }
+          }}
+        />
         <CustomModal
           title={title}
         >

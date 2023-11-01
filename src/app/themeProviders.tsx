@@ -2,7 +2,7 @@
 import * as React from "react";
 import { ThemeProvider  } from "next-themes";
 import type { ThemeProviderProps } from "next-themes/dist/types";
-import { MantineProvider, createTheme, localStorageColorSchemeManager } from '@mantine/core';
+import { MantineProvider,  } from '@mantine/core';
 import useStore from "@/hooks/useStore";
 
 

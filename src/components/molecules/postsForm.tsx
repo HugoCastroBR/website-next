@@ -33,10 +33,6 @@ const PostsForm = ({
 
 
 
-  // useEffect(()=>{
-  //   console.log(isEdit)
-  // },[isEdit])
-
   const form = useForm({
     validateInputOnChange: true,
     initialValues: InitialValues,
@@ -59,8 +55,6 @@ const PostsForm = ({
       })
       
     }
-    console.log('aqui')
-    console.log(states.Post.editItem)
   },[])
 
   const handlerSubmit = async (newPost: postPostType) => {
@@ -73,7 +67,10 @@ const PostsForm = ({
         content: RichTextValue
       }
       await postPost(data)
-      await getPosts(1);
+      await getPosts({
+        page: states.Post.currentPage,
+        itemsPerPage: 10
+      });
       dispatch(PostSetIsLoading(true))
       onClose(isEdit)
     } catch (error) {

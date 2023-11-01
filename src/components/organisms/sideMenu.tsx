@@ -10,17 +10,28 @@ import { useDisclosure } from '@mantine/hooks'
 
 const SideMenu = () => {
 
-  const { dispatch } = useStore()
+  const { states, dispatch } = useStore()
   const [opened, { toggle }] = useDisclosure();
+
+  const [burgerColor, setBurgerColor] = React.useState('white')
 
 
   useEffect(() => {
     dispatch(SetSideMenu(opened))
   }, [opened])
 
+  useEffect(() => {
+    if(states.App.darkMode){
+      setBurgerColor('white')
+    }else{
+      setBurgerColor('black')
+    }
+  }, [])
+
   return (
     <>
-      <Burger opened={opened} onClick={toggle} size={'sm'} />
+      <Burger opened={opened} onClick={toggle} size={'sm'} 
+      />
       <Drawer
         opened={opened}
         onClose={toggle}

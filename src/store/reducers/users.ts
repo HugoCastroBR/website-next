@@ -8,7 +8,8 @@ interface UsersState {
   currentPage: number
   totalPages: number
   isLoading: boolean
-  editItem: getUserType
+  editItem: getUserType,
+  searchText?: string
 }
 const initialState: UsersState = {
   users: [
@@ -17,7 +18,8 @@ const initialState: UsersState = {
   currentPage: 1,
   totalPages: 1,
   isLoading: true,
-  editItem: {} as getUserType
+  editItem: {} as getUserType,
+  searchText: ""
 }
 
 export const UsersSlice = createSlice({
@@ -42,6 +44,9 @@ export const UsersSlice = createSlice({
     },
     CANCEL_EDIT_ITEM(state){
       state.editItem = {} as getUserType
+    },
+    SET_SEARCH_TEXT(state,{payload}:{payload:string}){
+      state.searchText = payload
     }
   },
 });

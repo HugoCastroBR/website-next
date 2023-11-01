@@ -11,6 +11,7 @@ interface postState {
   isLoading: boolean
   editItem: getPostsType
   currentPost: getPostsType
+  searchText?: string
 }
 const initialState: postState = {
   posts: {
@@ -20,7 +21,8 @@ const initialState: postState = {
   totalPages: 1,
   isLoading: true,
   editItem: {} as getPostsType,
-  currentPost: {} as getPostsType
+  currentPost: {} as getPostsType,
+  searchText: ""
 }
 
 export const PostSlice = createSlice({
@@ -48,5 +50,8 @@ export const PostSlice = createSlice({
     SET_CURRENT_POST(state,{payload}:{payload:getPostsType}){
       state.currentPost = payload
     },
+    SET_SEARCH_TEXT(state,{payload}:{payload:string}){
+      state.searchText = payload
+    }
 	},
 });

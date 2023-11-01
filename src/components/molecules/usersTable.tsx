@@ -61,7 +61,9 @@ const UsersTable = ({
         itemsPerPage: rowsPerPage,
         page: states.Users.currentPage,
         orderBy: orderBy,
-        order: order as "desc" | "asc" | undefined
+        order: order as "desc" | "asc" | undefined,
+        search: states.Users.searchText
+
       })
       dispatch(SetUsers(res.data))
       dispatch(UserSetTotalPages(res.totalPages))
@@ -76,6 +78,7 @@ const UsersTable = ({
   useEffect(() => { getUsersData() }, [states.Users.currentPage])
   useEffect(() => { getUsersData() }, [states.Users.isLoading])
   useEffect(() => { getUsersData() }, [rowsPerPage])
+  useEffect(() => { getUsersData() }, [states.Users.searchText])
 
 
   const row = (user: getUserType) => {

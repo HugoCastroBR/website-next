@@ -9,7 +9,7 @@ interface CustomHeaderProps {
 }
 const CustomHeader = ({ linksRouter }: CustomHeaderProps) => {
   return (
-    <header className='flex h-10 justify-between items-center
+    <header className='static flex h-10 justify-between items-center
     border-b-2 border-gray-800 w-screen pl-4 dark:bg-gray-900 lg:pr-2 pr-0
     bg-slate-100' z-10>
       <div className='flex h-14 justify-start items-center  w-2/6 '>

@@ -12,7 +12,7 @@ interface ProvidersProps  {
 
 export default function Providers({ children, ...props }: ThemeProviderProps) {
 
-
+  
 
   return (
     <Provider store={store}>

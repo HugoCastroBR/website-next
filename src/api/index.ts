@@ -6,6 +6,7 @@ export type reqPaginationDefault = {
   itemsPerPage: number;
   orderBy?: string;
   order?: 'asc' | 'desc';
+  search?: string;
 }
 
 export const verifyApiHealth = async () => {
@@ -163,13 +164,14 @@ export const getPosts = async (
   itemsPerPage,
   orderBy,
   order,
+  search,
   }
 :reqPaginationDefault
 ):Promise<getPostsRes> => {
 
 
   const response = await fetch(
-    `${url}/posts?page=${page || 1}&itemsPerPage=${itemsPerPage || 10}&orderBy=${orderBy || 'id'}&order=${order || 'asc'}`,
+    `${url}/posts?page=${page || 1}&itemsPerPage=${itemsPerPage || 10}&orderBy=${orderBy || 'id'}&order=${order || 'asc'}&search=${search || ''}` ,
     {
     method: 'GET',
     headers: {
@@ -309,6 +311,7 @@ export const getUsers = async ({
   itemsPerPage,
   orderBy,
   order,
+  search,
 }:reqPaginationDefault):Promise<getUsersRes> => {
   const token = localStorage.getItem('token');
 
@@ -317,7 +320,7 @@ export const getUsers = async ({
   }
 
   const response = await fetch(
-    `${url}/users?page=${page || 1}&itemsPerPage=${itemsPerPage || 10}&orderBy=${orderBy || 'id'}&order=${order || 'asc'}`,
+    `${url}/users?page=${page || 1}&itemsPerPage=${itemsPerPage || 10}&orderBy=${orderBy || 'id'}&order=${order || 'asc'}&search=${search || ''}`,
     {
     method: 'GET',
     headers: {
@@ -435,8 +438,6 @@ export type getCommentsRes = paginationDefault & {
 export const getComments = async (page: number, postId: number,itemsPerPage?:number):
 Promise<getCommentsRes> => 
 {
-
-
   const response = await fetch(
     `${url}/comments/post/${postId}?page=${page}&itemsPerPage=${itemsPerPage || 10}&orderBy=${'id'}&order=${'desc'}`,
     {
@@ -458,20 +459,29 @@ export type getOneCommentReq = {
   content: string
 }
 
-export const getCommentsByUserId = async (userId: number,{
+export const getCommentsByUserId = async (
+  userId: number,{
   page,
   itemsPerPage,
   orderBy,
   order,
-}:reqPaginationDefault):
+  search,
+}
+:reqPaginationDefault):
 Promise<getCommentsRes> => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    throw new Error('Token not found in localStorage');
+  }
 
   const response = await fetch(
-    `${url}/comments/user/${userId}?page=${page || 1}&itemsPerPage=${itemsPerPage || 10}&orderBy=${orderBy || 'id'}&order=${order || 'asc'}`,
+    `${url}/comments/user/${userId}?page=${page || 1}&itemsPerPage=${itemsPerPage || 10}&orderBy=${orderBy || 'id'}&order=${order || 'asc'}&search=${search || ''}`,
     {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`, 
     },
   });
 

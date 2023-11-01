@@ -1,8 +1,8 @@
 import BlogContent from '@/components/organisms/blogContent';
 import PageContainer from '@/components/templates/pageContainer';
 
-const Page = () => {
-  
+const Page = ({ params }: { params: { lang: string } }) => {
+
   return (
     <PageContainer>
       <BlogContent/>

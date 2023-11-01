@@ -14,10 +14,10 @@ export default function PageContainer({ children, linksRouter }: Props) {
 
   return (
     <div className='
-    flex flex-col justify-start bg-gradient-to-t
-    dark:to-black to-slate-100
-    dark:from-blue-950 from-slate-300 w-full lg:pr-3 pr-0 
-    min-h-screen 
+      flex flex-col justify-start bg-gradient-to-t
+      dark:to-black to-slate-100
+      dark:from-blue-950 from-slate-300 w-full lg:pr-3 pr-0 
+      min-h-screen 
     '>
       <div>
         <CustomNavBar />

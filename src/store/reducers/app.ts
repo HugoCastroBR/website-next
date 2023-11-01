@@ -17,10 +17,21 @@ type IAppSlice =  AppNotificationType &{
 	tableOrder?: 'asc' | 'desc';
 }
 
+const getInitialTheme = () => {
+	try {
+		if(localStorage?.getItem('theme')){
+			return localStorage?.getItem('theme') === 'dark' ? true : false
+		}
+		return false
+	} catch (error) {
+		return false
+	}
+}
+
 export const AppSlice = createSlice({
 	name: "AppSlice",
 	initialState: {
-		darkMode: false,
+		darkMode: getInitialTheme(),
 		sideMenuIsOpen: false,
 		newItemModalIsOpen: false,
 		isNotificationOpen: false,

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { getCommentsByUserId, commentType } from '@/api'
+import { getCommentsByUserId, commentType, getUserByToken } from '@/api'
 import useStore from '@/hooks/useStore'
 import { CommentSetComments, CommentSetCurrentPage, CommentSetEditItem, CommentSetIsLoading, CommentSetTotalPages } from '@/store/actions'
 import { Pagination, Table, Group, Button, Modal } from '@mantine/core'
@@ -56,8 +56,21 @@ const CommentsTable = (
   }
 
   const getUserId = async () => {
-    return await states.Auth.user.id
+    const res = await getUserByToken()
+    return res.data.id
   }
+
+  const resetGetData = async () => {
+    const res = await getCommentsByUserId(states.Auth.user.id, {
+      itemsPerPage: 10,
+      page: 1,
+      orderBy: orderBy,
+      order: order as "desc" | "asc" | undefined,
+      search: ''
+    })
+    dispatch(CommentSetComments(res.data))
+  }
+
   const getCommentsData = async () => {
     try {
       const UserId = await getUserId()
@@ -72,6 +85,7 @@ const CommentsTable = (
       setPageComments(res.data)
     } catch (error) {
       console.log(error)
+      await resetGetData()
     }
     dispatch(CommentSetIsLoading(false))
   }

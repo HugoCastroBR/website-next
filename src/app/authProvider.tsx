@@ -53,12 +53,6 @@ const AuthProvider = (
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[states.App])
 
-  // useEffect(() => {
-  //   if(!states.Auth.isAuth){
-  //     localStorage.removeItem('token')
-  //   }
-  // },[states.Auth.isAuth])
-
   return (
     <>{children}</>
   )

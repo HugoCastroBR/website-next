@@ -9,6 +9,7 @@ interface commentState {
   totalPages: number
   isLoading: boolean
   editItem: commentType
+  searchText: string
 }
 const initialState: commentState = {
   comments: {
@@ -18,6 +19,7 @@ const initialState: commentState = {
   totalPages: 1,
   isLoading: true,
   editItem: {} as commentType,
+  searchText: ""
 }
 
 export const CommentSlice = createSlice({
@@ -42,5 +44,8 @@ export const CommentSlice = createSlice({
     CANCEL_EDIT_ITEM(state){
       state.editItem = {} as commentType
     },
+    SET_SEARCH_TEXT(state,{payload}:{payload:string}){
+      state.searchText = payload
+    }
 	},
 });

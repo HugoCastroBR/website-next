@@ -64,6 +64,9 @@ export const PostCancelEditItem = () => {
 export const PostSetCurrentPost = (value: getPostsType) => {
   return PostActions.SET_CURRENT_POST(value)
 }
+export const PostSetSearchText = (value: string) => {
+  return PostActions.SET_SEARCH_TEXT(value)
+}
 
 export const SetUsers = (value: getUserType[]) => {
   return UsersActions.SET_USERS(value)
@@ -83,6 +86,9 @@ export const UserSetEditItem = (value: getUserType) => {
 export const UserCancelEditItem = () => {
   return UsersActions.CANCEL_EDIT_ITEM()
 }
+export const UserSetSearchText = (value: string) => {
+  return UsersActions.SET_SEARCH_TEXT(value)
+}
 
 export const CommentSetComments = (value: commentType[]) => {
   return CommentActions.SET_COMMENTS(value)
@@ -101,4 +107,7 @@ export const CommentSetEditItem = (value: commentType) => {
 }
 export const CommentCancelEditItem = () => {
   return CommentActions.CANCEL_EDIT_ITEM()
+}
+export const CommentSetSearchText = (value: string) => {
+  return CommentActions.SET_SEARCH_TEXT(value)
 }
