@@ -37,7 +37,7 @@ const SearchInput = (
             transition duration-500 ease-in-out
             '
             onClick={() => {
-              console.log('searchClick')
+              
             }}
           >
           </span>

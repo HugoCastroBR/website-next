@@ -5,9 +5,10 @@ import CustomText from '../atoms/customText'
 import { Button } from '@mantine/core';
 import CustomModal from '../atoms/customModal';
 import useStore from '@/hooks/useStore';
-import { CommentSetSearchText, PostSetSearchText, SetNewItemModal, UserSetSearchText } from '@/store/actions';
+import { CommentSetEditItem, CommentSetSearchText, PostSetEditItem, PostSetSearchText, SetNewItemModal, UserSetEditItem, UserSetSearchText } from '@/store/actions';
 import CustomInput from '../atoms/customInput';
 import SearchInput from './searchInput';
+import { commentType, getPostsType, getUserType } from '@/api';
 
 interface AdminCrudHeaderProps {
   title: string
@@ -36,6 +37,9 @@ const AdminCrudHeader = (
         {actionName && <Button 
           onClick={() => {
             dispatch(SetNewItemModal(true))
+            dispatch(PostSetEditItem({} as getPostsType))
+            dispatch(UserSetEditItem({} as getUserType))
+            dispatch(CommentSetEditItem({} as commentType))
           }}
           className='m-2 bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out'
         >

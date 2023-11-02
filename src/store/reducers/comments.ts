@@ -10,6 +10,7 @@ interface commentState {
   isLoading: boolean
   editItem: commentType
   searchText: string
+  total: number
 }
 const initialState: commentState = {
   comments: {
@@ -19,7 +20,8 @@ const initialState: commentState = {
   totalPages: 1,
   isLoading: true,
   editItem: {} as commentType,
-  searchText: ""
+  searchText: "",
+  total: 0
 }
 
 export const CommentSlice = createSlice({
@@ -46,6 +48,9 @@ export const CommentSlice = createSlice({
     },
     SET_SEARCH_TEXT(state,{payload}:{payload:string}){
       state.searchText = payload
+    },
+    SET_TOTAL_ITEMS(state,{payload}:{payload:number}){
+      state.total = payload
     }
 	},
 });

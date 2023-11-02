@@ -46,7 +46,7 @@ const UserForm = ({
         email: states.Users.editItem.email,
         password: states.Users.editItem.password || ''
       })
-      console.log(form.values)
+      
     }
   }, [])
 
@@ -67,7 +67,7 @@ const UserForm = ({
       onClose(isEdit)
 
     } catch (error) {
-      console.log(error)
+      
     }
   }
 
@@ -84,7 +84,7 @@ const UserForm = ({
         if(!passwordChanged){
           delete data.password
         }
-        console.log(data)
+        
         await patchUser({
           id: states.Users.editItem.id,
           data: data
@@ -98,7 +98,7 @@ const UserForm = ({
         if(!passwordChanged){
           delete data.password
         }
-        console.log(data)
+        
         await patchUser({
           id: states.Users.editItem.id,
           data: data
@@ -109,7 +109,7 @@ const UserForm = ({
       if (onClose) onClose(isEdit)
 
     } catch (error) {
-      console.log(error)
+      
     }
   }
 
@@ -121,10 +121,10 @@ const UserForm = ({
       onSubmit={form.onSubmit((form) => {
         if (isEdit) {
           handlerEdit(form)
-          console.log("edit")
+          
         } else {
           handlerSubmit(form)
-          console.log("created")
+          
         }
       })}
     >

@@ -7,7 +7,6 @@ import { emailValidator, nameValidator, passwordValidator } from '@/utils/formHa
 import useStore from '@/hooks/useStore'
 import { register } from '@/api'
 import { AppHandlerNotification, SetIsAuth, SetUser } from '@/store/actions'
-import CustomText from '../atoms/customText'
 
 
 const RegisterInitialValues = {
@@ -23,7 +22,6 @@ interface RegisterFormProps {
 }
 const RegisterForm = ({
   isEdit,
-  editData,
 }: RegisterFormProps) => {
 
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
@@ -107,7 +105,6 @@ const RegisterForm = ({
         label='Name:'
         placeholder='Name'
         {...form.getInputProps('name')}
-        onBlur={(value) => console.log(value)}
       />
       <CustomInput
         type='email'
@@ -115,7 +112,6 @@ const RegisterForm = ({
         label='Email:'
         placeholder='Email'
         {...form.getInputProps('email')}
-        onBlur={(value) => console.log(value)}
       />
       <CustomInput
         type={isPasswordVisible ? 'text' : 'password'}

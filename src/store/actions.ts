@@ -111,3 +111,6 @@ export const CommentCancelEditItem = () => {
 export const CommentSetSearchText = (value: string) => {
   return CommentActions.SET_SEARCH_TEXT(value)
 }
+export const CommentSetTotalItems = (value: number) => {
+  return CommentActions.SET_TOTAL_ITEMS(value)
+}

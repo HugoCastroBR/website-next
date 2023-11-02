@@ -91,7 +91,7 @@ const CustomFooter = () => {
             className='font-mono font-bold text-sm dark:text-white text-gray-900'
           />
           <CustomText
-            text='Icons by MIU'
+            text='Icons by MDI'
             className='font-mono font-bold text-sm dark:text-white text-gray-900'
           />
           <CustomText
@@ -138,7 +138,7 @@ const CustomFooter = () => {
         <CustomText
           className='footer-brand  font-mono font-bold text-xs
           dark:text-gray-300 text-gray-900 align-middle text-center my-2'
-          text={`${$t('footer.copyright')} \n v0.31 Unstable Version `}
+          text={`${$t('footer.copyright')} \n v0.82 Unstable Version `}
         />
       </div>
     </footer>

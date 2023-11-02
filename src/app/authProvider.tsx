@@ -33,7 +33,7 @@ const AuthProvider = (
       dispatch(SetIsAuth(true))
       
     } catch (error) {
-      console.log(error)
+      
     }
   }
 

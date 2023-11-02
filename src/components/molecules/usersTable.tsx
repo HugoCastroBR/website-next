@@ -32,9 +32,9 @@ const UsersTable = ({
   }
 
   const HandlerConfirmDelete = () => {
-    console.log('delete', deleteItemId)
+    
     if (!!deleteItemId && deleteItemId !== undefined) {
-      console.log("uai")
+      
       onClickDelete(deleteItemId)
       setIsDelete(false)
     }
@@ -69,7 +69,7 @@ const UsersTable = ({
       dispatch(UserSetTotalPages(res.totalPages))
       setPageUsers(res.data)
     } catch (error) {
-      console.log(error)
+      
     }
     dispatch(UserSetIsLoading(false))
   }

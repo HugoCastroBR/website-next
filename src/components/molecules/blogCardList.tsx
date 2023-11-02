@@ -36,7 +36,7 @@ const BlogCardList = () => {
       dispatch(PostSetTotalPages(res.totalPages))
       setPagePosts(res.data)
     } catch (error) {
-      console.log(error)
+      
     }
     dispatch(PostSetIsLoading(false))
   }

@@ -5,16 +5,18 @@ import SeeMore from '../molecules/seeMore'
 
 
 interface CollapseContainerBoxProps {
-  renderFunction: () => React.ReactNode[]
+  renderFunction: () => React.ReactNode[] | React.ReactNode
   className?: string
   onClick?: () => void
-  isOpen: boolean
+  isOpen: boolean,
+  disabled?: boolean
 }
 const CollapseContainerBox = ({
   className,
   onClick,
   renderFunction,
-  isOpen
+  isOpen,
+  disabled
 }: CollapseContainerBoxProps) => {
 
   const items = renderFunction()
@@ -34,10 +36,13 @@ const CollapseContainerBox = ({
 
       </div>
       <div className='flex w-full pb-6 flex-col items-center justify-center overflow-hidden'>
-        <SeeMore
+        {
+        !disabled && 
+          <SeeMore
           onClick={onClick}
           text={isOpen ? 'See Less' : 'See More'}
         />
+        }
       </div>
     </>
   )

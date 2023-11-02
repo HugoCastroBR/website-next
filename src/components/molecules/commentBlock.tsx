@@ -32,7 +32,7 @@ const CommentBlock = ({
         await deleteComment(commentId)
       }
     } catch (error) {
-      console.log(error)
+      
     }
     dispatch(CommentSetIsLoading(false))
   }

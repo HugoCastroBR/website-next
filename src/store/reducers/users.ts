@@ -27,7 +27,7 @@ export const UsersSlice = createSlice({
 	initialState: initialState as UsersState,
 	reducers: {
     SET_USERS(state,{payload}:{payload:getUserType[]}){
-      console.log(payload);
+      ;
       state.users = payload
 	  },
     SET_CURRENT_PAGE(state,{payload}:{payload:number}){

@@ -32,9 +32,9 @@ const CommentsTable = (
   }
 
   const HandlerConfirmDelete = () => {
-    console.log('delete', deleteItemId)
+    
     if (!!deleteItemId && deleteItemId !== undefined) {
-      console.log("uai")
+      
       onClickDelete(deleteItemId)
       setIsDelete(false)
     }
@@ -84,7 +84,7 @@ const CommentsTable = (
       dispatch(CommentSetTotalPages(res.totalPages))
       setPageComments(res.data)
     } catch (error) {
-      console.log(error)
+      
       await resetGetData()
     }
     dispatch(CommentSetIsLoading(false))

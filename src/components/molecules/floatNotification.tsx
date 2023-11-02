@@ -52,7 +52,7 @@ const FloatNotification = () => {
 
     setTimeout(() => {
       clearInterval(intervalId);
-      console.log("Loading finished!")
+      
       setLoadingToClose(0);
       HandlerCloseNotification()
     }, 15000);
@@ -68,11 +68,11 @@ const FloatNotification = () => {
     }
   }, [states.App.isNotificationOpen]);
 
-  useEffect(() => {
-    dispatch(AppHandlerNotification('This is an unstable version, report a bug',{
-      notificationType: 'info',
-    }))
-  },[])
+  // useEffect(() => {
+  //   dispatch(AppHandlerNotification('This is an unstable version, report a bug',{
+  //     notificationType: 'info',
+  //   }))
+  // },[])
 
   const setBgColor = () => {
     switch (states.App.notificationType) {

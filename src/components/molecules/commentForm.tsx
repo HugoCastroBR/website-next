@@ -57,7 +57,7 @@ const CommentsForm = ({
       if (onClose) onClose(isEdit)
 
     } catch (error) {
-      console.log(error)
+      
     }
   }
 
@@ -69,7 +69,7 @@ const CommentsForm = ({
       onSubmit={form.onSubmit((form) => {
         if(isEdit){
           handlerEdit(form)
-          console.log("edit")
+          
         }
       })}
     >

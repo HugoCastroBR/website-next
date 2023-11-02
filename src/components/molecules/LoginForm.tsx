@@ -39,7 +39,7 @@ const LoginForm = () => {
   const getApiHealth = async () => {
     try {
       const res = await verifyApiHealth()
-      console.log(res.status)
+      
       if(res.status !== 'ok'){
         throw new Error('Api is down')
       } 

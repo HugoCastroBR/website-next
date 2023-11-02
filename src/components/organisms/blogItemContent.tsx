@@ -5,7 +5,7 @@ import BlogItemHeader from '../molecules/blogItemHeader';
 import BlogItemComments from '../molecules/blogItemComments';
 import useStore from '@/hooks/useStore';
 import { getComments, getOnePost, postComment, postCommentType } from '@/api';
-import { PostSetIsLoading, PostSetCurrentPost, CommentSetComments, CommentSetIsLoading, CommentSetTotalPages } from '@/store/actions';
+import { PostSetIsLoading, PostSetCurrentPost, CommentSetComments, CommentSetIsLoading, CommentSetTotalPages, CommentSetTotalItems } from '@/store/actions';
 import { Group, Loader, Pagination } from '@mantine/core';
 import { commentType } from '@/types';
 
@@ -23,7 +23,7 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
       dispatch(PostSetCurrentPost(res))
       dispatch(PostSetIsLoading(false))
     } catch (error) {
-      console.log(error)
+      
     }
   }
 
@@ -33,8 +33,9 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
       dispatch(CommentSetComments(res.data || []))
       dispatch(CommentSetTotalPages(res.totalPages))
       dispatch(CommentSetIsLoading(false))
+      dispatch(CommentSetTotalItems(res.total))
     } catch (error) {
-      console.log(error)
+      
     }
   }
 
@@ -61,7 +62,7 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
       getCommentsData(states.Comment.currentPage)
       
     } catch (error) {
-      console.log(error)
+      
     }
   }
 
@@ -87,7 +88,7 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
         <div className='w-full h-full p-4'>
           <BlogItemHeader 
             post={states.Post.currentPost}
-            totalComments={states.Comment.comments.length ?? 0}
+            totalComments={states.Comment.total}
           />
           <div className='my-2 min-h-screen'>
             <div dangerouslySetInnerHTML={{__html:states.Post.currentPost.content}} />
@@ -96,7 +97,7 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
             postId={states.Post.currentPost.id}
             isLoading={states.Comment.isLoading}
             comments={states.Comment.comments as unknown as commentType[]}
-            totalComments={states.Comment.comments.length ?? 0}
+            totalComments={states.Comment.total}
             newComment={HandlerPostComment}
             isAuth={states.Auth.isAuth}
             authorName={states.Auth.user.name!} // Use non-null assertion operator to assert that authorName is not undefined

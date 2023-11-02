@@ -53,12 +53,13 @@ const PostsForm = ({
         content: states.Post.editItem.content
       
       })
-      
     }
   },[])
 
+
+
   const handlerSubmit = async (newPost: postPostType) => {
-    console.log(newPost)
+    
     try {
       const data: postPostType = {
         title: newPost.title,
@@ -75,7 +76,7 @@ const PostsForm = ({
       dispatch(PostSetIsLoading(true))
       onClose(isEdit)
     } catch (error) {
-      console.log(error)
+      
     }
   }
 
@@ -96,7 +97,7 @@ const PostsForm = ({
       if (onClose) onClose(isEdit)
 
     } catch (error) {
-      console.log(error)
+      
     }
   }
 
@@ -108,10 +109,10 @@ const PostsForm = ({
       onSubmit={form.onSubmit((form) => {
         if(isEdit){
           handlerEdit(form)
-          console.log("edit")
+          
         }else{
           handlerSubmit(form)
-          console.log("created")
+          
         }
       })}
     >

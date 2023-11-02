@@ -1,4 +1,4 @@
-const url = 'http://localhost:3333';
+const url = 'https://hugo-castro.vercel.app';
 
 
 export type reqPaginationDefault = {
@@ -82,7 +82,7 @@ export const login = async (email: string, password: string)
     throw new Error('Login failed');
   }
   const res = await response.json();
-  console.log(res);
+  ;
   return res;
 }
 
@@ -433,6 +433,7 @@ export type commentType = {
 
 export type getCommentsRes = paginationDefault & {
   data: commentType[];
+  total: number;
 }
 
 export const getComments = async (page: number, postId: number,itemsPerPage?:number):
@@ -537,7 +538,7 @@ export const deleteComment = async(id:number) => {
     },
   });
 
-  console.log(response)
+  
 
   return response;
 }

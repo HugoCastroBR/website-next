@@ -16,7 +16,7 @@ const Users = () => {
   const { dispatch } = useStore()
 
   const HandlerDelete = async (id: number) => {
-    console.log(id)
+    
     await dispatch(UserSetIsLoading(true))
     await deleteUser(id)
     await dispatch(UserSetIsLoading(false))

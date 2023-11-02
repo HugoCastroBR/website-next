@@ -16,7 +16,7 @@ const Posts = () => {
   const { dispatch } = useStore()
 
   const HandlerDelete = async (id: number) => {
-    console.log(id)
+    
     await dispatch(PostSetIsLoading(true))
     await deletePost(id)
     await dispatch(PostSetIsLoading(false))
