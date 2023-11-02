@@ -49,8 +49,8 @@ const BlogItem = (
       <div className=' overflow-hidden my-2 h-20'>
         <CustomText
           className='w-full h-full text-justify overflow-hidden
-        dark:text-gray-400 text-gray-800 xl:text-lg lg:text-base md:text-sm text-xs '
-          text={truncateText(subtitle,0,126)} />
+        dark:text-gray-400 text-gray-800 xl:text-base lg:text-md md:text-xs text-xs '
+          text={truncateText(subtitle,0,80)} />
       </div>
       <div className='flex flex-col items-center justify-center text-center mt-8 h-20'>
         <CustomText

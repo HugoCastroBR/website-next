@@ -29,9 +29,7 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
 
   const getCommentsData = async (page:number) => {
     try {
-      console.log(id)
       const res = await getComments(page,id)
-      console.log(res.data)
       dispatch(CommentSetComments(res.data || []))
       dispatch(CommentSetTotalPages(res.totalPages))
       dispatch(CommentSetIsLoading(false))
@@ -48,15 +46,20 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
   },[])
 
   useEffect(() => {
-    dispatch(CommentSetIsLoading(true))
     getCommentsData(states.Comment.currentPage)
   },[states.Comment.currentPage])
+
+  useEffect(() => {
+    getCommentsData(states.Comment.currentPage)
+  },[states.Comment.isLoading])
+  
 
 
   const postCommentData = async (data:postCommentType) => {
     try {
       const res = await postComment(data)
       getCommentsData(states.Comment.currentPage)
+      
     } catch (error) {
       console.log(error)
     }
@@ -76,11 +79,16 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
     <Loader/>
   }
 
+
+
   return (
     <>
       <ContainerBox className='flex flex-col w-full h-full min-h-screen'>
         <div className='w-full h-full p-4'>
-          <BlogItemHeader post={states.Post.currentPost}/>
+          <BlogItemHeader 
+            post={states.Post.currentPost}
+            totalComments={states.Comment.comments.length ?? 0}
+          />
           <div className='my-2 min-h-screen'>
             <div dangerouslySetInnerHTML={{__html:states.Post.currentPost.content}} />
           </div>
@@ -88,7 +96,7 @@ const BlogItemContent = ({id}:BlogItemContentProps) => {
             postId={states.Post.currentPost.id}
             isLoading={states.Comment.isLoading}
             comments={states.Comment.comments as unknown as commentType[]}
-            totalComments={states.Post.currentPost.totalComments ?? 0}
+            totalComments={states.Comment.comments.length ?? 0}
             newComment={HandlerPostComment}
             isAuth={states.Auth.isAuth}
             authorName={states.Auth.user.name!} // Use non-null assertion operator to assert that authorName is not undefined

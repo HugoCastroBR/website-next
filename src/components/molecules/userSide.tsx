@@ -46,7 +46,10 @@ const UserSide = ({
       <div className="flex justify-end items-center w-full my-5">
         <div className='mx-2'>
           <Link href='/en/admin/dashboard'>
-            <Button>
+            <Button
+              color='blue'
+              className='bg-blue-500 hover:bg-blue-700'
+            >
               <CustomText
                 className='text-sm font-medium '
                 text='Dashboard'
@@ -56,7 +59,11 @@ const UserSide = ({
         </div>
         <div className='mx-2'>
           <Link href='/'>
-            <Button onClick={HandlerLogout} color='red' >
+            <Button 
+              onClick={HandlerLogout} 
+              color='red' 
+              className='bg-red-500 hover:bg-red-700'  
+            >
               <CustomText
                 className='text-sm font-medium '
                 text='Logout'

@@ -63,7 +63,9 @@ const ListBlogItems = () => {
       dispatch(PostSetIsLoading(true))
       const res = await getPosts({
         page: states.Post.currentPage,
-        itemsPerPage: 10
+        itemsPerPage: 10,
+        order: 'desc',
+
       })
       dispatch(AddPosts(res.data))
     } catch (error) {

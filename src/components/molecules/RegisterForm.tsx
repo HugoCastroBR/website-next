@@ -159,7 +159,12 @@ const RegisterForm = ({
       />
       <Button
         type='submit'
-        className='mt-2'
+        className={`
+        mt-4 
+        ${form.isValid() ? 'bg-blue-500 hover:bg-blue-700' : 
+        'bg-gray-300 dark:bg-gray-700 cursor-not-allowed'}
+        transition duration-300 ease-in-out
+        `}        
         disabled={!form.isValid()}
       >
         {isEdit ? 'Update' : 'Register'}

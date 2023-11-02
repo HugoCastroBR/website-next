@@ -34,9 +34,7 @@ const PostsTable = (
   }
 
   const HandlerConfirmDelete = () => {
-    console.log('delete', deleteItemId)
     if (!!deleteItemId && deleteItemId !== undefined) {
-      console.log("uai")
       onClickDelete(deleteItemId)
       setIsDelete(false)
     }
@@ -95,14 +93,24 @@ const PostsTable = (
         <Table.Td>{new Date(post.updatedAt).toLocaleDateString()}</Table.Td>
         <Table.Td>
           <div className='w-full flex justify-around'>
-            <Button size='xs' onClick={
-              () => handlerEdit(post)
-            }>
+            <Button 
+              size='xs'
+              color='blue'
+              className='bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out' 
+              onClick={
+                () => handlerEdit(post)
+              }
+            >
               <span className='i-mdi-edit text-lg'></span>
             </Button>
-            <Button size='xs' color='red' onClick={
-              () => HandlerDelete(post.id)
-            }>
+              <Button 
+                size='xs' 
+                color='red' 
+                className='bg-red-500 hover:bg-red-700 transition duration-300 ease-in-out'
+                onClick={
+                  () => HandlerDelete(post.id)
+                }
+              >
               <span className='i-mdi-delete text-lg'></span>
             </Button>
           </div>
@@ -160,10 +168,17 @@ const PostsTable = (
         <div>
           <p>Are you sure you want to delete this post?</p>
           <div className='flex justify-end mt-4'>
-            <Button onClick={handlerCancelDelete} className='m-2'>
+            <Button 
+              onClick={handlerCancelDelete} 
+              className='m-2 bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out' 
+            >
               Cancel
             </Button>
-            <Button color='red' onClick={HandlerConfirmDelete} className='m-2'>
+            <Button 
+              color='red'
+              onClick={HandlerConfirmDelete} 
+              className='m-2 bg-red-500 hover:bg-red-700 transition duration-300 ease-in-out'
+            >
               Delete
             </Button>
           </div>

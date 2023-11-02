@@ -8,10 +8,11 @@ import { getPostsType } from '@/api'
 
 
 interface BlogItemHeaderProps {
-  post: getPostsType
+  post: getPostsType,
+  totalComments: number
 }
 
-const BlogItemHeader = ({ post }: BlogItemHeaderProps) => {
+const BlogItemHeader = ({ post ,totalComments}: BlogItemHeaderProps) => {
 
   const [currentUrl, setCurrentUrl] = React.useState<string | null>(null);
 
@@ -69,7 +70,7 @@ const BlogItemHeader = ({ post }: BlogItemHeaderProps) => {
                 text-lg text-gray-500 dark:text-gray-200'
           ></span>
           <CustomText
-            text={String(post.totalComments)}
+            text={String(totalComments)}
             className='ml-1 text-sm font-semibold text-gray-500 dark:text-gray-200'
           />
         </div>

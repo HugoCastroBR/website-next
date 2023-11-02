@@ -33,9 +33,14 @@ const AdminCrudHeader = (
         <CustomText
           className='text-start dark:text-gray-100 text-gray-900 text-3xl font-mono font-bold'
           text={title} />
-        {actionName && <Button onClick={() => {
-          dispatch(SetNewItemModal(true))
-        }}>{actionName}</Button>}
+        {actionName && <Button 
+          onClick={() => {
+            dispatch(SetNewItemModal(true))
+          }}
+          className='m-2 bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out'
+        >
+            {actionName}
+        </Button>}
         
       </div>
       <div>

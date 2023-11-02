@@ -537,12 +537,9 @@ export const deleteComment = async(id:number) => {
     },
   });
 
-  if (!response.ok) {
-    throw new Error('Delete comment failed');
-  }
+  console.log(response)
 
-  const res = await response.json();
-  return res;
+  return response;
 }
 
 

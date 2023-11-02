@@ -1,3 +1,4 @@
+
 import React from 'react'
 import CustomText from '../atoms/customText'
 import {  Blockquote, Divider, Loader } from '@mantine/core'
@@ -101,6 +102,8 @@ const BlogItemComments = (
               authorName={comment.authorName}
               createdAt={new Date(comment.createdAt).toLocaleString().replace(',', ' -')}
               text={comment.content}
+              commentId={comment.id}
+              authorId={comment.authorId}
               key={index}
             />
           )

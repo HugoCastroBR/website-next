@@ -91,7 +91,13 @@ const DashBoardSection = () => {
                 className='text-start dark:text-gray-100 text-gray-900 text-2xl font-mono font-bold pb-4 pt-4 pl-4'
                 text='Statistics'
               />
-              <Button onClick={loadStatistics}>
+              <Button 
+              onClick={loadStatistics}
+              className={`
+              bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out
+              `}
+                        
+              >
                 Refresh
                 <span className='i-mdi-refresh text-lg ml-2'></span>
               </Button>

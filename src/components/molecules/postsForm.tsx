@@ -58,6 +58,7 @@ const PostsForm = ({
   },[])
 
   const handlerSubmit = async (newPost: postPostType) => {
+    console.log(newPost)
     try {
       const data: postPostType = {
         title: newPost.title,
@@ -161,7 +162,7 @@ const PostsForm = ({
         <AdminRichTextEditor
           label='Content:'
           onChange={setRichTextValue}
-          defaultValue={states.Post.editItem.content }
+          defaultValue={states.Post.editItem.content}
         />
       </div>
       <div className="mt-2 pt-4 flex items-end w-full justify-end">
